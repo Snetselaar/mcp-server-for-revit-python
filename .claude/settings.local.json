@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__revit__get_revit_status",
+      "mcp__revit__list_revit_installations",
+      "Bash(ls \"W:\\\\1 - Informatie Snetselaar\\\\Constructief tekenen\\\\Revit\\\\10. Snetselaar Lint\\\\Extensie\\\\\" 2>&1 | head -50)",
+      "Bash(ls \"W:\\\\4 - Tijdelijk en verwijderen\\\\AWO\\\\Extensions\\\\\" 2>&1 | head -50)",
+      "PowerShell(Get-ChildItem -Path \"W:\\\\4 - Tijdelijk en verwijderen\\\\AWO\\\\Extensions\\\\BIMTools.extension\\\\03_R&D.tab\\\\Tools.panel\\\\ProjectNotitie.pushbutton\" -Recurse | ForEach-Object { $_.FullName })",
+      "mcp__revit__execute_revit_code",
+      "mcp__revit__get_current_view_info",
+      "Bash(python3 -c ' *)",
+      "Bash(identify \"/w/4 - Tijdelijk en verwijderen/AWO/Extensions/BIMTools.extension/03_R&D.tab/Tools.panel/LinkZichtbaarheid.pushbutton/icon.png\")",
+      "Bash(identify \"/w/4 - Tijdelijk en verwijderen/AWO/Extensions/BIMTools.extension/03_R&D.tab/Printen.panel/PrintSheets.pushbutton/icon.png\")",
+      "Bash(xargs grep -l \"__eventargs__\\\\|EXEC_PARAMS.event_args\\\\|eventArgs\")",
+      "PowerShell([guid]::NewGuid\\(\\).ToString\\(\\))",
+      "Bash(powershell -NoProfile -Command \"Test-Path 'W:\\\\1 - Informatie Snetselaar\\\\Constructief tekenen\\\\Revit\\\\10. Snetselaar Lint\\\\Extensie\\\\Snetselaar.extension\\\\Ontwikkeling.tab\\\\Printen.panel\\\\PrintSheets.pushbutton'\")",
+      "Bash(powershell -NoProfile -Command \"Get-ChildItem -Path 'C:\\\\Users\\\\S-WOU1A\\\\AppData\\\\Roaming\\\\pyRevit' -ErrorAction SilentlyContinue | Format-List\")",
+      "Bash(powershell -NoProfile -Command \"Get-ChildItem -Path 'C:\\\\Users\\\\S-WOU1A\\\\AppData\\\\Local\\\\Temp' -Filter '*.log' -Recurse -ErrorAction SilentlyContinue | Select-Object FullName,LastWriteTime | Sort-Object LastWriteTime -Descending | Select-Object -First 50\")",
+      "Bash(powershell -NoProfile -Command \"Get-ChildItem -Path 'W:\\\\' -Directory -Filter '*8328*' -Recurse -Depth 3 -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(powershell -NoProfile -Command \"Test-Path 'C:\\\\Revit plot'; if \\(Test-Path 'C:\\\\Revit plot'\\) { Get-ChildItem 'C:\\\\Revit plot' -Recurse -ErrorAction SilentlyContinue | Select-Object FullName,LastWriteTime | Sort-Object LastWriteTime -Descending | Select-Object -First 50 }\")",
+      "Bash(grep -n \"\" \"W:\\\\1 - Informatie Snetselaar\\\\Constructief tekenen\\\\Revit\\\\10. Snetselaar Lint\\\\Extensie\\\\Gebruikers logs niet verwijderen\\\\Gebruikslog.csv\" | sed -n '160,206p')",
+      "Bash(ls \"W:\\\\1 - Informatie Snetselaar\\\\Constructief tekenen\\\\Revit\\\\10. Snetselaar Lint\\\\Extensie\\\\Snetselaar.extension\\\\Ontwikkeling.tab\\\\Printen.panel\\\\PrintSheets.pushbutton\\\\\" 2>&1)",
+      "PowerShell(Get-ChildItem -Path \"W:\\\\1 - Informatie Snetselaar\\\\Constructief tekenen\\\\Revit\\\\10. Snetselaar Lint\\\\Extensie\\\\Gebruikers logs niet verwijderen\" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { \"$\\($_.FullName\\) | $\\($_.Length\\) | $\\($_.LastWriteTime\\)\" })",
+      "Bash(powershell.exe -NoProfile -Command 'Get-ChildItem -Path '\\\\''W:\\\\4 - Tijdelijk en verwijderen\\\\AWO\\\\Extensions\\\\BIMTools.extension'\\\\'' -Recurse -Filter *.csv -Force -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName }')",
+      "Bash(find \"W:\\\\4 - Tijdelijk en verwijderen\\\\AWO\\\\Extensions\\\\BIMTools.extension\" -iname \"*kolom*gat*\" -o -iname \"*KolomGat*\" 2>/dev/null)",
+      "Bash(mkdir -p \"W:/4 - Tijdelijk en verwijderen/AWO/Extensions/BIMTools.extension/03_R&D.tab/Tools.panel/WandGaten.pushbutton\")",
+      "Bash(python -m py_compile \"W:/4 - Tijdelijk en verwijderen/AWO/Extensions/BIMTools.extension/03_R&D.tab/Tools.panel/WandGaten.pushbutton/script.py\")",
+      "Bash(command -v python3)",
+      "Bash(python3 -m py_compile \"W:/4 - Tijdelijk en verwijderen/AWO/Extensions/BIMTools.extension/03_R&D.tab/Tools.panel/WandGaten.pushbutton/script.py\")",
+      "Bash(find \"C:/Users/S-WOU1A/Documents/GitHub\" -iname \"sync_versies.py\" -o -iname \"CLAUDE.md\" 2>/dev/null | head -50)",
+      "mcp__revit__get_revit_model_info",
+      "Bash(py -3 make_icon_modelcheck.py)",
+      "Bash(python make_icon_modelcheck.py)"
+    ]
+  }
+}
