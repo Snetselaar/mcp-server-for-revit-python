@@ -178,3 +178,18 @@ Schrijf volgens `stijlgids.md`. Die regels zijn toetsbaar en worden door
 | `/kb-vraag` | beantwoordt een vraag, schrijft het antwoord naar `outputs/` |
 | `/kb-check` | maandelijkse audit op tegenstrijdigheden, bronnen, gaten, veroudering, stijl |
 | `/kb-promoveer` | maakt van een stabiel artikel een skill-tekst om te plakken |
+
+## 9. De herinnering
+
+Bij het starten van een sessie in deze repo draait `kennisbank/tools/raw-status.sh`
+als SessionStart-hook (geconfigureerd in `.claude/settings.json`). Hij meldt:
+
+- hoeveel bestanden in `raw/` nog niet in `memory.md` staan;
+- of de laatste health check meer dan 30 dagen geleden is.
+
+Is er niets te melden, dan zwijgt hij. Faalt hij, dan zwijgt hij ook — een hook
+die een sessie blokkeert is erger dan een hook die niets doet.
+
+Hij bepaalt "verwerkt" door te kijken of de bestandsnaam letterlijk in
+`memory.md` voorkomt. Noem het bronbestand in de logregel dus altijd bij naam,
+anders blijft het eeuwig als onverwerkt gemeld.

@@ -26,6 +26,12 @@ structuur. Het opruimen is het werk van `/kb-verwerk`, niet van jou.
 5. **PDF's, afbeeldingen en losse bestanden mogen ook.** Zet er dan een
    `.md`-bestandje naast met de context.
 
+## De herinnering
+
+Bij het starten van een Claude Code-sessie in deze repo krijg je een melding
+zodra hier bestanden liggen die nog niet verwerkt zijn. Je hoeft er dus niet
+zelf aan te denken. Zie `../CLAUDE.md` §9.
+
 ## Wat hier niet hoort
 
 Alles buiten Revit/BIM/SCI. Zie `../CLAUDE.md` §1.
