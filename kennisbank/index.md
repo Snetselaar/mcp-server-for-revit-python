@@ -3,7 +3,8 @@
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
 **Stand:** 7 artikelen, 2026-08-26. Laatste health check:
-[2026-08-25](outputs/2026-08-25-healthcheck.md).
+[2026-08-25](outputs/2026-08-25-healthcheck.md), met een
+[opvolging van 2026-08-26](outputs/2026-08-25-healthcheck.md#opvolging-2026-08-26).
 
 ---
 
@@ -19,7 +20,7 @@ Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-08-25 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en faalpunten |
+| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-08-26 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en faalpunten |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-08-26 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 
 ## Interoperabiliteit en standaarden
@@ -52,11 +53,12 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 ### Vragen aan de skills — hier wijkt de kennisbank af van wat vastligt
 
-- **Welke Revit-MCP-server draait er echt?** De skill `sci-bim-context`
-  (`references/template-en-mcp.md` §C) noemt zeven tools die geen van alle in deze
-  repo bestaan. Zie `wiki/mcp-revit-koppeling.md` §6. Vaststellen via
-  `http://localhost:48884/revit_mcp/status/` voordat een van beide bronnen wordt
-  aangepast.
+- **De toolstabel in `sci-bim-context` §C klopt niet.** Op 2026-08-26 gemeten
+  dat déze repo in Revit draait (`api_name: revit_mcp`, poort 48885), dus de
+  vraag wélke server draait is beantwoord. De zeven toolnamen in de skill horen
+  ergens anders bij en moeten vervangen worden door de twintig uit
+  `wiki/mcp-revit-koppeling.md` §4. Nog te doen: skills worden op claude.ai
+  bewerkt, niet op schijf.
 - **Diameterfilters bestaan al.** De bronnen-dump stelt voor filters op
   wapeningdiameter te bouwen; de SCI-template heeft ø6 t/m ø40 al. Onbekend is of
   dat stelsel ook `Structural Fabric Reinforcement` afdekt of alleen staven. Zie
@@ -84,8 +86,10 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   technisch slaagt maar niet ILS-conform is, komt terug van de ontvanger.
 - **Gebruikt SCI Robot Structural Analysis?** Staat niet in de tech stack. Zo nee,
   dan kan `wiki/revit-robot-interoperabiliteit.md` dun blijven.
-- **Blijft de Routes Server aan tussen Revit-sessies?** De README spreekt zichzelf
-  bijna tegen. Eén keer nameten lost dit op.
+- **Blijft de Routes Server aan tussen Revit-sessies?** De README spreekt
+  zichzelf bijna tegen. Op 2026-08-26 stond `enabled = true` in `[routes]` van
+  `pyRevit_config.ini`, dus de instelling wordt bewaard; of dat een herstart
+  overleeft is niet nagemeten.
 
 ### Openstaand aan de kennisbank zelf
 

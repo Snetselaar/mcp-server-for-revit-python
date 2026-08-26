@@ -1,12 +1,14 @@
 ---
 titel: De MCP-Revit-koppeling — opbouw, tools en faalpunten
 status: concept
-laatst-bijgewerkt: 2026-08-25
+laatst-bijgewerkt: 2026-08-26
 bronnen:
   - README.md (deze repo)
   - main.py, startup.py, tools/, revit_mcp/ (deze repo)
   - .mcp.json (deze repo)
   - skill sci-bim-context, references/template-en-mcp.md §C
+  - "gemeten 2026-08-26: Revit PID 30312, model S-9132_R25, luisterpoort 48885"
+  - "%APPDATA%/pyRevit/pyRevit_config.ini, sectie [routes]"
 verwant:
   - rebar-api-parameters.md
   - revit-bronnen-en-communities.md
@@ -35,7 +37,7 @@ Claude / MCP-client
       |  MCP-protocol (stdio of HTTP)
       v
   main.py                          — MCP-server, CPython 3.13, buiten Revit
-      |  HTTP naar localhost:48884
+      |  HTTP naar de Routes-poort (basis 48884 — zie §2)
       v
   pyRevit Routes                   — REST-API, IronPython 2.7, BINNEN Revit
       |  Revit API-aanroepen
@@ -57,30 +59,59 @@ volledig aan de MCP-kant met `subprocess`, en pollen daarna het
 health-endpoint tot de brug staat (`README.md`, noot onder het architectuurblok).
 Zij zijn daarmee de enige twee tools die zonder draaiende Revit iets kunnen —
 afgeleid uit `tools/launch_tools.py`, dat als enige tool-module geen
-`revit_post`/`revit_get`-aanroep naar `48884` nodig heeft voor zijn kernwerk.
+`revit_post`/`revit_get`-aanroep naar de Routes-poort nodig heeft voor zijn
+kernwerk.
 
 ## 2. Poorten en adressen
 
 | Wat | Waarde | Bron |
 |---|---|---|
-| pyRevit Routes | `localhost:48884` | `main.py:20-21` (`REVIT_HOST`, `REVIT_PORT`) |
-| Basis-URL naar Revit | `http://localhost:48884/revit_mcp` | `main.py:22` |
-| MCP-server bij HTTP-transport | `127.0.0.1:8000` | `main.py:13-14` |
+| pyRevit Routes | `localhost:48884` (basispoort, zie hieronder) | `main.py:24-25` (`REVIT_HOST`, `REVIT_PORT`) |
+| Basis-URL naar Revit | `http://localhost:48884/revit_mcp` | `main.py:26` |
+| MCP-server bij HTTP-transport | `127.0.0.1:8000` | `main.py:14-15` |
 | API-naam in pyRevit | `revit_mcp` | `startup.py`, `routes.API("revit_mcp")` |
 
 De API-naam `revit_mcp` is het pad-voorvoegsel van elk endpoint. Dat is waarom
-de health check op `http://localhost:48884/revit_mcp/status/` staat en niet op
-`/status/`.
+de health check op `.../revit_mcp/status/` staat en niet op `/status/`.
+
+### De poort ligt niet vast
+
+48884 is de **basispoort**, niet gegarandeerd de poort waarop geluisterd wordt.
+Gemeten op 2026-08-26: Revit (PID 30312, model `S-9132_R25 - versie drie
+kappen`) luisterde op **48885**, en op 48884 luisterde niets. De sectie
+`[routes]` in `%APPDATA%\pyRevit\pyRevit_config.ini` bevat geen `port`-sleutel
+— alleen `enabled = true` en `core_api = true` — dus de poortkeuze komt uit
+pyRevit zelf en niet uit een instelling op deze machine.
+[ONBEVESTIGD] Waarschijnlijk schuift pyRevit per Revit-instantie op vanaf de
+basispoort; dat is niet in de pyRevit-broncode nagelopen.
+
+Sinds 2026-08-26 is de poort daarom instelbaar (`main.py:24-25`):
+
+```python
+REVIT_HOST = os.environ.get("REVIT_HOST", "localhost")
+REVIT_PORT = int(os.environ.get("REVIT_PORT", "48884"))
+```
+
+De default blijft 48884, zodat het gedrag zonder omgevingsvariabelen gelijk is
+aan upstream. De werkelijke poort staat in `.mcp.json` onder `env`.
+
+De poort opzoeken:
+
+```powershell
+Get-NetTCPConnection -State Listen |
+  Where-Object { $_.LocalPort -ge 48884 -and $_.LocalPort -le 48890 } |
+  Select-Object LocalPort, OwningProcess
+```
 
 ## 3. Timeouts
 
 Drie verschillende, en dat verklaart een deel van de "hij doet niks"-momenten:
 
-- **30 seconden** voor gewone GET/POST (`main.py:55`, `timeout: float = 30.0`).
-- **60 seconden** voor beeldexport (`main.py:38`), want een view exporteren duurt
+- **30 seconden** voor gewone GET/POST (`main.py:59`, `timeout: float = 30.0`).
+- **60 seconden** voor beeldexport (`main.py:42`), want een view exporteren duurt
   langer.
 - Bij een timeout geeft `main.py` terug: *"The operation may still be running in
-  Revit"* (`main.py:68`). Dat is letterlijk waar. **Een timeout is geen
+  Revit"* (`main.py:72`). Dat is letterlijk waar. **Een timeout is geen
   annulering** — de transactie in Revit loopt door. Opnieuw aanroepen kan de
   bewerking dus dubbel uitvoeren.
 
@@ -167,9 +198,11 @@ Op volgorde van hoe vaak ze voorkomen.
 
 1. **Routes Server staat uit.** Aanzetten via pyRevit-tab → Settings → Routes →
    `Routes Server` (`README.md`, "Activate pyRevit Routes"). Zonder dit luistert
-   er niets op 48884. [ONBEVESTIGD] Of dit per Revit-sessie opnieuw moet, is niet
-   vastgesteld: de README zegt elders dat de Routes-service automatisch laadt bij
-   het starten van Revit ("Testing Your Connection"). Nameten.
+   er niets op de Routes-poort. De instelling wordt bewaard: op 2026-08-26 stond
+   `enabled = true` in `[routes]` van `pyRevit_config.ini`. [ONBEVESTIGD] Of dit
+   per Revit-sessie opnieuw aan moet is daarmee nog niet nagemeten — de README
+   zegt elders dat de Routes-service automatisch laadt bij het starten van Revit
+   ("Testing Your Connection").
 2. **Geen actief document.** `/status/` geeft dan HTTP **503** met
    `"error": "No active Revit document"` (`revit_mcp/status.py:36-41`). Revit
    draait wel, maar er staat geen model open. Een leeg Revit-venster telt niet.
@@ -178,15 +211,30 @@ Op volgorde van hoe vaak ze voorkomen.
    (`README.md`, stap 6 van de handmatige installatie). Dit komt overeen met de
    waarschuwing in `sci-bim-context` §2 over handmatig toevoegen van extensies.
 4. **Timeout terwijl de bewerking doorloopt.** Zie §3.
-5. **Verkeerd pad in `.mcp.json`.** Het pad is absoluut en machine-specifiek —
-   in deze repo staat `C:\Users\S-WOU1A\Documents\GitHub\mcp-server-for-revit-python\`
-   hardgecodeerd, zowel de venv-Python als `main.py`. Op een andere machine of na
-   het verplaatsen van de map start de server niet.
+5. **Verkeerd pad in `.mcp.json`.** Het pad is absoluut en machine-specifiek,
+   zowel de venv-Python als `main.py`. Geen theoretisch risico: tot 2026-08-26
+   wees `.mcp.json` naar
+   `C:\Users\S-WOU1A\Documents\GitHub\mcp-server-for-revit-python\`, waar na de
+   OneDrive-verhuizing alleen de pyRevit-helft staat (`startup.py`, `revit_mcp/`,
+   `extension.json`) en géén `main.py` of `.venv`. De MCP-server kon dus niet
+   starten. Op 2026-08-26 rechtgezet naar de clone onder
+   `OneDrive - Snetselaar Constructieve Ingenieurs\Documenten\GitHub\`.
+
+6. **Bewerking in de verkeerde kopie.** Revit laadt de extensie niet uit deze
+   repo maar uit
+   `%APPDATA%\pyRevit\Extensions\mcp-server-for-revit-python.extension` — een
+   losse kopie van `startup.py`, `extension.json` en `revit_mcp/`. De vier
+   W:-paden in `userextensions` van `pyRevit_config.ini` bevatten hem niet. Op
+   2026-08-26 waren die kopie en deze clone byte-gelijk (`startup.py`,
+   `revit_mcp/status.py`, `revit_mcp/code_execution.py`, `revit_mcp/views.py`
+   vergeleken), maar dat blijft niet vanzelf zo: een wijziging in `revit_mcp/`
+   in deze repo doet in Revit niets tot hij naar die map is gekopieerd én
+   pyRevit is herladen.
 
 ### Snelle diagnose
 
 ```
-http://localhost:48884/revit_mcp/status/
+http://localhost:48884/revit_mcp/status/      (of 48885 — zie §2)
 ```
 
 in een browser. Verwacht antwoord (`README.md`, "Testing Your Connection"):
@@ -199,7 +247,8 @@ in een browser. Verwacht antwoord (`README.md`, "Testing Your Connection"):
  "api_name": "revit_mcp"}
 ```
 
-Geen antwoord = Routes staat uit of de extensie is niet geladen (punt 1 of 3).
+Geen antwoord = verkeerde poort (§2), Routes staat uit, of de extensie is niet
+geladen (punt 1 of 3).
 HTTP 503 = Revit draait, geen document open (punt 2).
 
 ## 6. Conflict met de skill `sci-bim-context`
@@ -218,25 +267,31 @@ HTTP 503 = Revit draait, geen document open (punt 2).
 > warnings en project units bestaat hier **geen** tool; die zijn alleen via
 > `execute_revit_code` te benaderen.
 
-Twee mogelijke verklaringen, geen van beide geverifieerd:
+**Vastgesteld op 2026-08-26: het is déze repo die in Revit draait.** De health
+check op `http://localhost:48885/revit_mcp/status/` gaf:
 
-- [ONBEVESTIGD] De skill beschrijft een **andere** Revit-MCP-server dan deze
-  repo. Er bestaan meerdere Revit-MCP-projecten en de genoemde namen zijn niet
-  van dit project.
-- [ONBEVESTIGD] De skill beschrijft een oudere of nieuwere versie van deze repo
-  waarin de tools anders heetten.
+```json
+{"health": "healthy", "revit_available": true,
+ "document_title": "S-9132_R25 - versie drie kappen",
+ "api_name": "revit_mcp", "status": "active"}
+```
+
+`api_name: "revit_mcp"` is de API-naam die `startup.py` van deze repo
+registreert. De zeven toolnamen uit de skill horen dus bij een andere server, of
+bij een versie waarin ze anders heetten. [ONBEVESTIGD] Welke van de twee is niet
+uitgezocht, en voor het gebruik maakt het niet uit: hier gelden de namen uit §4.
 
 Ook de startwijze verschilt. De skill noemt combined HTTP-modus
 (`uv run --with "mcp[cli]" main.py --combined`, client op
 `http://localhost:8000/mcp`); `.mcp.json` in deze repo configureert
 **stdio-transport** — de venv-Python roept `main.py` aan zonder vlaggen, en
-zonder vlaggen is het transport `stdio` (`main.py:110-118`). Beide werken, maar
+zonder vlaggen is het transport `stdio` (`main.py:115` en `main.py:127`). Beide werken, maar
 het zijn twee verschillende opstellingen.
 
-**Wat te doen:** uitzoeken welke van de twee bronnen de werkelijkheid beschrijft
-en welke server er in de praktijk gebruikt wordt. Tot dan geldt: voor deze repo
-zijn de namen uit §4 leidend. De skill niet aanpassen voordat dit is
-uitgezocht — zie `../CLAUDE.md` §3 regel 2.
+**Wat te doen:** de tabel in `sci-bim-context` §C vervangen door de twintig
+namen uit §4. Dat is per 2026-08-26 vrijgegeven: de rem uit `../CLAUDE.md` §3
+regel 2 gold zolang niet vaststond welke server draaide, en dat staat nu vast.
+Nog niet uitgevoerd — skills worden op claude.ai bewerkt, niet op schijf.
 
 ## 7. Waar dit niet over gaat
 

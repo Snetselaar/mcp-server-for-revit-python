@@ -148,3 +148,34 @@ Actie 2 is direct uitgevoerd. In `wiki/mcp-revit-koppeling.md`:
 
 Actie 1, 3 en 4 staan nog open. De bevindingen hierboven beschrijven de staat bij
 het draaien van de check en zijn met opzet niet herschreven.
+
+---
+
+## Opvolging (2026-08-26)
+
+**Actie 1 is afgehandeld.** Met Revit open (PID 30312, model `S-9132_R25 -
+versie drie kappen`) luistert de Routes Server op **48885**, niet op 48884, en
+antwoordt met `"api_name": "revit_mcp"`. Het is dus déze repo die draait. De
+tabel met zeven toolnamen in `sci-bim-context` §C beschrijft iets anders en mag
+vervangen worden door de twintig namen uit §4 van het artikel. Dat is nog niet
+gedaan: skills worden op claude.ai bewerkt, niet op schijf.
+
+Twee dingen kwamen daarbij boven water die in deze check niet stonden:
+
+1. **De poort ligt niet vast.** `main.py` had 48884 hardgecodeerd zonder
+   override. Nu instelbaar via `REVIT_HOST`/`REVIT_PORT`, met 48884 als
+   onveranderde default, zodat het gedrag zonder omgevingsvariabelen gelijk
+   blijft aan upstream.
+2. **`.mcp.json` was stuk.** Het wees naar
+   `Documents\GitHub\mcp-server-for-revit-python\`, waar na de OneDrive-verhuizing
+   alleen de pyRevit-helft staat — geen `main.py`, geen `.venv`. De MCP-server
+   kon niet starten. Rechtgezet naar de clone onder OneDrive, met
+   `REVIT_PORT=48885` onder `env`.
+
+Dit raakt controle 4 van deze check: het hardgecodeerde pad in `.mcp.json` stond
+daar als iets dat "sneller veroudert dan de rest". Het was op dat moment al
+verlopen, alleen niet nagemeten.
+
+Actie 3 (materiaal in `raw/`) is inmiddels deels gebeurd — er staan drie dumps
+van 2026-08-25 klaar, nog niet verwerkt. Actie 2 was op de dag zelf al gedaan.
+Actie 4 (`use_transaction` melden bij upstream) staat nog open.
