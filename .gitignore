@@ -14,3 +14,7 @@ wheels/
 CLAUDE.md
 # Kennisbank-schema hoort wel in git
 !CLAUDE.md
+# De dumpmap is heilig: hier mag nooit iets stilletjes buiten git vallen.
+# Regel 12 (*TODO.md, upstream) matcht op elk niveau en slokte anders elke
+# dump op die op TODO.md eindigt.
+!kennisbank/raw/**
