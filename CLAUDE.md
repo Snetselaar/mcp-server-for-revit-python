@@ -9,8 +9,13 @@ Fork van de open-source MCP-server voor Revit
 Juan D. Rodriguez / Jean-Marc Couffin). De keten is:
 
 ```
-Claude → MCP-protocol → main.py → HTTP localhost:48884 → pyRevit Routes (in Revit) → Revit API
+Claude → MCP-protocol → main.py → HTTP localhost:<Routes-poort> → pyRevit Routes (in Revit) → Revit API
 ```
+
+De Routes-poort is 48884 als basis, maar ligt niet vast — gemeten op 2026-08-26
+luisterde Revit op 48885. Instelbaar met de omgevingsvariabelen `REVIT_HOST` en
+`REVIT_PORT`, in `.mcp.json` gezet onder `env`. Zie
+`kennisbank/wiki/mcp-revit-koppeling.md` §2.
 
 - `main.py` — de MCP-server (FastMCP), draait buiten Revit
 - `tools/` — MCP-toolregistratie per domein, draait op CPython 3.13
@@ -21,6 +26,12 @@ Claude → MCP-protocol → main.py → HTTP localhost:48884 → pyRevit Routes 
 **Upstream-code niet aanpassen zonder aanleiding.** Wijzigingen aan `main.py`,
 `tools/`, `revit_mcp/` en `tests/` lopen uit de pas met upstream en maken elke
 volgende merge duurder.
+
+Bewuste afwijkingen van upstream, bij te houden bij elke volgende:
+
+| Datum | Bestand | Wijziging | Waarom |
+|---|---|---|---|
+| 2026-08-26 | `main.py:21-25` | `REVIT_HOST`/`REVIT_PORT` uit omgevingsvariabelen, default onveranderd `localhost:48884` | de Routes-poort ligt niet vast; hardgecodeerd 48884 brak de verbinding. Kandidaat voor een PR bij upstream. |
 
 ## Kennisbank
 

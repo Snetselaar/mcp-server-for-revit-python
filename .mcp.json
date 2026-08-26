@@ -1,10 +1,13 @@
 {
   "mcpServers": {
     "revit": {
-      "command": "C:\\Users\\S-WOU1A\\Documents\\GitHub\\mcp-server-for-revit-python\\.venv\\Scripts\\python.exe",
+      "command": "C:\\Users\\S-WOU1A\\OneDrive - Snetselaar Constructieve Ingenieurs\\Documenten\\GitHub\\mcp-server-for-revit-python\\.venv\\Scripts\\python.exe",
       "args": [
-        "C:\\Users\\S-WOU1A\\Documents\\GitHub\\mcp-server-for-revit-python\\main.py"
-      ]
+        "C:\\Users\\S-WOU1A\\OneDrive - Snetselaar Constructieve Ingenieurs\\Documenten\\GitHub\\mcp-server-for-revit-python\\main.py"
+      ],
+      "env": {
+        "REVIT_PORT": "48885"
+      }
     }
   }
 }
