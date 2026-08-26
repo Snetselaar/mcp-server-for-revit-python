@@ -7,7 +7,9 @@ bronnen:
   - main.py, startup.py, tools/, revit_mcp/ (deze repo)
   - .mcp.json (deze repo)
   - skill sci-bim-context, references/template-en-mcp.md §C
-verwant: []
+verwant:
+  - rebar-api-parameters.md
+  - revit-bronnen-en-communities.md
 skill: sci-bim-context
 ---
 
@@ -243,4 +245,8 @@ uitgezocht — zie `../CLAUDE.md` §3 regel 2.
   opzoeken, nooit op ID.
 - Het schrijven van IronPython voor `execute_revit_code`: skill
   `pyrevit-codestijl`.
-- Het opzoeken van Revit API-signaturen: skill `revit-api-docs`.
+- Het opzoeken van Revit API-signaturen: skill `revit-api-docs`, en voor het
+  bredere bronnenlandschap `revit-bronnen-en-communities.md`.
+- Concrete parameters uitlezen: `rebar-api-parameters.md`. Dat gaat in de praktijk
+  via `execute_revit_code`, en let dan op §4 hierboven — die tool opent géén
+  transactie. Lezen kan zonder, schrijven niet.

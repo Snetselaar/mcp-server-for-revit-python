@@ -168,6 +168,21 @@ Bij het verwerken van `raw/` (het `/kb-verwerk`-command):
 Schrijf volgens `stijlgids.md`. Die regels zijn toetsbaar en worden door
 `/kb-check` gecontroleerd.
 
+### De terugkoppellus
+
+Een antwoord uit `outputs/` dat blijvend waardevol blijkt, gaat **terug naar
+`raw/`** en wordt opnieuw verwerkt. Daarmee wordt een eenmalige analyse permanente
+kennis, en wordt de kennisbank slimmer van zijn eigen antwoorden in plaats van
+alleen van wat er van buiten binnenkomt.
+
+Dit is een handeling van de gebruiker, geen automatisme: alleen jij weet of een
+antwoord standhield in de praktijk. Kopieer het bestand naar `raw/` (de output
+blijft ook staan, want die is gedateerd) en draai `/kb-verwerk`.
+
+Bij het verwerken van zo'n teruggekoppeld bestand geldt één extra regel: de
+bronnen die eronder lagen gaan mee. Een output die alleen naar zichzelf verwijst,
+verliest zijn onderbouwing bij elke ronde — zie ook `outputs/README.md`.
+
 ---
 
 ## 8. Commands
@@ -176,7 +191,7 @@ Schrijf volgens `stijlgids.md`. Die regels zijn toetsbaar en worden door
 |---|---|
 | `/kb-verwerk` | verwerkt `raw/` naar `wiki/`, werkt index en memory bij |
 | `/kb-vraag` | beantwoordt een vraag, schrijft het antwoord naar `outputs/` |
-| `/kb-check` | maandelijkse audit op tegenstrijdigheden, bronnen, gaten, veroudering, stijl |
+| `/kb-check` | maandelijkse audit: tegenstrijdigheden, bronnen, gaten, veroudering, stijl, kapotte kruisverwijzingen, coverage |
 | `/kb-promoveer` | maakt van een stabiel artikel een skill-tekst om te plakken |
 
 ## 9. De herinnering
