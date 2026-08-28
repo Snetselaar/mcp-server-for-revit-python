@@ -2,8 +2,10 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 7 artikelen, 2026-08-28. Laatste health check:
-[2026-08-25](outputs/2026-08-25-healthcheck.md), met een
+**Stand:** 9 artikelen, 2026-08-28. Laatste health check:
+[2026-08-28](outputs/2026-08-28-healthcheck.md) (0 kapotte kruisverwijzingen,
+coverage volledig, geen stijlovertredingen). Daarvoor:
+[2026-08-25](outputs/2026-08-25-healthcheck.md) met een
 [opvolging van 2026-08-26](outputs/2026-08-25-healthcheck.md#opvolging-2026-08-26).
 
 ---
@@ -21,6 +23,8 @@ Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-08-28 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en faalpunten |
+| [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-08-28 | Een eenentwintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector |
+| [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-08-28 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies en de Autodesk 2027-server |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-08-26 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 
 ## Interoperabiliteit en standaarden
@@ -53,13 +57,15 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 ### Vragen aan de skills — hier wijkt de kennisbank af van wat vastligt
 
-- **`sci-bim-context` §C is bijgewerkt maar nog niet geüpload.** De acht
-  toolnamen zijn op 2026-08-28 vervangen door de twintig echte, samen met de
-  repo-naam, de poort en de startwijze, in de skillbron
-  `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. Toelichting in
+- **`sci-bim-context` §C is opgelost (geüpload 2026-08-28).** De acht toolnamen
+  zijn vervangen door de twintig echte, samen met de repo-naam, de poort en de
+  startwijze, in de skillbron
+  `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. De skill is op
+  2026-08-28 naar claude.ai geüpload en vastgelegd met `skill_uploads.ps1 -Mark`
+  (sha256 `6513f443…`, commit `aec356d`). Skill-in-gebruik en wiki lopen niet
+  langer uiteen; het conflictblok in `wiki/mcp-revit-koppeling.md` §6 is daarmee
+  historisch. Toelichting in
   [outputs/2026-08-28-sci-bim-context-toolstabel.md](outputs/2026-08-28-sci-bim-context-toolstabel.md).
-  Wat Claude in een gesprek leest verandert pas na een upload naar claude.ai, en
-  dat is handwerk. Tot dan lopen de skill in gebruik en de wiki uiteen.
 - **Diameterfilters bestaan al.** De bronnen-dump stelt voor filters op
   wapeningdiameter te bouwen; de SCI-template heeft ø6 t/m ø40 al. Onbekend is of
   dat stelsel ook `Structural Fabric Reinforcement` afdekt of alleen staven. Zie
@@ -91,6 +97,17 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   zichzelf bijna tegen. Op 2026-08-26 stond `enabled = true` in `[routes]` van
   `pyRevit_config.ini`, dus de instelling wordt bewaard; of dat een herstart
   overleeft is niet nagemeten.
+- **Staat Routes op de SCI-werkplekken op `localhost` of nog op `0.0.0.0`?** De
+  standaardbinding is `0.0.0.0` (netwerk-breed bereikbaar); `pyRevit_config.ini`
+  had op 2026-08-26 geen `host`-sleutel. Nameten en zo nodig
+  `pyrevit config routes --host localhost` draaien. Zie
+  `wiki/mcp-revit-koppeling.md` §2.
+- **Draait er ergens pyRevit 6.5.3?** Die versie zou een Routes-bug hebben;
+  6.4.0 is aangeraden. Onbevestigd, geen issuenummer. Zie
+  `wiki/mcp-revit-koppeling.md` §5 punt 7.
+- **Welke Revit-versies draait SCI in productie?** Bepaalt of de officiële
+  Autodesk 2027 MCP-server op afzienbare termijn in beeld komt. Staat niet in
+  `sci-bim-context` §2. Zie `wiki/mcp-versus-custom-tools.md` §4.
 
 ### Openstaand aan de kennisbank zelf
 

@@ -4,9 +4,11 @@ status: concept
 laatst-bijgewerkt: 2026-08-26
 bronnen:
   - "raw/2026-08-25 samenvatting-bronnen.md §2 t/m §5"
+  - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §7"
 verwant:
   - rebar-api-parameters.md
   - mcp-revit-koppeling.md
+  - mcp-versus-custom-tools.md
 skill: revit-api-docs
 ---
 
@@ -146,5 +148,8 @@ Dat sluit aan op de SCI-praktijk: `sci-bim-context` §3 schrijft browser-organis
 via shared parameters voor, en de template werkt al met filters
 (zie `rebar-documentatie-en-staten.md` §2).
 
-**BIM Pure** heeft ook materiaal over Claude Code voor BIM-processen. Wat daar
-staat is niet bekeken.
+**BIM Pure** heeft ook materiaal over Claude Code voor BIM-processen. Dat is nu
+wél bekeken en verwerkt in `mcp-versus-custom-tools.md`: de vergelijking met de
+officiële Autodesk 2027-server en drie waarnemingen van Claude Code op de
+pyRevit-brug (warnings oplossen, gegenereerde code als ribbon-knop, materiaal
+opruimen met bevestiging).
