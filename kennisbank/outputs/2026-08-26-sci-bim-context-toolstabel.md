@@ -13,29 +13,33 @@ geen bestandswijziging die dit afrondt.
 
 ## Waarom
 
-§C noemt onder "Veelgebruikte Revit-MCP-tools (en geobserveerde ID's)" zeven
+§C noemt onder "Veelgebruikte Revit-MCP-tools (en geobserveerde ID's)" acht
 tools:
 
 ```
 get_active_view_in_revit          get_all_project_units
 get_all_workset_information       get_category_by_keyword
-get_all_warnings_in_the_model     get_parameter_value_for_element_ids
-get_all_used_families_in_model
+get_all_warnings_in_the_model     get_elements_by_category
+get_all_used_families_in_model    get_parameter_value_for_element_ids
 ```
 
-Geen van die zeven bestaat in de server die hier draait. Dat is op 2026-08-25
+De health check van 2026-08-25 telde er zeven en sloeg `get_elements_by_category`
+over. Op 2026-08-26 nageteld in de skillbron zelf:
+`Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`.
+
+Geen van die acht bestaat in de server die hier draait. Dat is op 2026-08-25
 gevonden en op 2026-08-26 afgemaakt: de health check op
 `http://localhost:48885/revit_mcp/status/` gaf `"api_name": "revit_mcp"`, de
 API-naam die `startup.py` van deze repo registreert. Het staat daarmee vast dat
 de fork `Snetselaar/mcp-server-for-revit-python` de draaiende server is en dat
-de zeven namen ergens anders bij horen.
+de acht namen ergens anders bij horen.
 
 De blokkade uit `kennisbank/CLAUDE.md` §3 regel 2 — de skill wint bij twijfel —
 gold zolang niet vaststond wélke server draaide. Die twijfel is weg.
 
 ## Wat je vervangt, en wat je laat staan
 
-**Vervangen:** alleen de subsectie met de zeven toolnamen.
+**Vervangen:** alleen de subsectie met de acht toolnamen.
 
 **Laten staan:** de categorie- en parameter-ID's die verderop in dezelfde §C
 staan. Die gaan niet over de MCP-server en zijn niet nagelopen. De regel dat

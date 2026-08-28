@@ -254,13 +254,16 @@ HTTP 503 = Revit draait, geen document open (punt 2).
 ## 6. Conflict met de skill `sci-bim-context`
 
 > **Conflict met skill `sci-bim-context`:** `references/template-en-mcp.md` §C
-> noemt onder "Veelgebruikte Revit-MCP-tools (en geobserveerde ID's)" zeven
+> noemt onder "Veelgebruikte Revit-MCP-tools (en geobserveerde ID's)" acht
 > tools: `get_active_view_in_revit`, `get_all_workset_information`,
 > `get_all_warnings_in_the_model`, `get_all_used_families_in_model`,
 > `get_all_project_units`, `get_category_by_keyword`,
-> `get_parameter_value_for_element_ids`.
+> `get_elements_by_category`, `get_parameter_value_for_element_ids`.
+> (De health check van 2026-08-25 telde er zeven en sloeg
+> `get_elements_by_category` over; op 2026-08-26 nageteld in de skillbron
+> `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`.)
 >
-> **Geen van die zeven namen komt voor in deze repo.** Gecontroleerd tegen de
+> **Geen van die acht namen komt voor in deze repo.** Gecontroleerd tegen de
 > twintig tools in `tools/*.py` (§4). De dichtstbijzijnde equivalenten heten
 > hier anders: `get_current_view_info` in plaats van `get_active_view_in_revit`,
 > `list_families` in plaats van `get_all_used_families_in_model`. Voor worksets,
@@ -277,7 +280,7 @@ check op `http://localhost:48885/revit_mcp/status/` gaf:
 ```
 
 `api_name: "revit_mcp"` is de API-naam die `startup.py` van deze repo
-registreert. De zeven toolnamen uit de skill horen dus bij een andere server, of
+registreert. De acht toolnamen uit de skill horen dus bij een andere server, of
 bij een versie waarin ze anders heetten. [ONBEVESTIGD] Welke van de twee is niet
 uitgezocht, en voor het gebruik maakt het niet uit: hier gelden de namen uit §4.
 

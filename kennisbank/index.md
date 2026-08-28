@@ -55,7 +55,7 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 - **De toolstabel in `sci-bim-context` §C klopt niet.** Op 2026-08-26 gemeten
   dat déze repo in Revit draait (`api_name: revit_mcp`, poort 48885), dus de
-  vraag wélke server draait is beantwoord. De zeven toolnamen in de skill horen
+  vraag wélke server draait is beantwoord. De acht toolnamen in de skill horen
   ergens anders bij. De plaktekst met de twintig echte namen ligt klaar in
   [outputs/2026-08-26-sci-bim-context-toolstabel.md](outputs/2026-08-26-sci-bim-context-toolstabel.md).
   Nog niet in de skill doorgevoerd — dat gaat via claude.ai, niet op schijf.
