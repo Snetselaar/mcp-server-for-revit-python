@@ -129,11 +129,20 @@ generieke optie-pad:
 pyrevit configs "routes:host" 127.0.0.1
 ```
 
-Dat schrijft `host = 127.0.0.1` onder `[routes]`. **Op 2026-08-28 zo ingesteld**
-(met een back-up van de ini). De wijziging wordt pas actief na een
-**pyRevit-reload of Revit-herstart**; tot dan blijft de live-binding `0.0.0.0`.
-Verifieer na de reload met de `Get-NetTCPConnection`-query hierboven —
-`LocalAddress` hoort dan `127.0.0.1` te zijn.
+Dat schrijft `host = 127.0.0.1` onder `[routes]`. **Op 2026-08-28 ingesteld en
+geactiveerd.** Na een Revit-herstart bindt de socket op `127.0.0.1:48884`
+(geverifieerd met `Get-NetTCPConnection`) en antwoordt `/status/` normaal — de
+MCP-keten werkt dus op de localhost-binding, wat klopt want de MCP-server
+verbindt zelf via localhost.
+
+Twee dingen die daarbij opvielen:
+
+- Een gewone **pyRevit-reload liet Revit vastlopen** (bekend probleem, de
+  persistente-engine-hang). Een volledige **Revit-herstart** is de betrouwbare
+  manier om de config-wijziging te activeren.
+- In de ini staat de waarde na de herstart als `host = "127.0.0.1"` — met quotes.
+  pyRevit serialiseert strings zo; de socket bewijst dat de waarde gehonoreerd
+  wordt.
 
 ## 3. Timeouts
 
