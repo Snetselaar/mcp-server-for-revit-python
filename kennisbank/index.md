@@ -98,12 +98,12 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   zichzelf bijna tegen. Op 2026-08-26 stond `enabled = true` in `[routes]` van
   `pyRevit_config.ini`, dus de instelling wordt bewaard; of dat een herstart
   overleeft is niet nagemeten.
-- **Routes-binding — gemeten en gecorrigeerd (2026-08-28), reload nodig.** De
-  live socket stond op `0.0.0.0:48884`; `host = 127.0.0.1` is nu onder `[routes]`
-  gezet met `pyrevit configs "routes:host" 127.0.0.1`. Actief na een
-  pyRevit-reload of Revit-herstart; tot dan blijft de binding `0.0.0.0`.
-  Verifiëren met de `Get-NetTCPConnection`-query. Zie `wiki/mcp-revit-koppeling.md`
-  §2. (Het tutorial-commando `--host` bleek niet te bestaan in deze pyRevit.)
+- **Routes-binding — opgelost en geverifieerd (2026-08-28).** De live socket
+  stond op `0.0.0.0:48884`; `host = 127.0.0.1` gezet met
+  `pyrevit configs "routes:host" 127.0.0.1`. Na een Revit-herstart bindt de socket
+  op `127.0.0.1:48884` en werkt `/status/` — geverifieerd. De pyRevit-reload liep
+  vast (bekend), de herstart was de weg. Zie `wiki/mcp-revit-koppeling.md` §2. (Het
+  tutorial-commando `--host` bleek niet te bestaan in deze pyRevit.)
 - **Draait er ergens pyRevit 6.5.3?** Die versie zou een Routes-bug hebben;
   6.4.0 is aangeraden. Onbevestigd, geen issuenummer, versie niet gemeten. Zie
   `wiki/mcp-revit-koppeling.md` §5 punt 7.

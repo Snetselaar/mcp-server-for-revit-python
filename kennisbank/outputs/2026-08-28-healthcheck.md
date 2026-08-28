@@ -212,11 +212,14 @@ werkplek te draaien, met Revit 2025 en de Routes-server live).
 - **Actie 2 — Routes-binding.** Live gemeten op `0.0.0.0:48884` (kwetsbaar
   bevestigd). Gecorrigeerd naar `host = 127.0.0.1` onder `[routes]`. De
   tutorial-opdracht `pyrevit config routes --host` bleek niet te bestaan in deze
-  pyRevit; gebruikt is `pyrevit configs "routes:host" 127.0.0.1`. Activeren vraagt
-  nog een pyRevit-reload; tot dan blijft de binding `0.0.0.0`.
+  pyRevit; gebruikt is `pyrevit configs "routes:host" 127.0.0.1`. Na een
+  Revit-herstart (de pyRevit-reload liep vast) bindt de socket op
+  `127.0.0.1:48884` en werkt `/status/` — geverifieerd, dus afgerond.
 - **Actie 3 — BuiltInParameters.** Alle acht getoetst met `Enum.IsDefined` op de
   live Revit 2025-API. Alle acht bestaan; `REBAR_SHAPE_IMAGE` is tóch een
   BuiltInParameter (twee wiki-artikelen gecorrigeerd). Semantiek en een
   2024/2027-spotcheck blijven open.
 
-Alleen de reload van actie 2 staat nog aan de gebruiker.
+Alle drie de acties van deze health check zijn daarmee afgerond. Wat resteert is
+achtergrondwerk zonder deadline: de semantiek van drie BuiltInParameters en een
+2024/2027-spotcheck (actie 3), en de pyRevit 6.5.3-versievraag.
