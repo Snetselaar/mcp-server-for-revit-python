@@ -53,12 +53,13 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 ### Vragen aan de skills — hier wijkt de kennisbank af van wat vastligt
 
-- **De toolstabel in `sci-bim-context` §C klopt niet.** Op 2026-08-26 gemeten
-  dat déze repo in Revit draait (`api_name: revit_mcp`, poort 48885), dus de
-  vraag wélke server draait is beantwoord. De acht toolnamen in de skill horen
-  ergens anders bij. De plaktekst met de twintig echte namen ligt klaar in
+- **`sci-bim-context` §C is bijgewerkt maar nog niet geüpload.** De acht
+  toolnamen zijn op 2026-08-26 vervangen door de twintig echte, samen met de
+  repo-naam, de poort en de startwijze, in de skillbron
+  `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. Toelichting in
   [outputs/2026-08-26-sci-bim-context-toolstabel.md](outputs/2026-08-26-sci-bim-context-toolstabel.md).
-  Nog niet in de skill doorgevoerd — dat gaat via claude.ai, niet op schijf.
+  Wat Claude in een gesprek leest verandert pas na een upload naar claude.ai, en
+  dat is handwerk. Tot dan lopen de skill in gebruik en de wiki uiteen.
 - **Diameterfilters bestaan al.** De bronnen-dump stelt voor filters op
   wapeningdiameter te bouwen; de SCI-template heeft ø6 t/m ø40 al. Onbekend is of
   dat stelsel ook `Structural Fabric Reinforcement` afdekt of alleen staven. Zie

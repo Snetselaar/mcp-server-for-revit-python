@@ -68,9 +68,14 @@ de bron van waarheid zijn:
    skill; (b) je hebt een nieuwere geverifieerde bron → schrijf het artikel mét
    een expliciet blok `> **Conflict met skill `naam`:** …` en meld het in je
    antwoord. Nooit stil overschrijven.
-3. **Skills zijn hier niet bewerkbaar.** Ze staan in `~/.claude/skills/synced/`
-   en worden gesynct vanaf claude.ai. Wijzigen doe je via claude.ai, niet op
-   schijf. Promotie levert dus tekst op om te plakken, geen bestandsedit.
+3. **Skills bewerk je in de bron; uploaden is handwerk.** De bronbestanden
+   staan in de repo `Snetselaar_BIM`, per skill een map met `SKILL.md` en
+   `references/`. Daar wijzigen mag en levert een gewone bestandsedit op.
+   Maar wat Claude leest verandert pas als de skill opnieuw naar claude.ai is
+   geüpload, en dat kan niet vanuit een sessie. Een skillwijziging is dus pas
+   af als die upload is gedaan; tot dan lopen bron en gebruik uiteen.
+   (Gecorrigeerd op 2026-08-26: hier stond dat skills alleen op claude.ai
+   bewerkbaar waren en dat promotie alleen plaktekst kon opleveren.)
 
 ---
 

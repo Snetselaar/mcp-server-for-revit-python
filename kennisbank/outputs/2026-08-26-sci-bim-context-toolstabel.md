@@ -2,14 +2,18 @@
 type: skill-correctie
 datum: 2026-08-26
 doel: skill `sci-bim-context`, `references/template-en-mcp.md` §C
-status: klaar om te plakken, nog niet doorgevoerd
+status: doorgevoerd in de skillbron op 2026-08-26; upload naar claude.ai nog te doen
 ---
 
 # Toolstabel in `sci-bim-context` §C vervangen
 
-Plaktekst voor claude.ai. Skills worden daar bewerkt, niet op schijf
-(`kennisbank/CLAUDE.md` §3 regel 3), dus dit bestand is het eindproduct — er is
-geen bestandswijziging die dit afrondt.
+Vervangtekst voor §C, met de onderbouwing eronder.
+
+Dit stuk begon als plaktekst, omdat `kennisbank/CLAUDE.md` §3 regel 3 zei dat
+skills alleen op claude.ai te bewerken zijn. Dat bleek te streng: de skillbron
+staat wél op schijf, in de repo `Snetselaar_BIM`. Daar op 2026-08-26
+doorgevoerd. Wat niet op schijf kan is de upload naar claude.ai, en pas die
+bepaalt wat Claude in een gesprek leest.
 
 ## Waarom
 
