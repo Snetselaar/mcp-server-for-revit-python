@@ -1,7 +1,7 @@
 ---
 titel: De MCP-Revit-koppeling — opbouw, tools en faalpunten
 status: concept
-laatst-bijgewerkt: 2026-08-26
+laatst-bijgewerkt: 2026-08-28
 bronnen:
   - README.md (deze repo)
   - main.py, startup.py, tools/, revit_mcp/ (deze repo)
@@ -260,7 +260,7 @@ HTTP 503 = Revit draait, geen document open (punt 2).
 > `get_all_project_units`, `get_category_by_keyword`,
 > `get_elements_by_category`, `get_parameter_value_for_element_ids`.
 > (De health check van 2026-08-25 telde er zeven en sloeg
-> `get_elements_by_category` over; op 2026-08-26 nageteld in de skillbron
+> `get_elements_by_category` over; op 2026-08-28 nageteld in de skillbron
 > `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`.)
 >
 > **Geen van die acht namen komt voor in deze repo.** Gecontroleerd tegen de
@@ -291,13 +291,13 @@ Ook de startwijze verschilt. De skill noemt combined HTTP-modus
 zonder vlaggen is het transport `stdio` (`main.py:115` en `main.py:127`). Beide werken, maar
 het zijn twee verschillende opstellingen.
 
-**Stand 2026-08-26:** de tabel is vervangen door de twintig namen uit §4, in de
+**Stand 2026-08-28:** de tabel is vervangen door de twintig namen uit §4, in de
 skillbron `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. Ook de
 repo-naam, de poort en de startwijze in die sectie zijn gelijkgetrokken. De rem
 uit `../CLAUDE.md` §3 regel 2 gold zolang niet vaststond welke server draaide;
 dat staat nu vast.
 
-Het conflict hierboven beschrijft dus de skill zoals hij tot 2026-08-26 luidde —
+Het conflict hierboven beschrijft dus de skill zoals hij tot 2026-08-28 luidde —
 en het blijft gelden voor de versie die Claude in een gesprek leest, totdat de
 skill opnieuw naar claude.ai is geüpload. Die upload is handwerk.
 

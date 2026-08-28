@@ -74,7 +74,7 @@ de bron van waarheid zijn:
    Maar wat Claude leest verandert pas als de skill opnieuw naar claude.ai is
    geüpload, en dat kan niet vanuit een sessie. Een skillwijziging is dus pas
    af als die upload is gedaan; tot dan lopen bron en gebruik uiteen.
-   (Gecorrigeerd op 2026-08-26: hier stond dat skills alleen op claude.ai
+   (Gecorrigeerd op 2026-08-28: hier stond dat skills alleen op claude.ai
    bewerkbaar waren en dat promotie alleen plaktekst kon opleveren.)
 
 ---

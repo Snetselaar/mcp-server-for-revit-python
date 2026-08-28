@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 7 artikelen, 2026-08-26. Laatste health check:
+**Stand:** 7 artikelen, 2026-08-28. Laatste health check:
 [2026-08-25](outputs/2026-08-25-healthcheck.md), met een
 [opvolging van 2026-08-26](outputs/2026-08-25-healthcheck.md#opvolging-2026-08-26).
 
@@ -20,7 +20,7 @@ Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-08-26 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en faalpunten |
+| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-08-28 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en faalpunten |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-08-26 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 
 ## Interoperabiliteit en standaarden
@@ -54,10 +54,10 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 ### Vragen aan de skills — hier wijkt de kennisbank af van wat vastligt
 
 - **`sci-bim-context` §C is bijgewerkt maar nog niet geüpload.** De acht
-  toolnamen zijn op 2026-08-26 vervangen door de twintig echte, samen met de
+  toolnamen zijn op 2026-08-28 vervangen door de twintig echte, samen met de
   repo-naam, de poort en de startwijze, in de skillbron
   `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. Toelichting in
-  [outputs/2026-08-26-sci-bim-context-toolstabel.md](outputs/2026-08-26-sci-bim-context-toolstabel.md).
+  [outputs/2026-08-28-sci-bim-context-toolstabel.md](outputs/2026-08-28-sci-bim-context-toolstabel.md).
   Wat Claude in een gesprek leest verandert pas na een upload naar claude.ai, en
   dat is handwerk. Tot dan lopen de skill in gebruik en de wiki uiteen.
 - **Diameterfilters bestaan al.** De bronnen-dump stelt voor filters op

@@ -1,8 +1,8 @@
 ---
 type: skill-correctie
-datum: 2026-08-26
+datum: 2026-08-28
 doel: skill `sci-bim-context`, `references/template-en-mcp.md` §C
-status: doorgevoerd in de skillbron op 2026-08-26; upload naar claude.ai nog te doen
+status: doorgevoerd in de skillbron op 2026-08-28; upload naar claude.ai nog te doen
 ---
 
 # Toolstabel in `sci-bim-context` §C vervangen
@@ -11,7 +11,7 @@ Vervangtekst voor §C, met de onderbouwing eronder.
 
 Dit stuk begon als plaktekst, omdat `kennisbank/CLAUDE.md` §3 regel 3 zei dat
 skills alleen op claude.ai te bewerken zijn. Dat bleek te streng: de skillbron
-staat wél op schijf, in de repo `Snetselaar_BIM`. Daar op 2026-08-26
+staat wél op schijf, in de repo `Snetselaar_BIM`. Daar op 2026-08-28
 doorgevoerd. Wat niet op schijf kan is de upload naar claude.ai, en pas die
 bepaalt wat Claude in een gesprek leest.
 
@@ -28,7 +28,7 @@ get_all_used_families_in_model    get_parameter_value_for_element_ids
 ```
 
 De health check van 2026-08-25 telde er zeven en sloeg `get_elements_by_category`
-over. Op 2026-08-26 nageteld in de skillbron zelf:
+over. Op 2026-08-28 nageteld in de skillbron zelf:
 `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`.
 
 Geen van die acht bestaat in de server die hier draait. Dat is op 2026-08-25
@@ -52,7 +52,7 @@ ook staan.
 
 ## Plaktekst
 
-De twintig namen hieronder zijn op 2026-08-26 uit `tools/*.py` gelezen met een
+De twintig namen hieronder zijn op 2026-08-28 uit `tools/*.py` gelezen met een
 AST-parser, niet overgetypt. De omschrijvingen komen uit de docstrings.
 
 ---
@@ -61,7 +61,7 @@ AST-parser, niet overgetypt. De omschrijvingen komen uit de docstrings.
 
 De server die bij SCI draait is de fork
 `github.com/Snetselaar/mcp-server-for-revit-python`. Hij registreert twintig
-tools; nagelopen tegen `tools/*.py` op 2026-08-26.
+tools; nagelopen tegen `tools/*.py` op 2026-08-28.
 
 | Tool | Doet | Revit nodig |
 |---|---|---|
