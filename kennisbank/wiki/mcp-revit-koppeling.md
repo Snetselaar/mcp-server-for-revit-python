@@ -291,10 +291,15 @@ Ook de startwijze verschilt. De skill noemt combined HTTP-modus
 zonder vlaggen is het transport `stdio` (`main.py:115` en `main.py:127`). Beide werken, maar
 het zijn twee verschillende opstellingen.
 
-**Wat te doen:** de tabel in `sci-bim-context` §C vervangen door de twintig
-namen uit §4. Dat is per 2026-08-26 vrijgegeven: de rem uit `../CLAUDE.md` §3
-regel 2 gold zolang niet vaststond welke server draaide, en dat staat nu vast.
-Nog niet uitgevoerd — skills worden op claude.ai bewerkt, niet op schijf.
+**Stand 2026-08-26:** de tabel is vervangen door de twintig namen uit §4, in de
+skillbron `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. Ook de
+repo-naam, de poort en de startwijze in die sectie zijn gelijkgetrokken. De rem
+uit `../CLAUDE.md` §3 regel 2 gold zolang niet vaststond welke server draaide;
+dat staat nu vast.
+
+Het conflict hierboven beschrijft dus de skill zoals hij tot 2026-08-26 luidde —
+en het blijft gelden voor de versie die Claude in een gesprek leest, totdat de
+skill opnieuw naar claude.ai is geüpload. Die upload is handwerk.
 
 ## 7. Waar dit niet over gaat
 
