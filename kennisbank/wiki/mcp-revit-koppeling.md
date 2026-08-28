@@ -9,9 +9,12 @@ bronnen:
   - skill sci-bim-context, references/template-en-mcp.md §C
   - "gemeten 2026-08-26: Revit PID 30312, model S-9132_R25, luisterpoort 48885"
   - "%APPDATA%/pyRevit/pyRevit_config.ini, sectie [routes]"
+  - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §2, §3, §6"
 verwant:
   - rebar-api-parameters.md
   - revit-bronnen-en-communities.md
+  - mcp-eigen-tools-toevoegen.md
+  - mcp-versus-custom-tools.md
 skill: sci-bim-context
 ---
 
@@ -102,6 +105,23 @@ Get-NetTCPConnection -State Listen |
   Where-Object { $_.LocalPort -ge 48884 -and $_.LocalPort -le 48890 } |
   Select-Object LocalPort, OwningProcess
 ```
+
+### Beveiliging: standaard luistert Routes op 0.0.0.0
+
+pyRevit Routes bindt standaard aan `0.0.0.0`
+(`raw/2026-08-27_revit_mcp_bronnen_transcripties.md` §3). Dat betekent dat elke
+machine op hetzelfde netwerk (LAN of VPN) de Routes-poort kan bereiken en dus het
+open Revit-model kan uitlezen of wijzigen. Beperk dit tot de eigen machine:
+
+```bash
+pyrevit config routes --host localhost
+```
+
+Daarna pyRevit herladen en in Settings → Routes controleren of er `localhost`
+staat. [ONBEVESTIGD] Of dit al op de SCI-werkplekken is ingesteld — de sectie
+`[routes]` in `pyRevit_config.ini` bevatte op 2026-08-26 alleen `enabled` en
+`core_api`, geen `host`-sleutel, dus de binding stond toen vermoedelijk nog op de
+standaard `0.0.0.0`. Nameten op de werkplek.
 
 ## 3. Timeouts
 
@@ -231,6 +251,12 @@ Op volgorde van hoe vaak ze voorkomen.
    in deze repo doet in Revit niets tot hij naar die map is gekopieerd én
    pyRevit is herladen.
 
+7. **Kapotte pyRevit-versie.** [ONBEVESTIGD] pyRevit **6.5.3** heeft volgens de
+   bron een bug in de Routes-module; **6.4.0** wordt aangeraden
+   (`raw/2026-08-27_revit_mcp_bronnen_transcripties.md` §3, Stap 1). Niet zelf
+   nagemeten en geen issuenummer bij vermeld. Staat Routes ondanks `enabled =
+   true` niet te luisteren, dan is de pyRevit-versie een kandidaat.
+
 ### Snelle diagnose
 
 ```
@@ -297,9 +323,12 @@ repo-naam, de poort en de startwijze in die sectie zijn gelijkgetrokken. De rem
 uit `../CLAUDE.md` §3 regel 2 gold zolang niet vaststond welke server draaide;
 dat staat nu vast.
 
-Het conflict hierboven beschrijft dus de skill zoals hij tot 2026-08-28 luidde —
-en het blijft gelden voor de versie die Claude in een gesprek leest, totdat de
-skill opnieuw naar claude.ai is geüpload. Die upload is handwerk.
+**Opgelost 2026-08-28.** De gecorrigeerde skill is die dag naar claude.ai
+geüpload en vastgelegd met `skill_uploads.ps1 -Mark sci-bim-context` (sha256
+`6513f443…`, commit `aec356d`). Wat Claude in een gesprek leest komt nu overeen
+met §4. Het conflictblok hierboven is daarmee historisch — het beschrijft de
+skill zoals hij tot 2026-08-28 luidde en is bewaard als bronketen, niet als een
+openstaande tegenspraak.
 
 ## 7. Waar dit niet over gaat
 
