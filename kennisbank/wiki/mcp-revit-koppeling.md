@@ -106,22 +106,34 @@ Get-NetTCPConnection -State Listen |
   Select-Object LocalPort, OwningProcess
 ```
 
-### Beveiliging: standaard luistert Routes op 0.0.0.0
+### Beveiliging: Routes bindt standaard op 0.0.0.0
 
 pyRevit Routes bindt standaard aan `0.0.0.0`
-(`raw/2026-08-27_revit_mcp_bronnen_transcripties.md` §3). Dat betekent dat elke
-machine op hetzelfde netwerk (LAN of VPN) de Routes-poort kan bereiken en dus het
-open Revit-model kan uitlezen of wijzigen. Beperk dit tot de eigen machine:
+(`raw/2026-08-27_revit_mcp_bronnen_transcripties.md` §3; pyRevit-docs,
+`user_config.routes.host`/`.port`). Elke machine op hetzelfde netwerk (LAN of VPN)
+kan de Routes-poort dan bereiken en het open Revit-model uitlezen of wijzigen. De
+veilige binding is `127.0.0.1` — alleen lokaal, en genoeg, want de MCP-server
+verbindt via localhost (`main.py:24`, `REVIT_HOST` default `localhost`).
+
+**Gemeten 2026-08-28 op de werkplek:** de live socket stond op `0.0.0.0:48884`
+(PID 37684) en `[routes]` in `pyRevit_config.ini` had geen `host`-sleutel — dus de
+standaard. Bevestigd kwetsbaar; het eerdere vermoeden is daarmee een meting.
+
+**Let op — de opdracht uit de meeste tutorials klopt niet voor deze
+pyRevit-versie.** `pyrevit config routes --host localhost` bestaat hier niet:
+`pyrevit configs routes` kent alleen `enable`/`disable`, `port` en `coreapi`
+(nagelopen 2026-08-28 met `pyrevit configs routes --help`). Zet de host via het
+generieke optie-pad:
 
 ```bash
-pyrevit config routes --host localhost
+pyrevit configs "routes:host" 127.0.0.1
 ```
 
-Daarna pyRevit herladen en in Settings → Routes controleren of er `localhost`
-staat. [ONBEVESTIGD] Of dit al op de SCI-werkplekken is ingesteld — de sectie
-`[routes]` in `pyRevit_config.ini` bevatte op 2026-08-26 alleen `enabled` en
-`core_api`, geen `host`-sleutel, dus de binding stond toen vermoedelijk nog op de
-standaard `0.0.0.0`. Nameten op de werkplek.
+Dat schrijft `host = 127.0.0.1` onder `[routes]`. **Op 2026-08-28 zo ingesteld**
+(met een back-up van de ini). De wijziging wordt pas actief na een
+**pyRevit-reload of Revit-herstart**; tot dan blijft de live-binding `0.0.0.0`.
+Verifieer na de reload met de `Get-NetTCPConnection`-query hierboven —
+`LocalAddress` hoort dan `127.0.0.1` te zijn.
 
 ## 3. Timeouts
 

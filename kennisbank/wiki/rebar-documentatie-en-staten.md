@@ -1,7 +1,7 @@
 ---
 titel: Wapening documenteren — tags, filters en buigstaten
 status: concept
-laatst-bijgewerkt: 2026-08-26
+laatst-bijgewerkt: 2026-08-28
 bronnen:
   - "raw/2026-08-25 samenvatting-bronnen.md §1.4 en §1.7"
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §1.C"
@@ -131,6 +131,8 @@ Twee verschillende dingen die makkelijk verward worden:
 | Sinds | 2024 | bestond al langer |
 | In de API | — | zie hieronder |
 
-De dump noemt `REBAR_SHAPE_IMAGE` als BuiltInParameter voor die afbeelding.
-Dat is waarschijnlijk onjuist: "Shape Image" lijkt een parameter die je zelf in de
-familie aanmaakt. Zie `rebar-api-parameters.md` §3.
+De dump noemt `REBAR_SHAPE_IMAGE` als BuiltInParameter voor die afbeelding. Dat
+is op 2026-08-28 bevestigd tegen de live Revit 2025-API: `REBAR_SHAPE_IMAGE` ís
+een BuiltInParameter (een eerdere twijfel in dit artikel is daarmee weerlegd). Of
+en waarmee hij in standaard Rebar Shapes gevuld is, blijft een aparte vraag. Zie
+`rebar-api-parameters.md` §3.

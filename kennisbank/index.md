@@ -15,8 +15,8 @@ coverage volledig, geen stijlovertredingen). Daarvoor:
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [rebar-3d-modelleren.md](wiki/rebar-3d-modelleren.md) | concept | 2026-08-26 | Kolom-, balk- en vloerwapening, free form, splices — met een versietabel 2024–2027 |
-| [rebar-documentatie-en-staten.md](wiki/rebar-documentatie-en-staten.md) | concept | 2026-08-26 | Partitions, filters, tags, Multi-Rebar Annotation, buigstaten en Bending Details |
-| [rebar-api-parameters.md](wiki/rebar-api-parameters.md) | concept | 2026-08-26 | De acht BuiltInParameters uit de dump, nagelopen: vier houden stand, twee zijn fout |
+| [rebar-documentatie-en-staten.md](wiki/rebar-documentatie-en-staten.md) | concept | 2026-08-28 | Partitions, filters, tags, Multi-Rebar Annotation, buigstaten en Bending Details |
+| [rebar-api-parameters.md](wiki/rebar-api-parameters.md) | concept | 2026-08-28 | De acht BuiltInParameters, live geverifieerd op Revit 2025: alle namen bestaan, alleen CLEAR_COVER's beschrijving is fout |
 
 ## MCP en gereedschap
 
@@ -80,10 +80,11 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 ### Uit te zoeken in Revit of op W:
 
-- **De acht BuiltInParameters afmaken.** Vier van de acht zijn niet vastgesteld,
-  want alle vier de documentatiebronnen uit `revit-api-docs` zijn vanuit een
-  cloudsessie geblokkeerd. Dit moet vanaf de werkplek. Zie
-  `wiki/rebar-api-parameters.md` §6.
+- **De acht BuiltInParameters — bestaan afgehandeld (2026-08-28).** Alle acht
+  namen gaven `True` op `Enum.IsDefined` in de live Revit 2025-API via het
+  Routes-endpoint. `REBAR_SHAPE_IMAGE` blijkt tóch een BuiltInParameter. Rest
+  open: de betekenis (drie beschrijvingen) en een spot-check op 2024/2027. Zie
+  `wiki/rebar-api-parameters.md` §0 en §6.
 - **Zijn 0/20/40 mm de SCI-dekkingswaarden** of generieke voorbeelden uit de bron?
 - **Heeft SCI een conventie voor de Partition-parameter?** `sci-bim-context`
   beschrijft `hoofd_map` en `sub_map`, maar zegt niets over Partition.
@@ -97,26 +98,31 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   zichzelf bijna tegen. Op 2026-08-26 stond `enabled = true` in `[routes]` van
   `pyRevit_config.ini`, dus de instelling wordt bewaard; of dat een herstart
   overleeft is niet nagemeten.
-- **Staat Routes op de SCI-werkplekken op `localhost` of nog op `0.0.0.0`?** De
-  standaardbinding is `0.0.0.0` (netwerk-breed bereikbaar); `pyRevit_config.ini`
-  had op 2026-08-26 geen `host`-sleutel. Nameten en zo nodig
-  `pyrevit config routes --host localhost` draaien. Zie
-  `wiki/mcp-revit-koppeling.md` §2.
+- **Routes-binding — gemeten en gecorrigeerd (2026-08-28), reload nodig.** De
+  live socket stond op `0.0.0.0:48884`; `host = 127.0.0.1` is nu onder `[routes]`
+  gezet met `pyrevit configs "routes:host" 127.0.0.1`. Actief na een
+  pyRevit-reload of Revit-herstart; tot dan blijft de binding `0.0.0.0`.
+  Verifiëren met de `Get-NetTCPConnection`-query. Zie `wiki/mcp-revit-koppeling.md`
+  §2. (Het tutorial-commando `--host` bleek niet te bestaan in deze pyRevit.)
 - **Draait er ergens pyRevit 6.5.3?** Die versie zou een Routes-bug hebben;
-  6.4.0 is aangeraden. Onbevestigd, geen issuenummer. Zie
+  6.4.0 is aangeraden. Onbevestigd, geen issuenummer, versie niet gemeten. Zie
   `wiki/mcp-revit-koppeling.md` §5 punt 7.
-- **Welke Revit-versies draait SCI in productie?** Bepaalt of de officiële
-  Autodesk 2027 MCP-server op afzienbare termijn in beeld komt. Staat niet in
-  `sci-bim-context` §2. Zie `wiki/mcp-versus-custom-tools.md` §4.
+- **Welke Revit-versies draait SCI in productie?** Op 2026-08-28 draaide de
+  werkplek **Revit 2025**. Of de rest van het bereik 2024/2026/2027 in productie
+  is, bepaalt of de Autodesk 2027 MCP-server in beeld komt. Zie
+  `wiki/mcp-versus-custom-tools.md` §4.
 
 ### Openstaand aan de kennisbank zelf
 
 - **`use_transaction` in `execute_revit_code` doet niets.** Gedocumenteerd in de
   docstring, nergens uitgelezen. Kandidaat voor een issue bij upstream. Zie
   `wiki/mcp-revit-koppeling.md` §4.
-- **Alle zeven artikelen staan op `concept`.** Promotie naar een skill vraagt
-  `stabiel` plus twee onafhankelijke bronnen (`CLAUDE.md` §4). De rebar-artikelen
-  leunen alle op één gecureerde samenvatting, dus die drempel is nog ver weg.
+- **Alle negen artikelen staan op `concept`.** Promotie naar een skill vraagt
+  `stabiel` plus twee onafhankelijke bronnen (`CLAUDE.md` §4). De meeste
+  rebar-artikelen leunen nog op één gecureerde samenvatting. Uitzondering sinds
+  2026-08-28: `rebar-api-parameters.md` heeft er een tweede, onafhankelijke bron
+  bij — de live `Enum.IsDefined`-meting op Revit 2025 — en komt daarmee dichter
+  bij de promotiedrempel voor het bestaan van de namen (niet voor de semantiek).
 - **`W:` is onbereikbaar vanuit cloudsessies.** De extensies, `Actielijst
   lint.xlsm` en de logbestanden staan op de netwerkschijf. Structureel; begrenst
   wat een cloudsessie kan verwerken.

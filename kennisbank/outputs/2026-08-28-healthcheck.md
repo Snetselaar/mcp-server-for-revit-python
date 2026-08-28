@@ -206,5 +206,17 @@ uiteen. Twee bestanden bijgewerkt: de openstaande vraag in `index.md` en het slo
 van `wiki/mcp-revit-koppeling.md` §6, dat nu "Opgelost 2026-08-28" meldt en het
 conflictblok als historisch markeert.
 
-Actie 2 (Routes-binding meten) en 3 (BuiltInParameters nalopen) staan nog open;
-beide vragen een sessie op de werkplek.
+**Actie 2 en 3 zijn dezelfde dag alsnog uitgevoerd** (de sessie bleek op de
+werkplek te draaien, met Revit 2025 en de Routes-server live).
+
+- **Actie 2 — Routes-binding.** Live gemeten op `0.0.0.0:48884` (kwetsbaar
+  bevestigd). Gecorrigeerd naar `host = 127.0.0.1` onder `[routes]`. De
+  tutorial-opdracht `pyrevit config routes --host` bleek niet te bestaan in deze
+  pyRevit; gebruikt is `pyrevit configs "routes:host" 127.0.0.1`. Activeren vraagt
+  nog een pyRevit-reload; tot dan blijft de binding `0.0.0.0`.
+- **Actie 3 — BuiltInParameters.** Alle acht getoetst met `Enum.IsDefined` op de
+  live Revit 2025-API. Alle acht bestaan; `REBAR_SHAPE_IMAGE` is tóch een
+  BuiltInParameter (twee wiki-artikelen gecorrigeerd). Semantiek en een
+  2024/2027-spotcheck blijven open.
+
+Alleen de reload van actie 2 staat nog aan de gebruiker.
