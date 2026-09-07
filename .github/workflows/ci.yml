@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Resolving requirements.txt is itself the check: a pin set that no
+      # longer solves leaves .venv empty and the MCP server unable to start.
+      - name: Install pinned dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check for conflicting installs
+        run: python -m pip check
+
+      # After requirements.txt, so pip leaves the pinned versions in place.
+      - name: Install test dependencies
+        run: python -m pip install ".[test]"
+
+      # tests/unit only: the integration tests need a running Revit instance.
+      - name: Run unit tests
+        run: python -m pytest tests/unit -q
+
+  lockfile:
+    name: Lockfile in sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: python -m pip install uv
+
+      - name: uv.lock matches pyproject.toml
+        run: uv lock --check
+
+      # requirements.txt is generated from the same resolution, so any version
+      # that differs from uv.lock means one of the two was edited on its own.
+      - name: requirements.txt matches uv.lock
+        run: |
+          python - <<'PY'
+          import re
+          import sys
+
+          lock = dict(
+              re.findall(
+                  r'\[\[package\]\]\nname = "([^"]+)"\nversion = "([^"]+)"',
+                  open("uv.lock").read(),
+              )
+          )
+
+          mismatched = []
+          for line in open("requirements.txt"):
+              line = line.split(";")[0].strip()
+              if "==" not in line:
+                  continue
+              name, version = (part.strip() for part in line.split("=="))
+              if name in lock and lock[name] != version:
+                  mismatched.append((name, version, lock[name]))
+
+          if mismatched:
+              for name, req, locked in mismatched:
+                  print("%s: requirements.txt %s, uv.lock %s" % (name, req, locked))
+              print("\nRegenerate both from pyproject.toml:")
+              print("  uv lock --upgrade")
+              print("  uv pip compile --universal --upgrade --python-version 3.11 \\")
+              print("    --no-header --no-annotate pyproject.toml -o requirements.txt")
+              sys.exit(1)
+
+          print("requirements.txt and uv.lock agree on all pinned versions")
+          PY

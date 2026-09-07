@@ -128,6 +128,25 @@ They never conflict because they serve different roles, speak different protocol
 3. Go to `Routes` > activate `Routes Server`
 pyRevit will start listening on port `http://localhost:48884/`
 
+Each extra Revit instance moves Routes up one port (48885, 48886, ...). The
+server reads `REVIT_HOST` and `REVIT_PORT` from its environment, so point it at
+another instance from the MCP client's `env` block rather than editing
+`main.py`:
+
+```json
+{
+  "mcpServers": {
+    "revit": {
+      "command": "uv",
+      "args": ["run", "--directory", "/absolute/path/to/mcp-server-for-revit-python", "main.py"],
+      "env": {
+        "REVIT_PORT": "48884"
+      }
+    }
+  }
+}
+```
+
 ### Install from pyRevit:
 
 1. In Revit, navigate to the pyRevit tab
@@ -228,16 +247,19 @@ Or for manual installation:
       "command": "uv",
       "args": [
         "run",
-        "--with",
-        "mcp[cli]",
-        "mcp",
-        "run",
-        "/absolute/path/to/main.py"
+        "--directory",
+        "/absolute/path/to/mcp-server-for-revit-python",
+        "main.py"
       ]
     }
   }
 }
 ```
+
+`uv run --directory` resolves the environment from `uv.lock`, so the pinned
+`mcp` 1.x release is used. Avoid `uv run --with "mcp[cli]"`: that installs the
+latest release, and in `mcp` 2.x `FastMCP` was renamed to `MCPServer`, so
+`main.py` fails on import.
 
 For HTTP transport mode, configure Claude Desktop with:
 ```json
@@ -253,7 +275,7 @@ For HTTP transport mode, configure Claude Desktop with:
 ### Connecting to Claude Code
 
 ```bash
-claude mcp add -s user "Revit-Connector" -- uv run --with "mcp[cli]" mcp run /absolute/path/to/main.py
+claude mcp add -s user "Revit-Connector" -- uv run --directory /absolute/path/to/mcp-server-for-revit-python main.py
 ```
 
 # Creating Your Own Tools

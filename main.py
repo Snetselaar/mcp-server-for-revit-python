@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 import httpx
 import anyio
@@ -16,9 +17,10 @@ mcp = FastMCP(
     json_response=True
 )
 
-# Configuration
-REVIT_HOST = "localhost"
-REVIT_PORT = 48884  # Default pyRevit Routes port
+# Configuration. pyRevit Routes listens on 48884 and moves up one port for each
+# extra Revit instance, so both are overridable from the MCP client's env block.
+REVIT_HOST = os.environ.get("REVIT_HOST", "localhost")
+REVIT_PORT = int(os.environ.get("REVIT_PORT", "48884"))
 BASE_URL = f"http://{REVIT_HOST}:{REVIT_PORT}/revit_mcp"
 
 
