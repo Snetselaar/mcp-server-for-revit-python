@@ -24,7 +24,6 @@ async def test_server_imports_and_registers_every_module():
         "place_family",  # family_tools
         "list_levels",  # model_tools
         "color_splash",  # colors_tools
-        "execute_revit_code",  # code_execution_tools
         "launch_revit",  # launch_tools
         "open_document",  # document_tools
     }

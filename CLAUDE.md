@@ -32,6 +32,7 @@ Bewuste afwijkingen van upstream, bij te houden bij elke volgende:
 | Datum | Bestand | Wijziging | Waarom |
 |---|---|---|---|
 | 2026-08-26 | `main.py:21-25` | `REVIT_HOST`/`REVIT_PORT` uit omgevingsvariabelen, default onveranderd `localhost:48884` | de Routes-poort ligt niet vast; hardgecodeerd 48884 brak de verbinding. Kandidaat voor een PR bij upstream. |
+| 2026-09-07 | `revit_mcp/code_execution.py`, `tools/code_execution_tools.py`, `tests/unit/` | de route `/execute_code/` en de bijbehorende MCP-tool verwijderd, inclusief de tests die ze aanriepen | de route liet Revit crashen. Bewust *geen* PR-kandidaat: dit is onze keuze, niet een upstream-defect. |
 
 ## Kennisbank
 
