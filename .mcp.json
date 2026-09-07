@@ -5,9 +5,12 @@
       "args": [
         "run",
         "--directory",
-        "${REVIT_MCP_HOME:-C:\\Users\\S-WOU1A\\Documents\\GitHub\\mcp-server-for-revit-python}",
+        "${REVIT_MCP_HOME:-C:\\Users\\S-WOU1A\\OneDrive - Snetselaar Constructieve Ingenieurs\\Documenten\\GitHub\\mcp-server-for-revit-python}",
         "main.py"
-      ]
+      ],
+      "env": {
+        "REVIT_PORT": "48884"
+      }
     }
   }
 }
