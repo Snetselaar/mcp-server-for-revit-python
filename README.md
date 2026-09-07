@@ -128,6 +128,25 @@ They never conflict because they serve different roles, speak different protocol
 3. Go to `Routes` > activate `Routes Server`
 pyRevit will start listening on port `http://localhost:48884/`
 
+Each extra Revit instance moves Routes up one port (48885, 48886, ...). The
+server reads `REVIT_HOST` and `REVIT_PORT` from its environment, so point it at
+another instance from the MCP client's `env` block rather than editing
+`main.py`:
+
+```json
+{
+  "mcpServers": {
+    "revit": {
+      "command": "uv",
+      "args": ["run", "--directory", "/absolute/path/to/mcp-server-for-revit-python", "main.py"],
+      "env": {
+        "REVIT_PORT": "48884"
+      }
+    }
+  }
+}
+```
+
 ### Install from pyRevit:
 
 1. In Revit, navigate to the pyRevit tab
