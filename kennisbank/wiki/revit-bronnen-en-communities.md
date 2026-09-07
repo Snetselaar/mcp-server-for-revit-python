@@ -1,14 +1,19 @@
 ---
 titel: Waar Revit-kennis vandaan komt — bronnen, kanalen en het P.R.O.C.E.S.S.-kader
 status: concept
-laatst-bijgewerkt: 2026-08-26
+laatst-bijgewerkt: 2026-08-31
 bronnen:
   - "raw/2026-08-25 samenvatting-bronnen.md §2 t/m §5"
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §7"
+  - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1, §2 en §7"
 verwant:
   - rebar-api-parameters.md
   - mcp-revit-koppeling.md
   - mcp-versus-custom-tools.md
+  - ai-brain-kennisorganisatie-pyrevit.md
+  - ai-tools-voor-pyrevit-ontwikkeling.md
+  - batch-upgrade-en-conversie-revit-bestanden.md
+  - vyssuals-datavisualisatie.md
 skill: revit-api-docs
 ---
 
@@ -30,9 +35,8 @@ Wat de dump toevoegt en daar niet in staat:
 
 **Revit API Docs** dekt de versies **2015 t/m 2026** volgens de dump, en is
 bruikbaar voor C#, VB.NET, C++ én Python. De skill noemt 2020 t/m 2027. Geen
-tegenspraak — beide gaan over hetzelfde onvolledig gedocumenteerde bereik — maar
-het is de moeite waard te weten dat de site ook ver terug reikt bij een oud
-project.
+tegenspraak — beide gaan over hetzelfde onvolledig gedocumenteerde bereik. De
+site reikt bij een oud project alleen verder terug dan de skill claimt.
 
 De site linkt door naar het **Revit API Forum**, het **Dynamo Forum** en de
 **Building Coder Blog**. Die eerste is in de praktijk waar echte werkende code
@@ -65,6 +69,13 @@ EF-Tools staat al in `sci-bim-context` §2 als onderdeel van de tech stack. Wat
 daar niet staat is dat er een StarterKit achter zit, en dat de auteur ook
 `rvtdocs.com` maakt — een van de bronnen uit de skill `revit-api-docs`. Dezelfde
 persoon zit dus achter drie dingen die hier gebruikt worden.
+
+Twee latere producten van dezelfde bron staan uitgewerkt in eigen artikelen:
+een Obsidian-gebaseerde raw/wiki/skills-kennisdatabase voor de Revit API
+(`ai-brain-kennisorganisatie-pyrevit.md` — qua opzet vrijwel identiek aan het
+schema van déze kennisbank) en twee losse ontwikkelhulpmiddelen, gratis
+Claude Code via OpenRouter en een browser-based WPF Form Builder
+(`ai-tools-voor-pyrevit-ontwikkeling.md`).
 
 ### Het P.R.O.C.E.S.S.-kader
 
@@ -129,6 +140,7 @@ Geen ranglijst, maar een wegwijzer.
 | **BIM Pure** | Revit-basis, templates, coördinatensysteem, view ranges, central versus local |
 | **Balkan Architect** | architectuur, en foutafhandeling |
 | **Man and Machine** | breed CAD/BIM, ook AutoCAD Electrical, Vault, Inventor |
+| **Gavin Nicholls** (interviewgast bij BIM Pure) | AI-strategie bij grotere bureaus, determinisme versus AI-agents, zie `mcp-versus-custom-tools.md` §3 |
 
 ### Twee foutmeldingen die het waard zijn te onthouden
 
@@ -153,3 +165,11 @@ wél bekeken en verwerkt in `mcp-versus-custom-tools.md`: de vergelijking met de
 officiële Autodesk 2027-server en drie waarnemingen van Claude Code op de
 pyRevit-brug (warnings oplossen, gegenereerde code als ribbon-knop, materiaal
 opruimen met bevestiging).
+
+Twee andere producten uit hetzelfde kanaal: de **BIM Pure Plugin** (versie 0.4
+op 2026-08-31) met een batchgewijze Revit-versie-upgrade en een
+family-eenhedenconvertor, zie `batch-upgrade-en-conversie-revit-bestanden.md`.
+En, via een aflevering met Iskar Chindel als gast, **Vyssuals**: een los
+product (geen BIM Pure-eigen tool) voor kleurgebaseerde data-analyse van
+Revit-modellen in de browser, met een eigen MCP-koppeling naar Claude Code —
+zie `vyssuals-datavisualisatie.md`.

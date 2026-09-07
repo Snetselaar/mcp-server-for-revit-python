@@ -1,14 +1,18 @@
 ---
 titel: MCP versus custom tools — wanneer welke, en de Autodesk 2027-server
 status: concept
-laatst-bijgewerkt: 2026-08-28
+laatst-bijgewerkt: 2026-08-31
 bronnen:
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §6, §7 en §8"
+  - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1 en §7"
   - skill sci-bim-context §1
 verwant:
   - mcp-revit-koppeling.md
   - mcp-eigen-tools-toevoegen.md
   - revit-bronnen-en-communities.md
+  - vyssuals-datavisualisatie.md
+  - ai-tools-voor-pyrevit-ontwikkeling.md
+  - appartementdata-genereren-met-ai.md
 skill: sci-bim-context
 ---
 
@@ -18,7 +22,7 @@ skill: sci-bim-context
 artikel gaat over de vraag ervóór: *wanneer* je de AI-brug inzet en wanneer een
 gewone pyRevit-knop beter is. De afweging komt van Erik Frits en BIM Pure
 (`raw/2026-08-27_revit_mcp_bronnen_transcripties.md` §8), en valt vrijwel samen
-met de eerste SCI-werkafspraak.
+met de tweede SCI-werkafspraak.
 
 ---
 
@@ -50,11 +54,13 @@ Erik Frits waarschuwt voor drie dingen
 - **Black box.** Een neuraal netwerk toont zijn logica niet; je weet nooit zeker
   welke stappen zijn toegepast.
 
-Dit raakt direct de brug uit `mcp-revit-koppeling.md`. Twee faalpunten daar zijn
-de technische kant van precies deze risico's: `execute_revit_code` opent geen
-eigen transactie (§4) en een timeout annuleert de lopende bewerking niet (§3). De
-AI kan dus modelwijzigende code sturen zonder omhullende transactie, en bij een
-timeout niet wéten dat de wijziging tóch doorliep.
+Dit raakt direct de brug uit `mcp-revit-koppeling.md`. Twee faalpunten daar waren
+de technische kant van precies deze risico's: `execute_revit_code` opende geen
+eigen transactie en een timeout annuleert de lopende bewerking niet (§3). Het
+eerste punt is op 2026-08-31 niet gerepareerd maar weggesneden — de route
+bestaat niet meer, precies omdat modelwijzigende code zonder omhullende
+transactie kon crashen (§4 van `mcp-revit-koppeling.md`). Het tweede,
+timeout-risico, geldt onverkort voor de resterende negentien eindpunten.
 
 ## 3. Het advies — bouw tools *met* AI, niet autonome MCP
 
@@ -66,13 +72,47 @@ Frits: richt je niet op een volledig autonome MCP-server in productie, maar op
 van AI om code te genereren, en houd je de controle over werking, snelheid en
 voorspelbaarheid van de knoppen.
 
-**Dit is woordelijk de eerste SCI-werkafspraak.** `sci-bim-context` §1: niet
+**Dit is woordelijk de tweede SCI-werkafspraak.** `sci-bim-context` §1: niet
 overcompliceren, check eerst of Revit het native kan, houd de controle bij de
 ontwikkelaar. Een onafhankelijke bron komt tot dezelfde conclusie. Het versterkt
 ook stap **P** uit het P.R.O.C.E.S.S.-kader in `revit-bronnen-en-communities.md`
 §2, en het verklaart waarom deze repo een pijplijn van *custom tools* is
-(twintig vaste endpoints, §4 van `mcp-revit-koppeling.md`) met `execute_revit_code`
-als uitzondering, en niet andersom.
+(negentien vaste endpoints, §4 van `mcp-revit-koppeling.md`). Tot 2026-08-31
+was `execute_revit_code` de bewuste uitzondering op die regel; die uitzondering
+is inmiddels zelf verwijderd (zie §2 hierboven), wat de kernstelling van dit
+artikel eerder bevestigt dan tegenspreekt.
+
+### Een tweede, onafhankelijke bron: Gavin Nicholls
+
+`raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md` §1 (een
+interview van BIM Pure met Gavin Nicholls) bevestigt hetzelfde standpunt vanuit
+een andere hoek, zonder Erik Frits of `sci-bim-context` te kennen. Twee
+punten die dit artikel versterken:
+
+- **Marktverzadiging van AI-agents voor Revit.** Nick (BIM Pure) constateert
+  dat vrijwel elke "nieuwe AI-agent voor Revit" die hem bereikt in wezen
+  hetzelfde doet als de gratis pyRevit MCP-setup: een promptbalk die een knop
+  aan de ribbon toevoegt. Zonder een écht onderscheidend kenmerk is daarvoor
+  betalen zinloos — een marktargument náást het technische argument uit dit
+  artikel.
+- **Determinisme als harde eis in productie.** Gavin: gebruikers in een
+  professionele omgeving willen een tool die "exact doet wat hij belooft",
+  niet een tool die gokt en achteraf blijkt dat er per ongeluk elementen
+  verwijderd zijn zonder melding. Zijn conclusie: focus op deterministische
+  automatisering en goede organisatorische dataschema's (een Markdown-bestand
+  dat beschrijft hoe de AI door bedrijfsdata navigeert), zodat er een helder
+  schema klaarligt zodra AI wél volledig betrouwbaar wordt.
+
+Met deze tweede, onafhankelijke bron voldoet de kernstelling van dit artikel
+aan de promotiedrempel uit `kennisbank/CLAUDE.md` §4 (twee onafhankelijke
+bronnen). Het artikel als geheel blijft niettemin op `concept` staan: de
+overige secties (Autodesk 2027-server, de drie Claude Code-waarnemingen)
+leunen nog op de losse bron uit §6-7.
+
+Een derde, eveneens onafhankelijke bevestiging van het mens-in-de-lus-patroon
+staat in `vyssuals-datavisualisatie.md` §3: Vyssuals bouwt bewust geen AI in de
+eigen software in en laat AI-voorstellen altijd eerst zichtbaar goedkeuren
+voordat ze naar Revit worden geschreven.
 
 ## 4. De officiële Autodesk MCP-server in Revit 2027
 
@@ -110,9 +150,11 @@ waarnemingen, als ijkpunt voor wat haalbaar is:
 
 - **Warnings.** Claude loste in een test **20 van de 86** actieve model-warnings
   zelf op (dubbele elementen, eenvoudige verbindingsfouten) en vroeg bij
-  complexere overlappingen om menselijke tussenkomst. Warnings oplossen kan alleen
-  via `execute_revit_code`; een eigen tool ervoor bestaat in deze repo niet (§4
-  van `mcp-revit-koppeling.md`).
+  complexere overlappingen om menselijke tussenkomst. Dat liep in de demo via
+  `execute_revit_code`. Die route is op 2026-08-31 uit deze repo verwijderd
+  (`mcp-revit-koppeling.md` §4) omdat hij zonder sandbox of transactie kon
+  crashen; warnings oplossen kan via deze repo dus **op dit moment helemaal
+  niet meer**, gedemonstreerd of niet.
 - **Gegenereerde code als ribbon-knop.** Werkt een script goed, dan kan Claude
   Code er een pyRevit-knop van maken: het maakt de mappenstructuur aan en voegt
   een tab of knop toe. Dat is de brug tussen "ad-hoc via MCP" en "vaste tool",
@@ -125,3 +167,10 @@ waarnemingen, als ijkpunt voor wat haalbaar is:
 Deze drie zijn demonstraties uit video's, geen metingen op een SCI-model.
 [ONBEVESTIGD] Of dezelfde resultaten gelden op de zwaardere SCI-projectmodellen;
 dat is niet nagemeten.
+
+**Een vierde waarneming, uitgewerkt in een eigen artikel:** een complete
+casus van BIM Pure waarin ad-hoc Area-analyse (afstanden, ramen, buren,
+plafondhoogte) via de MCP-brug uitgroeit tot een vaste pyRevit-knop met
+Excel-reconciliatie, inclusief een tokenbeheer-advies dat rechtstreeks
+aansluit op de kosten-/schaalafweging in §1. Zie
+`appartementdata-genereren-met-ai.md`.

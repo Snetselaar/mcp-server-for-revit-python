@@ -1,9 +1,10 @@
 ---
 titel: BuiltInParameters voor wapening — wat er klopt van de dump
 status: concept
-laatst-bijgewerkt: 2026-08-28
+laatst-bijgewerkt: 2026-08-31
 bronnen:
   - "gemeten 2026-08-28: live Routes-API op localhost:48884, Revit 2025, Enum.IsDefined(BuiltInParameter, <naam>) via /execute_code/"
+  - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code, 2026-08-31)"
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §5 (de te controleren tabel)"
   - https://forums.autodesk.com/t5/revit-api-forum/get-rebar-layout-rule/td-p/12431938
   - https://www.revitapidocs.com/2015/669bcf80-e0b7-ee57-30c0-82fdf4184012.htm
@@ -14,6 +15,8 @@ verwant:
   - rebar-documentatie-en-staten.md
   - mcp-revit-koppeling.md
   - revit-bronnen-en-communities.md
+  - batch-upgrade-en-conversie-revit-bestanden.md
+  - appartementdata-genereren-met-ai.md
 skill: revit-api-docs
 ---
 
@@ -48,6 +51,15 @@ zonder controle. Dit artikel legt vast wat de controle heeft opgeleverd.
 > naam toetsen tegen de **draaiende** API met `Enum.IsDefined` is definitiever dan
 > een documentatiepagina, mits Revit lokaal bereikbaar is via de Routes-server
 > (zie `mcp-revit-koppeling.md` §4).
+>
+> **[Verouderd sinds 2026-08-31]** Deze methode liep via `/execute_code/`. Die
+> route is op 2026-08-31 volledig uit deze repo verwijderd (crash-risico zonder
+> sandbox of transactie, zie `mcp-revit-koppeling.md` §4). De hieronder
+> beschreven `Enum.IsDefined`-toets is dus niet meer op deze manier te herhalen
+> — ook niet voor de nog openstaande 2024/2027-spotcheck in §6. Vervangende
+> leesroute: de **Nonica-connector** (`mcp-revit-koppeling.md` §4, bevestigd
+> door de gebruiker op 2026-08-31). Of `Enum.IsDefined`-achtige checks daarmee
+> mogelijk zijn, is niet vastgelegd.
 
 **Geen enkele claim hieronder is geverifieerd in de zin van `revit-api-docs` §0
 regel 3.** Die regel eist een opgehaalde documentatiepagina. In de sessie waarin
@@ -261,5 +273,9 @@ open is:
   `CLEAR_COVER` op Autodesk-docs die niet zijn opgehaald. Die drie zijn het
   narekenen waard tegen een echte doc-pagina of een testmodel.
 - **2024 en 2027.** Gemeten is alleen 2025. Voor deze langbestaande enum-leden is
-  verschil onwaarschijnlijk, maar strikt genomen niet uitgesloten — met een
-  draaiende 2024 of 2027 is dezelfde `Enum.IsDefined`-check in seconden gedaan.
+  verschil onwaarschijnlijk, maar strikt genomen niet uitgesloten. **Niet meer
+  "in seconden gedaan" zoals hier eerder stond:** de route waarmee dat kon,
+  `/execute_code/`, is op 2026-08-31 verwijderd (zie §0). De spotcheck vraagt nu
+  óf de vervangende leesroute (de Nonica-connector, zie §0) een gelijkwaardige
+  `Enum.IsDefined`-achtige check biedt, óf een opgehaalde documentatiepagina
+  volgens `revit-api-docs`.

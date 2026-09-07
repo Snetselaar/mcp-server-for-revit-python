@@ -1,22 +1,30 @@
 ---
 titel: Een eigen MCP-tool toevoegen aan deze repo
 status: concept
-laatst-bijgewerkt: 2026-08-28
+laatst-bijgewerkt: 2026-08-31
 bronnen:
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §4 en §5"
   - startup.py, tools/__init__.py (deze repo)
   - skill pyrevit-codestijl
   - skill bimtools-logging
+  - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code, 2026-08-31)"
 verwant:
   - mcp-revit-koppeling.md
   - mcp-versus-custom-tools.md
+  - ai-tools-voor-pyrevit-ontwikkeling.md
 skill: sci-bim-context
 ---
 
 # Een eigen MCP-tool toevoegen
 
-`mcp-revit-koppeling.md` §4 somt de twintig bestaande tools op. Dit artikel gaat
-over het bouwen van een eenentwintigste. Het patroon komt uit de transcripties
+Voor het WPF/XAML-gedeelte van een nieuwe pushbutton bestaat inmiddels een
+extern hulpmiddel dat het handwerk automatiseert — zie
+`ai-tools-voor-pyrevit-ontwikkeling.md` §2. Dit artikel blijft de bron voor de
+repo-specifieke kant: de route-module, de tool-module en de twee registraties.
+
+`mcp-revit-koppeling.md` §4 somt de negentien bestaande tools op (twintig tot
+`execute_revit_code` op 2026-08-31 verwijderd werd). Dit artikel gaat over het
+bouwen van een twintigste. Het patroon komt uit de transcripties
 van Erik Frits en BIM Pure (`raw/2026-08-27_revit_mcp_bronnen_transcripties.md`
 §4) en is hier gelegd naast de echte registratieplekken in deze repo.
 
@@ -150,8 +158,11 @@ mcp dev main.py
 Dat start een lokale webomgeving op `http://127.0.0.1:6274`. Daar staat de
 volledige toollijst, kun je een tool handmatig aanroepen en de rauwe JSON-respons
 zien, en controleren of argumenten goed doorkomen en fouten netjes worden
-afgevangen. Ook `execute_revit_code` is er handmatig te voeden met IronPython, wat
-sneller debugt dan via een chatsessie.
+afgevangen. Sneller dan via een chatsessie debuggen, ook voor een nieuw
+endpoint. [Verouderd sinds 2026-08-31] De bron gebruikt hier `execute_revit_code`
+als voorbeeld om handmatig IronPython te voeden; die route bestaat niet meer
+(`mcp-revit-koppeling.md` §4). Het idee — nieuwe endpoints los testen vóór de
+AI ze aanraakt — blijft onverkort geldig voor elke tool die wél bestaat.
 
 ## 5. Logging — via de SCI-conventie, niet die van de bron
 

@@ -1,7 +1,7 @@
 ---
 titel: De MCP-Revit-koppeling — opbouw, tools en faalpunten
 status: concept
-laatst-bijgewerkt: 2026-08-28
+laatst-bijgewerkt: 2026-08-31
 bronnen:
   - README.md (deze repo)
   - main.py, startup.py, tools/, revit_mcp/ (deze repo)
@@ -10,11 +10,15 @@ bronnen:
   - "gemeten 2026-08-26: Revit PID 30312, model S-9132_R25, luisterpoort 48885"
   - "%APPDATA%/pyRevit/pyRevit_config.ini, sectie [routes]"
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §2, §3, §6"
+  - "gemeten 2026-08-31: Revit PID 19100, model S-9464 Apartementen_R25, luisterpoort 48884"
+  - "pyrevitlib/pyrevit/routes/server/server.py:41-42, 108-132 (pyRevit-Master clone)"
+  - "gebruiker, bevestigd in sessie op 2026-08-31: Nonica-connector als vervangende leesroute"
 verwant:
   - rebar-api-parameters.md
   - revit-bronnen-en-communities.md
   - mcp-eigen-tools-toevoegen.md
   - mcp-versus-custom-tools.md
+  - vyssuals-datavisualisatie.md
 skill: sci-bim-context
 ---
 
@@ -98,6 +102,11 @@ REVIT_PORT = int(os.environ.get("REVIT_PORT", "48884"))
 De default blijft 48884, zodat het gedrag zonder omgevingsvariabelen gelijk is
 aan upstream. De werkelijke poort staat in `.mcp.json` onder `env`.
 
+Op 2026-08-31 stond in `.mcp.json` nog `48885` terwijl de draaiende Revit
+(PID 19100) op **48884** luisterde — de client wees dus naar een poort waar
+niets stond. Teruggezet op 48884. Dit blijft een handmatige stap zolang de
+poort per Revit-instantie opschuift.
+
 De poort opzoeken:
 
 ```powershell
@@ -156,7 +165,7 @@ Drie verschillende, en dat verklaart een deel van de "hij doet niks"-momenten:
   annulering** — de transactie in Revit loopt door. Opnieuw aanroepen kan de
   bewerking dus dubbel uitvoeren.
 
-## 4. De 20 tools en hun endpoints
+## 4. De tools en hun endpoints
 
 Elke MCP-tool in `tools/` mapt op één Routes-endpoint in `revit_mcp/`.
 Nagelopen op 2026-08-25 tegen `tools/*.py` en `revit_mcp/*.py`; deze tabel
@@ -177,7 +186,7 @@ verschuift zodra upstream een tool toevoegt.
 | `color_splash` | `/color_splash/` | POST | `revit_mcp/colors.py:1087` |
 | `clear_colors` | `/clear_colors/` | POST | `revit_mcp/colors.py:1128` |
 | `list_category_parameters` | `/list_category_parameters/` | POST | `revit_mcp/colors.py:1160` |
-| `execute_revit_code` | `/execute_code/` | POST | `revit_mcp/code_execution.py:20` |
+| ~~`execute_revit_code`~~ | ~~`/execute_code/`~~ | — | **verwijderd 31-08-2026**, zie hieronder |
 | `open_document` | `/open_document/` | POST | `revit_mcp/document.py:19` |
 | `close_document` | `/close_document/` | POST | `revit_mcp/document.py:131` |
 | `save_document` | `/save_document/` | POST | `revit_mcp/document.py:197` |
@@ -188,7 +197,15 @@ verschuift zodra upstream een tool toevoegt.
 Registratievolgorde staat in `tools/__init__.py` (MCP-kant) en `startup.py`
 (Revit-kant). Een nieuwe tool vereist een wijziging in beide.
 
-### `execute_revit_code` is de ontsnappingsklep
+### `execute_revit_code` is de ontsnappingsklep — VERWIJDERD 31-08-2026
+
+> **Deze route en tool bestaan niet meer.** Op 31-08-2026 zijn
+> `revit_mcp/code_execution.py`, de registratie in `startup.py` en
+> `tools/code_execution_tools.py` uit de koppeling gehaald. Reden: de route
+> `exec()`t willekeurige IronPython in het levende Revit-proces zonder schema,
+> sandbox of transactie. Een verkeerde API-aanroep is daar geen Python-exception
+> maar een access violation, en dat is de crash die in de praktijk optrad.
+> De beschrijving hieronder blijft staan als verantwoording van dat besluit.
 
 Voert IronPython uit binnen de Revit-context met `doc`, `uidoc`, `DB` en `revit`
 al in de namespace (`revit_mcp/code_execution.py:53-58`). `print` wordt
@@ -199,8 +216,16 @@ De handler geeft nuttige foutafhandeling terug: bij `AttributeError`,
 `NullReferenceException` en `InvalidOperationException` komt er een gerichte hint
 mee (`revit_mcp/code_execution.py:93-116`), plus de volledige traceback.
 
-Dit is de tool die alles kan wat de andere negentien niet kunnen, en de tool die
-het model kan slopen.
+Dit is de tool die alles kon wat de andere negentien niet kunnen, en de tool die
+het model kon slopen.
+
+**Vervangende leesroute (bevestigd door de gebruiker, 2026-08-31): de
+Nonica-connector.** Voor worksets, warnings, project units en
+per-element-parameters — de vier categorieën die geen eigen endpoint hebben en
+tot 31-08-2026 via `execute_revit_code` gingen — is de Nonica-connector nu de
+weg om uit te lezen. [ONBEVESTIGD] De precieze werking en of de Nonica-route
+ook kán schrijven (`execute_revit_code` kon dat wel) is hier niet vastgelegd;
+dat is aanvullend uit te zoeken zodra het concreet nodig is.
 
 #### `use_transaction` doet niets
 
@@ -351,15 +376,33 @@ met §4. Het conflictblok hierboven is daarmee historisch — het beschrijft de
 skill zoals hij tot 2026-08-28 luidde en is bewaard als bronketen, niet als een
 openstaande tegenspraak.
 
+> **Conflict met skill `sci-bim-context`, gevonden bij de health check van
+> 2026-08-31 — opgelost dezelfde dag.** `references/template-en-mcp.md` §C
+> telde nog "Twintig stuks" tools en noemde `execute_revit_code` —
+> "Willekeurige IronPython in de Revit-context" — als bestaande rij, inclusief
+> de zin dat worksets, warnings, project units en per-element-parameters daar
+> allemaal doorheen gingen. Die route bestond op dat moment al niet meer (zie
+> hierboven); de skillbron was dus opnieuw stale, drie dagen na de vorige
+> correctie. Zie `outputs/2026-08-31-healthcheck.md` bevinding 1.
+>
+> **Opgelost 2026-08-31.** De skillbron is bijgewerkt (rij verwijderd,
+> "Twintig" → "Negentien", de tekst over de ontsnappingsklep herschreven met de
+> Nonica-connector als vervangende leesroute), ingepakt met `pack_skill.ps1`,
+> geüpload naar claude.ai en vastgelegd met `skill_uploads.ps1 -Mark
+> sci-bim-context` (sha256 `97ec9542…`, commit `921994f`). Wat Claude in een
+> gesprek leest komt weer overeen met §4 hierboven.
+
 ## 7. Waar dit niet over gaat
 
 - Categorie- en parameter-ID's: staan in `sci-bim-context`,
   `references/template-en-mcp.md` §C. `hoofd_map` en `sub_map` altijd op naam
   opzoeken, nooit op ID.
-- Het schrijven van IronPython voor `execute_revit_code`: skill
-  `pyrevit-codestijl`.
+- IronPython schrijven voor de negentien resterende endpoints: skill
+  `pyrevit-codestijl`. (Tot 2026-08-31 gold dit ook voor `execute_revit_code`;
+  die route is verwijderd, zie §4.)
 - Het opzoeken van Revit API-signaturen: skill `revit-api-docs`, en voor het
   bredere bronnenlandschap `revit-bronnen-en-communities.md`.
-- Concrete parameters uitlezen: `rebar-api-parameters.md`. Dat gaat in de praktijk
-  via `execute_revit_code`, en let dan op §4 hierboven — die tool opent géén
-  transactie. Lezen kan zonder, schrijven niet.
+- Concrete parameters uitlezen: `rebar-api-parameters.md`. Dat ging tot
+  2026-08-31 via `execute_revit_code` (zonder eigen transactie, zie §4); sinds
+  de verwijdering is de Nonica-connector de leesroute (§4). Of die ook kan
+  schrijven zoals `execute_revit_code` deed, staat niet vast.
