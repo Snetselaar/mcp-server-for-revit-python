@@ -228,16 +228,19 @@ Or for manual installation:
       "command": "uv",
       "args": [
         "run",
-        "--with",
-        "mcp[cli]",
-        "mcp",
-        "run",
-        "/absolute/path/to/main.py"
+        "--directory",
+        "/absolute/path/to/mcp-server-for-revit-python",
+        "main.py"
       ]
     }
   }
 }
 ```
+
+`uv run --directory` resolves the environment from `uv.lock`, so the pinned
+`mcp` 1.x release is used. Avoid `uv run --with "mcp[cli]"`: that installs the
+latest release, and in `mcp` 2.x `FastMCP` was renamed to `MCPServer`, so
+`main.py` fails on import.
 
 For HTTP transport mode, configure Claude Desktop with:
 ```json
@@ -253,7 +256,7 @@ For HTTP transport mode, configure Claude Desktop with:
 ### Connecting to Claude Code
 
 ```bash
-claude mcp add -s user "Revit-Connector" -- uv run --with "mcp[cli]" mcp run /absolute/path/to/main.py
+claude mcp add -s user "Revit-Connector" -- uv run --directory /absolute/path/to/mcp-server-for-revit-python main.py
 ```
 
 # Creating Your Own Tools
