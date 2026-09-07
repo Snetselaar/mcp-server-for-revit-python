@@ -66,7 +66,9 @@ def register_model_info_routes(api):
                 "Stairs": DB.BuiltInCategory.OST_Stairs,
                 "Railings": DB.BuiltInCategory.OST_Railings,
                 "Columns": DB.BuiltInCategory.OST_Columns,
+                "Structural_Columns": DB.BuiltInCategory.OST_StructuralColumns,
                 "Structural_Framing": DB.BuiltInCategory.OST_StructuralFraming,
+                "Structural_Foundations": DB.BuiltInCategory.OST_StructuralFoundation,
                 "Furniture": DB.BuiltInCategory.OST_Furniture,
                 "Lighting_Fixtures": DB.BuiltInCategory.OST_LightingFixtures,
                 "Plumbing_Fixtures": DB.BuiltInCategory.OST_PlumbingFixtures,
@@ -259,12 +261,27 @@ def register_model_info_routes(api):
                 schedules = sum(
                     1 for v in valid_views if v.ViewType == DB.ViewType.Schedule
                 )
+                ceiling_plans = sum(
+                    1 for v in valid_views if v.ViewType == DB.ViewType.CeilingPlan
+                )
+                # Catch-all so the breakdown always sums to views_count
+                # (drafting views, legends, area plans, walkthroughs, ...)
+                other_views = (
+                    views_count
+                    - floor_plans
+                    - elevations
+                    - sections
+                    - threed_views
+                    - schedules
+                    - ceiling_plans
+                )
 
             except Exception as e:
                 logger.warning("Could not get views/sheets: {}".format(str(e)))
                 sheets_count = 0
                 views_count = 0
                 floor_plans = elevations = sections = threed_views = schedules = 0
+                ceiling_plans = other_views = 0
 
             # ============ LINKED MODELS ============
             try:
@@ -333,6 +350,8 @@ def register_model_info_routes(api):
                         "floor_plans": floor_plans,
                         "elevations": elevations,
                         "sections": sections,
+                        "ceiling_plans": ceiling_plans,
+                        "other": other_views,
                         "3d_views": threed_views,
                         "schedules": schedules,
                     },
