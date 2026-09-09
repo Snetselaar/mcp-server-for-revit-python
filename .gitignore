@@ -1,4 +1,6 @@
-.claude/
+# .claude/ staat bewust WEL in git: commands en settings.json zijn projectconfig.
+# Alleen het persoonlijke, machinegebonden bestand blijft erbuiten.
+.claude/settings.local.json
 
 # Python-generated files
 __pycache__/
