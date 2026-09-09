@@ -375,6 +375,127 @@ def register_views_routes(api):
                 status=500,
             )
 
+    @api.route("/selection_info/", methods=["GET"])
+    def get_selection_info(doc, uidoc):
+        """
+        Read-only. For each selected IndependentTag, return its head position
+        relative to the tagged host in view coordinates (rc = view right,
+        e = view up), plus the distance below the host profile bottom. Meant to
+        calibrate tag placement without execute_code. No transaction, no writes.
+
+        UITGESCHAKELD. Read-only is hier niet hetzelfde als veilig: deze handler
+        draait op de HTTP-thread, en Selection/get_BoundingBox aanroepen buiten
+        de Revit API-thread liet Revit onvoorspelbaar crashen (2x goed, de 3e
+        keer plat). Zie KNOWN_ISSUES.md. De implementatie hieronder blijft staan
+        als basis voor de fix via IExternalEventHandler + ExternalEvent; haal de
+        guard pas weg als de call daadwerkelijk naar de API-thread gemarshald
+        wordt. Voor uitlezen/nameten: gebruik de Nonica-connector.
+        """
+        return routes.make_response(
+            data={
+                "error": "selection_info is uitgeschakeld: onveilig vanaf de "
+                         "routes-thread, zie KNOWN_ISSUES.md. Gebruik de "
+                         "Nonica-connector om uit te lezen."
+            },
+            status=501,
+        )
+
+        try:  # pragma: no cover - onbereikbaar tot de ExternalEvent-fix er is
+            if not uidoc or not uidoc.Document:
+                return routes.make_response(
+                    data={"error": "No active Revit document"}, status=503
+                )
+
+            def dot(a, b):
+                return a.X * b.X + a.Y * b.Y + a.Z * b.Z
+
+            def type_name(el):
+                try:
+                    et = doc.GetElement(el.GetTypeId())
+                    p = (et.get_Parameter(DB.BuiltInParameter.ALL_MODEL_TYPE_NAME)
+                         if et else None)
+                    return normalize_string(p.AsString()) if p and p.AsString() else "?"
+                except Exception:
+                    return "?"
+
+            def fam_name(el):
+                try:
+                    return normalize_string(el.Symbol.FamilyName)
+                except Exception:
+                    try:
+                        p = el.get_Parameter(DB.BuiltInParameter.ELEM_FAMILY_PARAM)
+                        return normalize_string(p.AsValueString()) if p else "?"
+                    except Exception:
+                        return "?"
+
+            ids = list(uidoc.Selection.GetElementIds())
+            result = []
+            for eid in ids:
+                el = doc.GetElement(eid)
+                if not isinstance(el, DB.IndependentTag):
+                    result.append({
+                        "id": element_id_value(eid),
+                        "note": "not a tag",
+                        "class": type(el).__name__,
+                    })
+                    continue
+                info = {"tag_id": element_id_value(eid)}
+                try:
+                    v = doc.GetElement(el.OwnerViewId)
+                    right, up = v.RightDirection, v.UpDirection
+                    head = el.TagHeadPosition
+                    et = doc.GetElement(el.GetTypeId())
+                    info["tag_family"] = normalize_string(et.Family.Name) if et else "?"
+                    info["tag_type"] = type_name(el)
+                    info["view"] = normalize_string(get_element_name(v))
+                    hids = list(el.GetTaggedLocalElementIds())
+                    if not hids:
+                        info["note"] = "no host"
+                        result.append(info)
+                        continue
+                    h = doc.GetElement(hids[0])
+                    info["host_family"] = fam_name(h)
+                    info["host_type"] = type_name(h)
+                    loc = h.Location
+                    if isinstance(loc, DB.LocationCurve):
+                        a = loc.Curve.Evaluate(0.5, True)
+                    elif isinstance(loc, DB.LocationPoint):
+                        a = loc.Point
+                    else:
+                        info["note"] = "host has no location"
+                        result.append(info)
+                        continue
+                    e_bottom = None
+                    bb = h.get_BoundingBox(v)
+                    if bb is not None:
+                        es = []
+                        for ix in (bb.Min.X, bb.Max.X):
+                            for iy in (bb.Min.Y, bb.Max.Y):
+                                for iz in (bb.Min.Z, bb.Max.Z):
+                                    p = DB.XYZ(ix, iy, iz)
+                                    if bb.Transform is not None:
+                                        p = bb.Transform.OfPoint(p)
+                                    es.append(dot(p, up))
+                        e_bottom = min(es)
+                    info["rc_from_center_mm"] = round(
+                        (dot(head, right) - dot(a, right)) * 304.8, 1)
+                    info["e_from_center_mm"] = round(
+                        (dot(head, up) - dot(a, up)) * 304.8, 1)
+                    if e_bottom is not None:
+                        info["e_below_bottom_mm"] = round(
+                            (dot(head, up) - e_bottom) * 304.8, 1)
+                except Exception as ex:
+                    info["error"] = str(ex)
+                result.append(info)
+
+            return routes.make_response(
+                data={"status": "success", "count": len(result),
+                      "selection": result}
+            )
+        except Exception as e:
+            logger.error("selection_info failed: {}".format(str(e)))
+            return routes.make_response(data={"error": str(e)}, status=500)
+
     @api.route("/current_view_elements/", methods=["POST"])
     def get_current_view_elements(doc, uidoc, request):
         """

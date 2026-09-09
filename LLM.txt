@@ -17,7 +17,7 @@ This implementation uses a **modular architecture** that separates concerns and 
 
 ### **Project Structure**
 ```
-revit-mcp-python/
+mcp-server-for-revit-python/                   # repository root IS the pyRevit extension
 ├── main.py                                    # MCP Server (FastMCP implementation)
 ├── tools/                                     # MCP Tool definitions (organized by functionality)
 │   ├── __init__.py                           # Tool registration system
@@ -26,22 +26,22 @@ revit-mcp-python/
 │   ├── model_tools.py                        # Model information tools
 │   ├── view_tools.py                         # View export and image tools
 │   ├── family_tools.py                       # Family placement and management tools
-│   ├── colors_tools.py                       # Color splashing tools
-│   └── code_execution_tools.py               # Code execution tools
-├── revit-mcp-python.extension/               # pyRevit Extension
-│   ├── startup.py                            # Extension entry point - registers all routes
-│   └── revit_mcp/                            # Routes API modules (organized by functionality)
-│       ├── __init__.py
-│       ├── status.py                         # Health check and status endpoints
-│       ├── model_info.py                     # Model information endpoints
-│       ├── views.py                          # View export endpoints
-│       ├── placement.py                      # Family placement endpoints
-│       └── utils.py                          # Utility functions for IronPython compatibility
-│       └── colors.py                         # Color splashing endpoints
-│       └── code_execution.py                 # Code execution endpoints
+│   └── colors_tools.py                       # Color splashing tools
+├── startup.py                                # Extension entry point - registers all routes
+├── revit_mcp/                                # Routes API modules (organized by functionality)
+│   ├── __init__.py
+│   ├── status.py                             # Health check and status endpoints
+│   ├── model_info.py                         # Model information endpoints
+│   ├── views.py                              # View export endpoints
+│   ├── placement.py                          # Family placement endpoints
+│   ├── colors.py                             # Color splashing endpoints
+│   ├── document.py                           # Open/close/save/sync endpoints (no MCP tool yet)
+│   └── utils.py                              # Utility functions for IronPython compatibility
+├── extension.json                            # pyRevit extension manifest
+├── KNOWN_ISSUES.md                           # Thread-safety limits of the routes server
 ├── requirements.txt                          # Python dependencies
-├── pyproject.toml                           # Project configuration
-└── README.md                                # Project documentation
+├── pyproject.toml                            # Project configuration
+└── README.md                                 # Project documentation
 ```
 
 ### **Key Architecture Components**
@@ -52,7 +52,7 @@ revit-mcp-python/
    - Registers tools from modular tool system
    - Provides helper functions for GET/POST/Image requests
 
-2. **pyRevit Extension (`revit-mcp-python.extension/`)**:
+2. **pyRevit Extension (repository root)**:
    - Contains the Routes API that runs inside Revit
    - Modular route registration in `startup.py`
    - Individual route modules in `revit_mcp/` directory
@@ -437,12 +437,9 @@ The current implementation provides these tools organized by category:
 - **list_family_categories**: Get a list of all family categories in the current Revit model
 
 ### **Code Execution Tools**
-- **execute_revit_code**: Execute IronPython code directly in Revit context
-  - Parameters: code (string), description (optional)
-  - Provides access to doc, DB, revit modules
-  - Returns execution output and any print statements
-  - Handles transactions automatically for model modifications
-  - Use when existing MCP tools cannot accomplish the needed functionality
+- **REMOVED.** `execute_revit_code` and the `/execute_code/` route crashed Revit
+  and have been deleted. Do not re-add arbitrary code execution over the routes
+  server: its handlers do not run on the Revit API thread. See `KNOWN_ISSUES.md`.
 
 ### **Color Splashing Tools**
 - **splash_color**: Apply a color to all elements of a specific category in the Revit model
@@ -471,14 +468,19 @@ The pyRevit extension exposes these HTTP endpoints under `http://localhost:48884
 
 ### **Placement Endpoints**
 - `POST /place_family/` - Place family instance with detailed parameters
-- `GET /list_families/` - Get available families and types (supports contains/limit params)
+- `POST /list_families/` - Get available families and types (optional body: contains, limit)
 - `GET /list_family_categories/` - Get family categories with counts
 
 ### **Code Execution Endpoints**
-- `POST /execute_code/` - Execute IronPython code in Revit context
-  - Parameters: code (string), description (optional)
-  - Handles transactions automatically for model modifications
-  - Use when existing MCP tools cannot accomplish the needed functionality
+- **REMOVED.** `/execute_code/` no longer exists; see `KNOWN_ISSUES.md`.
+
+### **Document Endpoints** (routes only, no MCP tool yet)
+- `POST /open_document/`, `POST /close_document/`, `POST /save_document/`,
+  `POST /sync_with_central/`
+
+### **Disabled Endpoints**
+- `GET /selection_info/` - returns 501. Read-only, but unsafe from the routes
+  thread; kept as the basis for an `ExternalEvent` implementation.
 
 ### **Color Splashing Endpoints**
 - `POST /splash_color/` - Apply color to all elements of a specific category
@@ -499,10 +501,10 @@ The modular architecture makes it easy to add new functionality. The process inv
 
 ### **Part 1: Create the Route Module in Revit**
 
-First, create a new Python file within the `revit-mcp-python.extension/revit_mcp/` directory (e.g., `revit_mcp/your_module.py`). This module will contain all the related functions you want to expose, whether they are for reading data (`GET`) or modifying the model (`POST`).
+First, create a new Python file within the `revit_mcp/` directory (e.g., `revit_mcp/your_module.py`). This module will contain all the related functions you want to expose, whether they are for reading data (`GET`) or modifying the model (`POST`).
 
 ```
-# In revit-mcp-python.extension/revit_mcp/your_module.py
+# In revit_mcp/your_module.py
 
 # -*- coding: UTF-8 -*-
 """
@@ -613,10 +615,10 @@ Finally, register both the route module and the tool module. This makes them act
 
 **1. Register the Route Module:**
 
-Open `revit-mcp-python.extension/startup.py` and add your new route registration function.
+Open `startup.py` and add your new route registration function.
 
 ```
-# In revit-mcp-python.extension/startup.py
+# In startup.py
 
 # ... (other imports)
 # Import the registration function from your new module

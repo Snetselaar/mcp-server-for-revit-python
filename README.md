@@ -56,7 +56,7 @@ They never conflict because they serve different roles, speak different protocol
 - Registers tools from modular tool system
 - Provides helper functions for GET/POST/Image requests
 
-2.  **pyRevit Extension (`revit-mcp-python.extension/`)**:
+2.  **pyRevit Extension (repository root)**:
 
 - Contains the Routes API that runs inside Revit
 - Modular route registration in `startup.py`
@@ -87,17 +87,19 @@ They never conflict because they serve different roles, speak different protocol
 | `list_families` | ✅ Implemented | Family & Placement | Get a flat list of available family types (with filtering) |
 | `list_family_categories` | ✅ Implemented | Family & Placement | Get a list of all family categories in the model |
 | `get_current_view_info` | ✅ Implemented | View Information | Get detailed information about the currently active view |
-| `get_current_view_elements` | ✅ Implemented | View Information | Get all elements visible in the current view |
-| `create_point_based_element` | ✅ Implemented | Element Creation | Create point-based elements (doors, windows, furniture) |
+| `get_current_view_elements` | ✅ Implemented | View Information | Get all elements visible in the current view (limit, levels, location) |
 | `color_splash` | ✅ Implemented | Visualization | Color elements based on parameter values |
-| `execute_revit_code` | ✅ Implemented | Code Execution | Execute IronPython code directly in Revit context |
+| `clear_colors` | ✅ Implemented | Visualization | Clear graphic overrides applied by `color_splash` |
+| `list_category_parameters` | ✅ Implemented | Visualization | List the parameters available on a category, for use with `color_splash` |
 | `list_revit_installations` | ✅ Implemented | Launch & Document | Discover all Revit versions installed on the system |
 | `launch_revit` | ✅ Implemented | Launch & Document | Launch Revit, optionally with a file, and poll for readiness |
 | `open_document` | ✅ Implemented | Launch & Document | Open a document in running Revit (supports detach and audit) |
 | `close_document` | ✅ Implemented | Launch & Document | Close the active document |
 | `save_document` | ✅ Implemented | Launch & Document | Save or Save As the active document |
 | `sync_with_central` | ✅ Implemented | Launch & Document | Synchronize a workshared document with central |
-| `get_selected_elements` | 🔄 Pending | Selection Management | Get information about currently selected elements |
+| `execute_revit_code` | ❌ Removed | Code Execution | Crashed Revit; route and tool removed — see `KNOWN_ISSUES.md` |
+| `get_selected_elements` | ⛔ Blocked | Selection Management | Route `/selection_info/` exists but returns 501 — unsafe off the API thread |
+| `create_point_based_element` | 🔄 Pending | Element Creation | Create point-based elements (doors, windows, furniture) |
 | `create_line_based_element` | 🔄 Pending | Element Creation | Create line-based elements (walls, beams, pipes) |
 | `create_surface_based_element` | 🔄 Pending | Element Creation | Create surface-based elements (floors, ceilings) |
 | `delete_elements` | 🔄 Pending | Element Management | Delete specified elements from the model |
@@ -286,10 +288,10 @@ The process involves three main parts:
 
 ## Part 1: Create the Route Module in Revit
 
-Create a new Python file within the `revit-mcp-python.extension/revit_mcp/` directory (e.g., `revit_mcp/your_module.py`). This module will contain all the related functions you want to expose.
+Create a new Python file within the `revit_mcp/` directory (e.g., `revit_mcp/your_module.py`). This module will contain all the related functions you want to expose.
 
 ```python
-# In revit-mcp-python.extension/revit_mcp/your_module.py
+# In revit_mcp/your_module.py
 
 # -*- coding: UTF-8 -*-
 """
@@ -397,10 +399,10 @@ def register_your_tools(mcp, revit_get, revit_post, revit_image=None):
 
 ### 1. Register the Route Module
 
-Open `revit-mcp-python.extension/startup.py` and add your new route registration function.
+Open `startup.py` and add your new route registration function.
 
 ```python
-# In revit-mcp-python.extension/startup.py
+# In startup.py
 
 # ... (other imports)
 # Import the registration function from your new module

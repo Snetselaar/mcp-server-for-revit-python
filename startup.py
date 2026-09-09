@@ -37,10 +37,6 @@ def register_routes():
 
         register_color_routes(api)
 
-        from revit_mcp.code_execution import register_code_execution_routes
-
-        register_code_execution_routes(api)
-
         from revit_mcp.document import register_document_routes
 
         register_document_routes(api)

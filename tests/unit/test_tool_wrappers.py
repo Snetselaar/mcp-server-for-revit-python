@@ -7,7 +7,6 @@ from tools.model_tools import register_model_tools
 from tools.view_tools import register_view_tools
 from tools.family_tools import register_family_tools
 from tools.colors_tools import register_colors_tools
-from tools.code_execution_tools import register_code_execution_tools
 
 
 # ---- Status tools ----
@@ -181,45 +180,3 @@ class TestColorTools:
         self.mock_post.assert_called_once_with(
             "/list_category_parameters/", {"category_name": "Walls"}, None
         )
-
-
-# ---- Code execution tools ----
-
-class TestCodeExecutionTools:
-    @pytest.fixture(autouse=True)
-    def setup(self, mock_mcp, mock_revit_get, mock_revit_post, mock_revit_image):
-        mock_revit_post.return_value = {
-            "status": "success",
-            "output": "hello",
-        }
-        register_code_execution_tools(
-            mock_mcp, mock_revit_get, mock_revit_post, mock_revit_image
-        )
-        self.tools = mock_mcp.tools
-        self.mock_post = mock_revit_post
-
-    async def test_execute_code(self):
-        result = await self.tools["execute_revit_code"](
-            code="print('hello')", ctx=None
-        )
-        self.mock_post.assert_called_once_with(
-            "/execute_code/",
-            {"code": "print('hello')", "description": "Code execution"},
-            None,
-            timeout=60.0,
-        )
-        assert result == "hello"
-
-    async def test_execute_code_custom_description(self):
-        await self.tools["execute_revit_code"](
-            code="x = 1", description="Set x", ctx=None
-        )
-        call_data = self.mock_post.call_args[0][1]
-        assert call_data["description"] == "Set x"
-
-    async def test_execute_code_connection_error(self):
-        self.mock_post.side_effect = ConnectionError("refused")
-        result = await self.tools["execute_revit_code"](
-            code="print(1)", ctx=None
-        )
-        assert "Error during code execution" in result
