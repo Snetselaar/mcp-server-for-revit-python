@@ -1,7 +1,13 @@
 # Merge-plan: `Renaming-repo-and-org` bijwerken (opgesteld 09-09-2026)
 
-Voorbereiding, nog niet uitgevoerd. Alles hieronder is gemeten met
-`git merge-tree` (droge merge, werkboom onaangeroerd).
+> **Uitgevoerd op 09-09-2026** in commit `8f9f7e1`. Dit document blijft staan als
+> verantwoording van de keuze voor de KB-branch boven `master`. Stap 6 (Revit
+> herstarten en `/status/` ophalen) staat nog open: Revit draaide met een
+> productiemodel. Ook openstaand: punt **b** hieronder, welke clone de
+> MCP-server draait.
+
+Alles hieronder is gemeten met `git merge-tree` (droge merge, werkboom
+onaangeroerd).
 
 ## Conclusie vooraf: merge NIET `origin/master`
 
