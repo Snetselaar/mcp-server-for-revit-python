@@ -23,6 +23,31 @@ It contains:
 
 ## Key Architecture Components
 
+The system runs as **two separate servers** working together in a chain:
+
+```
+Claude / LLM Client
+       |
+       |  MCP Protocol (stdio or HTTP)
+       v
+  main.py  (MCP Server)
+       |
+       |  HTTP requests (localhost:48884)
+       v
+  pyRevit Routes  (REST API running inside Revit)
+       |
+       |  Revit API calls
+       v
+  Revit Application
+```
+
+**`main.py`** is the MCP server. It speaks the MCP protocol so that Claude (or any MCP-compatible client) can call tools. When a tool is called, `main.py` translates it into an HTTP request and forwards it to Revit.
+
+**pyRevit Routes** is a lightweight REST API that runs *inside* the Revit process. It receives those HTTP requests, executes Revit API code (since it has direct access to the running instance), and returns JSON responses.
+
+They never conflict because they serve different roles, speak different protocols, and listen on different ports.
+
+> **Note:** The Launch & Document tools (`launch_revit`, `list_revit_installations`) are the exception — they run entirely on the MCP side, using `subprocess` to start Revit and then polling the pyRevit Routes health endpoint until the bridge is ready.
 
 1.  **MCP Server (`main.py`)**:
 
@@ -66,9 +91,14 @@ It contains:
 | `color_splash` | ✅ Implemented | Visualization | Color elements based on parameter values |
 | `clear_colors` | ✅ Implemented | Visualization | Clear graphic overrides applied by `color_splash` |
 | `list_category_parameters` | ✅ Implemented | Visualization | List the parameters available on a category, for use with `color_splash` |
+| `list_revit_installations` | ✅ Implemented | Launch & Document | Discover all Revit versions installed on the system |
+| `launch_revit` | ✅ Implemented | Launch & Document | Launch Revit, optionally with a file, and poll for readiness |
+| `open_document` | ✅ Implemented | Launch & Document | Open a document in running Revit (supports detach and audit) |
+| `close_document` | ✅ Implemented | Launch & Document | Close the active document |
+| `save_document` | ✅ Implemented | Launch & Document | Save or Save As the active document |
+| `sync_with_central` | ✅ Implemented | Launch & Document | Synchronize a workshared document with central |
 | `execute_revit_code` | ❌ Removed | Code Execution | Crashed Revit; route and tool removed — see `KNOWN_ISSUES.md` |
 | `get_selected_elements` | ⛔ Blocked | Selection Management | Route `/selection_info/` exists but returns 501 — unsafe off the API thread |
-| `open_document` / `close_document` / `save_document` / `sync_with_central` | ⚠️ Route only | Document Management | Routes are registered in `startup.py`, but no MCP tool wraps them yet |
 | `create_point_based_element` | 🔄 Pending | Element Creation | Create point-based elements (doors, windows, furniture) |
 | `create_line_based_element` | 🔄 Pending | Element Creation | Create line-based elements (walls, beams, pipes) |
 | `create_surface_based_element` | 🔄 Pending | Element Creation | Create surface-based elements (floors, ceilings) |
@@ -93,14 +123,33 @@ It contains:
 
 ## Installing the Extension on Revit
 
-# Activate pyRevit Routes
+### Activate pyRevit Routes
 
 1. In Revit, navigate to the pyRevit tab
 2. Open Settings
 3. Go to `Routes` > activate `Routes Server`
 pyRevit will start listening on port `http://localhost:48884/`
 
-# Install from pyRevit:
+Each extra Revit instance moves Routes up one port (48885, 48886, ...). The
+server reads `REVIT_HOST` and `REVIT_PORT` from its environment, so point it at
+another instance from the MCP client's `env` block rather than editing
+`main.py`:
+
+```json
+{
+  "mcpServers": {
+    "revit": {
+      "command": "uv",
+      "args": ["run", "--directory", "/absolute/path/to/mcp-server-for-revit-python", "main.py"],
+      "env": {
+        "REVIT_PORT": "48884"
+      }
+    }
+  }
+}
+```
+
+### Install from pyRevit:
 
 1. In Revit, navigate to the pyRevit tab
 2. Open Extensions
@@ -109,7 +158,7 @@ pyRevit will start listening on port `http://localhost:48884/`
 5. Enable and wait for pyRevit to reload. Restart Revit if necessary.
 
 
-# Manual Installation on a custom directory:
+### Manual Installation on a custom directory:
 
 1. Clone the repo in a custom location:
     ```bash
@@ -159,7 +208,7 @@ The MCP server supports multiple transport modes for different use cases:
 
 | Flag | Transport | Endpoints | Use Case |
 |------|-----------|-----------|----------|
-| (none) | stdio | stdin/stdout | Claude Desktop default |
+| (none) | stdio | stdin/stdout | Claude Desktop / Claude Code default |
 | `--sse` | SSE only | `/sse`, `/messages/` | Legacy clients |
 | `--streamable-http` | HTTP only | `/mcp` | Modern HTTP clients |
 | `--combined` | Both | All above | Maximum compatibility |
@@ -200,16 +249,19 @@ Or for manual installation:
       "command": "uv",
       "args": [
         "run",
-        "--with",
-        "mcp[cli]",
-        "mcp",
-        "run",
-        "/absolute/path/to/main.py"
+        "--directory",
+        "/absolute/path/to/mcp-server-for-revit-python",
+        "main.py"
       ]
     }
   }
 }
 ```
+
+`uv run --directory` resolves the environment from `uv.lock`, so the pinned
+`mcp` 1.x release is used. Avoid `uv run --with "mcp[cli]"`: that installs the
+latest release, and in `mcp` 2.x `FastMCP` was renamed to `MCPServer`, so
+`main.py` fails on import.
 
 For HTTP transport mode, configure Claude Desktop with:
 ```json
@@ -220,6 +272,12 @@ For HTTP transport mode, configure Claude Desktop with:
     }
   }
 }
+```
+
+### Connecting to Claude Code
+
+```bash
+claude mcp add -s user "Revit-Connector" -- uv run --directory /absolute/path/to/mcp-server-for-revit-python main.py
 ```
 
 # Creating Your Own Tools
@@ -249,7 +307,7 @@ logger = logging.getLogger(__name__)
 
 def register_your_routes(api):
     """Register all your routes with the API."""
-    
+
     # ---- Example 1: A GET request for reading data ----
     @api.route('/your_endpoint/', methods=["GET"])
     def get_project_title(doc):
@@ -260,37 +318,37 @@ def register_your_routes(api):
         except Exception as e:
             logger.error("Get project title failed: {}".format(str(e)))
             return routes.make_response(data={"error": str(e)}, status=500)
-    
+
     # ---- Example 2: A POST request for modifying the model ----
     @api.route('/modify_model/', methods=["POST"])
     def modify_model(doc, request):
         """Handles POST requests for modifying the Revit model."""
         try:
             data = json.loads(request.data) if isinstance(request.data, str) else request.data
-            
+
             # Use a transaction for all model modifications
             t = DB.Transaction(doc, "Modify Model via MCP")
             t.Start()
-            
+
             try:
                 element_id = data.get("element_id")
                 new_value = data.get("new_value")
                 element = doc.GetElement(DB.ElementId(int(element_id)))
                 param = element.LookupParameter("Comments")
                 param.Set(new_value)
-                
+
                 t.Commit()
                 return routes.make_response(data={"status": "success", "result": "Element modified."})
-            
+
             except Exception as tx_error:
                 if t.HasStarted() and not t.HasEnded():
                     t.RollBack()
                 raise tx_error
-                
+
         except Exception as e:
             logger.error("Modify model failed: {}".format(str(e)))
             return routes.make_response(data={"error": str(e)}, status=500)
-    
+
     logger.info("Your custom routes were registered successfully.")
 ```
 
@@ -308,7 +366,7 @@ from .utils import format_response
 
 def register_your_tools(mcp, revit_get, revit_post, revit_image=None):
     """Register your tools with the MCP server."""
-    
+
     # ---- Tool for the GET request ----
     @mcp.tool()
     async def get_revit_project_title(ctx: Context) -> str:
@@ -317,7 +375,7 @@ def register_your_tools(mcp, revit_get, revit_post, revit_image=None):
         """
         response = await revit_get("/your_endpoint/", ctx)
         return format_response(response)
-    
+
     # ---- Tool for the POST request ----
     @mcp.tool()
     async def modify_revit_element_comment(
@@ -327,7 +385,7 @@ def register_your_tools(mcp, revit_get, revit_post, revit_image=None):
     ) -> str:
         """
         Modifies the 'Comments' parameter of a specific element.
-        
+
         Args:
             element_id: The ID of the element to modify.
             new_value: The new comment to apply to the element.
@@ -355,10 +413,10 @@ def register_routes():
     api = routes.API('revit_mcp')
     try:
         # ... (existing route registrations)
-        
+
         # Register your new routes (this registers all functions inside)
         register_your_routes(api)
-        
+
         logger.info("All MCP routes registered successfully")
     except Exception as e:
         logger.error("Failed to register MCP routes: {}".format(str(e)))
@@ -378,11 +436,11 @@ from .your_tools import register_your_tools
 
 def register_tools(mcp_server, revit_get_func, revit_post_func, revit_image_func):
     """Register all tools with the MCP server"""
-    
+
     # ... (existing tool registrations)
     # Register your new tools (this registers all tools inside)
     register_your_tools(mcp_server, revit_get_func, revit_post_func, revit_image_func)
-    
+
     return mcp_server
 ```
 

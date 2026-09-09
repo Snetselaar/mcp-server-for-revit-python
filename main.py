@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 import httpx
 import anyio
@@ -16,9 +17,10 @@ mcp = FastMCP(
     json_response=True
 )
 
-# Configuration
-REVIT_HOST = "localhost"
-REVIT_PORT = 48884  # Default pyRevit Routes port
+# Configuration. pyRevit Routes listens on 48884 and moves up one port for each
+# extra Revit instance, so both are overridable from the MCP client's env block.
+REVIT_HOST = os.environ.get("REVIT_HOST", "localhost")
+REVIT_PORT = int(os.environ.get("REVIT_PORT", "48884"))
 BASE_URL = f"http://{REVIT_HOST}:{REVIT_PORT}/revit_mcp"
 
 
@@ -44,25 +46,31 @@ async def revit_image(endpoint: str, ctx: Context = None) -> Union[Image, str]:
                 return Image(data=image_bytes, format="png")
             else:
                 return f"Error: {response.status_code} - {response.text}"
+    except httpx.TimeoutException:
+        return "Error: Image export timed out after 60 seconds."
     except Exception as e:
-        return f"Error: {e}"
+        msg = str(e) or type(e).__name__
+        return f"Error: {msg}"
 
 
-async def _revit_call(method: str, endpoint: str, data: Dict = None, ctx: Context = None, 
+async def _revit_call(method: str, endpoint: str, data: Dict = None, ctx: Context = None,
                      timeout: float = 30.0, params: Dict = None) -> Union[Dict, str]:
     """Internal function handling all HTTP calls"""
     try:
         async with httpx.AsyncClient(timeout=timeout) as client:
             url = f"{BASE_URL}{endpoint}"
-            
+
             if method == "GET":
                 response = await client.get(url, params=params)
             else:  # POST
                 response = await client.post(url, json=data, headers={"Content-Type": "application/json"})
-            
+
             return response.json() if response.status_code == 200 else f"Error: {response.status_code} - {response.text}"
+    except httpx.TimeoutException:
+        return f"Error: Request timed out after {timeout} seconds. The operation may still be running in Revit."
     except Exception as e:
-        return f"Error: {e}"
+        msg = str(e) or type(e).__name__
+        return f"Error: {msg}"
 
 
 # Register all tools BEFORE the main block
