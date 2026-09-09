@@ -14,7 +14,7 @@ Revit laten crashen.
 | `GET /status/` | nee | stabiel |
 | `compile()` op een scriptbestand (geen route) | nee | stabiel |
 | `POST /execute_code/` (arbitraire IronPython) | ja | crashte Revit → **route verwijderd** |
-| `GET /selection_info/` (read-only: selectie, `get_BoundingBox`, locaties) | ja | werkte 2x, crashte de 3e keer |
+| `GET /selection_info/` (read-only: selectie, `get_BoundingBox`, locaties) | ja | werkte 2x, crashte de 3e keer → **uitgeschakeld (501)** |
 
 ### Vermoedelijke oorzaak
 De pyRevit-routes-handlers draaien **niet op de Revit API-thread**. De Revit API
@@ -46,7 +46,18 @@ draait.
   API-aanroep op de Revit-thread gebeurt in plaats van op de HTTP-thread. Dan
   kan `/selection_info/` alsnog veilig.
 - `/selection_info/` staat nog in `revit_mcp/views.py` als basis voor die fix,
-  maar is in de huidige vorm **onveilig om aan te roepen**.
+  maar geeft sinds 09-09-2026 meteen **501** terug: de implementatie is intact,
+  de handler wordt niet meer uitgevoerd. Haal die guard pas weg als de call
+  daadwerkelijk via `ExternalEvent` op de API-thread landt.
+- De bestanden `revit_mcp/code_execution.py` en `tools/code_execution_tools.py`
+  zijn op 09-09-2026 verwijderd. De route was al uit `startup.py`, maar de
+  MCP-tool `execute_revit_code` stond nog geregistreerd en poste naar een
+  route die niet meer bestond — die bood dus alleen nog een 404 aan.
+  **Let op bij mergen:** op `origin/master` bestaan beide bestanden nog én
+  registreert `startup.py` `/execute_code/` weer. Op
+  `origin/claude/self-improving-knowledge-base-euds0l` zijn ze net als hier
+  verwijderd; die branch is daarom het juiste integratiedoel. Zie
+  `MERGE_PLAN.md`.
 
 ### Context
 Dit kwam op tijdens het bouwen van de pushbutton **Tag Details** (03_R&D), waar

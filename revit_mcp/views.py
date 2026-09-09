@@ -382,8 +382,25 @@ def register_views_routes(api):
         relative to the tagged host in view coordinates (rc = view right,
         e = view up), plus the distance below the host profile bottom. Meant to
         calibrate tag placement without execute_code. No transaction, no writes.
+
+        UITGESCHAKELD. Read-only is hier niet hetzelfde als veilig: deze handler
+        draait op de HTTP-thread, en Selection/get_BoundingBox aanroepen buiten
+        de Revit API-thread liet Revit onvoorspelbaar crashen (2x goed, de 3e
+        keer plat). Zie KNOWN_ISSUES.md. De implementatie hieronder blijft staan
+        als basis voor de fix via IExternalEventHandler + ExternalEvent; haal de
+        guard pas weg als de call daadwerkelijk naar de API-thread gemarshald
+        wordt. Voor uitlezen/nameten: gebruik de Nonica-connector.
         """
-        try:
+        return routes.make_response(
+            data={
+                "error": "selection_info is uitgeschakeld: onveilig vanaf de "
+                         "routes-thread, zie KNOWN_ISSUES.md. Gebruik de "
+                         "Nonica-connector om uit te lezen."
+            },
+            status=501,
+        )
+
+        try:  # pragma: no cover - onbereikbaar tot de ExternalEvent-fix er is
             if not uidoc or not uidoc.Document:
                 return routes.make_response(
                     data={"error": "No active Revit document"}, status=503

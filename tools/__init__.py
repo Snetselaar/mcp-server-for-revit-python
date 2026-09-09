@@ -10,7 +10,6 @@ def register_tools(mcp_server, revit_get_func, revit_post_func, revit_image_func
     from .family_tools import register_family_tools
     from .model_tools import register_model_tools
     from .colors_tools import register_colors_tools
-    from .code_execution_tools import register_code_execution_tools
 
     # Register tools from each module
     register_status_tools(mcp_server, revit_get_func)
@@ -18,6 +17,6 @@ def register_tools(mcp_server, revit_get_func, revit_post_func, revit_image_func
     register_family_tools(mcp_server, revit_get_func, revit_post_func)
     register_model_tools(mcp_server, revit_get_func)
     register_colors_tools(mcp_server, revit_get_func, revit_post_func)
-    register_code_execution_tools(
-        mcp_server, revit_get_func, revit_post_func, revit_image_func
-    )
+
+    # Bewust GEEN code-execution-tools: de route /execute_code/ is verwijderd
+    # omdat hij Revit liet crashen. Zie KNOWN_ISSUES.md.
