@@ -35,6 +35,22 @@ draait.
   platgaan — klassiek beeld van thread-onveiligheid.
 - De **Nonica AI Connector** (los product) doet vergelijkbare uitleesacties en is
   wél stabiel; die marshalt zijn calls kennelijk netjes naar de API-thread.
+- **Tegenmeting 09-09-2026, Revit 2025.4, model `S-9132_R25`, net herstart en
+  idle.** Zes model-aanrakende routes achter elkaar aangeroepen, allemaal 200,
+  geen crash: `/list_levels/` (17 levels), `/current_view_info/`, `/model_info/`,
+  `/list_families/` (zowel met `limit` als met `contains`, 41 treffers),
+  `/current_view_elements/` (215 elementen, mét `include_levels` en
+  `include_location`). `/status/` gaf `api_context: true`, dus de handlers
+  bereikten de API-context wel degelijk.
+
+  **Dit weerlegt het probleem niet en verandert de aanbeveling niet.** Het beeld
+  hierboven is nu juist intermitterend: `/selection_info/` deed het ook twee keer
+  goed voordat het de derde keer misging. Een reeks geslaagde calls is dus precies
+  wat je bij thread-onveiligheid verwacht, geen bewijs van stabiliteit. Wat deze
+  meting wél toevoegt: het gaat niet stuk op de eerste aanraking, en het lijkt
+  samen te hangen met of Revit idle is (zie ook het punt dat routes hangen als
+  Revit bezig is). Wie dit ooit echt wil oplossen heeft aan losse geslaagde calls
+  niets — alleen het marshallen naar de API-thread telt.
 
 ### Aanbeveling
 - **Niet** het model lezen/schrijven via deze routes-server zolang de handlers
