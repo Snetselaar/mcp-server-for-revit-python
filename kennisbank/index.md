@@ -222,7 +222,7 @@ elders al gecorrigeerd, maar niet overal doorgevoerd. Zie
   lint.xlsm` en de logbestanden staan op de netwerkschijf. Structureel; begrenst
   wat een cloudsessie kan verwerken.
 
-### Uit de health check van 2026-09-17 — punt 1-17 afgehandeld, 18 open
+### Uit de health check van 2026-09-17 — alle 18 punten afgehandeld
 
 Volledig actieplan (18 punten) in `outputs/2026-09-17-healthcheck.md`. Punt 1-11
 zijn dezelfde dag uitgevoerd (zie `memory.md`):
@@ -250,7 +250,7 @@ Nog open:
 
 - ~~Upload `sci-bim-context`~~ — geüpload en vastgelegd op 2026-09-17 (sha256 `4ac149be…`).
 - ~~`kennisextractie-externe-revit-repos.md` naar `raw/`~~ — op 2026-09-17 verwerkt (zie hieronder).
-- **Punt 18:** is de OneDrive-clone van deze repo nog nodig? Beslissing gebruiker.
+- ~~Punt 18~~ — besloten 2026-09-17: de OneDrive-clone blijft staan als failsafe. De Documents-clone is de werkclone.
 - **Revu Max en `ScriptEngine.exe`:** de foutmelding wijst op Max; niet getest.
 - **7850 kg/m³ in NEN-EN 1993-1-1 §3.2.6** nalezen.
 - `wiki/mcp-revit-koppeling.md` telt ruim 480 regels; splitsen (keten versus
