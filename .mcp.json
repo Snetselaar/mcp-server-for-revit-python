@@ -11,6 +11,14 @@
       "env": {
         "REVIT_PORT": "48884"
       }
+    },
+    "revit-lezen": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--script",
+        "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\mcp_lezen\\revit_lezen_server.py"
+      ]
     }
   }
 }
