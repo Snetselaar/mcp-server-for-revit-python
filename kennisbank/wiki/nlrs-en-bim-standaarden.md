@@ -1,11 +1,14 @@
 ---
 titel: NLRS en BIM-standaarden — aanvullingen op de skill
 status: concept
-laatst-bijgewerkt: 2026-08-26
+laatst-bijgewerkt: 2026-09-17
 bronnen:
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §3 en §4"
+  - "ifc-import-verboden-tekens-in-namen.md §4 (meting S-9497_R27, 2026-09-16), bijgeschreven in §2 op 2026-09-16"
 verwant:
   - rebar-documentatie-en-staten.md
+  - ifc-import-verboden-tekens-in-namen.md
+  - externe-patronen-revit-repos.md
 skill: sci-bim-context
 ---
 
@@ -34,6 +37,11 @@ basis van gedeelde parameters en IFC-classificaties. Relevant voor het federatie
 model met ±30 gekoppelde modellen dat in `sci-bim-context` §4 staat — daar is
 sparingscoördinatie per definitie een thema. [ONBEVESTIGD] Of SCI de USO gebruikt.
 
+**NLRS_ModelChecker.** Stichting Revit Standards publiceert ook een checkset voor
+de Autodesk Interoperability Tools: 42 checks over 10 secties, met per categorie
+naamgevingschecks. Uitgewerkt als blauwdruk voor de ModelCheck-registry in
+`externe-patronen-revit-repos.md` §8.
+
 **Family Guide Doors.** Richtlijnen voor deuren, ramen en overige openingen,
 inclusief vliesgevels: oriëntatie, nulpunt-bepaling, parametergebruik.
 
@@ -56,6 +64,11 @@ IFC-exportscripts en de kernpatronen daarachter. [ONBEVESTIGD] Of die scripts de
 BIM Basis ILS-stappen volgen, of dat ze een eigen route hebben. Dat is een
 concrete vraag die het waard is uitgezocht te worden: een export die technisch
 slaagt maar niet ILS-conform is, wordt door de ontvanger teruggestuurd.
+
+Eén ILS-punt is sinds 2026-09-16 harder dan een afspraak. Blijven de
+placeholders in Project Information staan, dan krijgen `IfcBuilding.Name` en
+`IfcSite.Name` tekens die Revit 2027 in een naam weigert, en kan de ontvanger
+het bestand niet importeren. Zie `ifc-import-verboden-tekens-in-namen.md`.
 
 ---
 

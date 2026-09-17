@@ -45,7 +45,7 @@ wiki-claim; verdwijnt het bestand, dan is de bronvermelding waardeloos.
 
 ## 3. Verhouding tot de SCI-skills — lees dit vóór je iets schrijft
 
-Er bestaan tien handgeschreven SCI-skills die **automatisch triggeren** en die
+Er bestaan zeven handgeschreven SCI-skills die **automatisch triggeren** en die
 de bron van waarheid zijn:
 
 | Skill | Domein |

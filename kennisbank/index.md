@@ -2,13 +2,12 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 14 artikelen, 2026-08-31. Laatste health check:
-[2026-08-31](outputs/2026-08-31-healthcheck.md), driemaal gedraaid dezelfde
-dag — eerste run vond bevindingen (actieplan uitgevoerd), herhaalde run vond
-vier gemiste propagaties uit dat actieplan (inmiddels ook gerepareerd), de
-derde run vond niets nieuws meer. Daarvoor:
-[2026-08-28](outputs/2026-08-28-healthcheck.md) (0 kapotte kruisverwijzingen,
-coverage volledig, geen stijlovertredingen), en
+**Stand:** 21 artikelen, 2026-09-17. Laatste health check:
+[2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
+MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
+niet en de Lees-MCP heeft geen artikel. Daarvoor:
+[2026-08-31](outputs/2026-08-31-healthcheck.md) (driemaal gedraaid, geconvergeerd),
+[2026-08-28](outputs/2026-08-28-healthcheck.md) en
 [2026-08-25](outputs/2026-08-25-healthcheck.md) met een
 [opvolging van 2026-08-26](outputs/2026-08-25-healthcheck.md#opvolging-2026-08-26).
 
@@ -19,20 +18,28 @@ coverage volledig, geen stijlovertredingen), en
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [rebar-3d-modelleren.md](wiki/rebar-3d-modelleren.md) | concept | 2026-08-26 | Kolom-, balk- en vloerwapening, free form, splices — met een versietabel 2024–2027 |
-| [rebar-documentatie-en-staten.md](wiki/rebar-documentatie-en-staten.md) | concept | 2026-08-28 | Partitions, filters, tags, Multi-Rebar Annotation, buigstaten en Bending Details |
-| [rebar-api-parameters.md](wiki/rebar-api-parameters.md) | concept | 2026-08-28 | De acht BuiltInParameters, live geverifieerd op Revit 2025: alle namen bestaan, alleen CLEAR_COVER's beschrijving is fout |
+| [rebar-documentatie-en-staten.md](wiki/rebar-documentatie-en-staten.md) | concept | 2026-09-17 | Partitions, filters, tags, Multi-Rebar Annotation, buigstaten en Bending Details |
+| [rebar-api-parameters.md](wiki/rebar-api-parameters.md) | concept | 2026-09-17 | De acht BuiltInParameters, live geverifieerd op Revit 2025: alle namen bestaan, alleen CLEAR_COVER's beschrijving is fout |
 
 ## MCP en gereedschap
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-08-31 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en faalpunten (execute_revit_code op 31-08 verwijderd) |
-| [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-08-31 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector |
-| [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-08-31 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
-| [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-08-31 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
+| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-09-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
+| [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-09-17 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector. Met een conflictblok: geen model-aanrakende route zonder ExternalEvent |
+| [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-09-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
+| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-09-17 | De eigen alleen-lezen koppeling (03_R&D-knop Lees MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, 40 tools met Nonica-namen, versies 1.0-1.2, aantoonbaar op 2025 en 2027. |
+| [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-09-17 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
+| [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-09-17 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 | [ai-tools-voor-pyrevit-ontwikkeling.md](wiki/ai-tools-voor-pyrevit-ontwikkeling.md) | concept | 2026-08-31 | Gratis Claude Code via OpenRouter (Ox Alpha) en Erik Frits' browser-based WPF Form Builder |
-| [ai-brain-kennisorganisatie-pyrevit.md](wiki/ai-brain-kennisorganisatie-pyrevit.md) | concept | 2026-08-31 | Erik Frits' raw/wiki/skills-kennisdatabase voor de Revit API, gebaseerd op Karpathy's LLM Wiki-concept — vrijwel identieke opzet als deze kennisbank |
+| [ai-brain-kennisorganisatie-pyrevit.md](wiki/ai-brain-kennisorganisatie-pyrevit.md) | concept | 2026-09-17 | Erik Frits' raw/wiki/skills-kennisdatabase voor de Revit API, gebaseerd op Karpathy's LLM Wiki-concept — vrijwel identieke opzet als deze kennisbank |
 | [appartementdata-genereren-met-ai.md](wiki/appartementdata-genereren-met-ai.md) | concept | 2026-08-31 | Claude Code + pyRevit MCP: afstanden, ramen, buren en plafondhoogte per appartement berekenen, wegschrijven naar Area-parameters, en er een vaste `Unit Data`-knop van maken |
+
+## Tekeningcontrole en Bluebeam
+
+| Artikel | Status | Bijgewerkt | Waarover |
+|---|---|---|---|
+| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-09-17 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met het idee voor een verzonden set in `7 Uit`. |
 
 ## Tools en plugins van derden
 
@@ -40,18 +47,25 @@ coverage volledig, geen stijlovertredingen), en
 |---|---|---|---|
 | [vyssuals-datavisualisatie.md](wiki/vyssuals-datavisualisatie.md) | concept | 2026-08-31 | Kleurgebaseerde data-analyse van Revit-modellen in de browser, met een eigen MCP-koppeling naar Claude Code |
 | [batch-upgrade-en-conversie-revit-bestanden.md](wiki/batch-upgrade-en-conversie-revit-bestanden.md) | concept | 2026-08-31 | BIM Pure Plugin v0.4: RVT/RFA batchgewijs upgraden en family-eenheden converteren |
+| [externe-patronen-revit-repos.md](wiki/externe-patronen-revit-repos.md) | concept | 2026-09-17 | Prio-1-ronde langs 6 publieke repo's: Revit-vrije regelmodule + CI, dubbeldetectie, maatlijn-zonelogica, failure-preprocessor, ES-schema, NLRS-checklijst, per-versie stubs. Licentie-gefilterd; dragende API's geverifieerd in 2024 én 2027. |
 
 ## Interoperabiliteit en standaarden
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [revit-robot-interoperabiliteit.md](wiki/revit-robot-interoperabiliteit.md) | concept | 2026-08-26 | De bidirectionele link met Robot, en de Pinned-Pinned-valkuil bij export |
-| [nlrs-en-bim-standaarden.md](wiki/nlrs-en-bim-standaarden.md) | concept | 2026-08-26 | Alleen wat `sci-bim-context` niet dekt: USO, family guides, BIM Basis ILS, BEP/CDE |
+| [nlrs-en-bim-standaarden.md](wiki/nlrs-en-bim-standaarden.md) | concept | 2026-09-17 | Alleen wat `sci-bim-context` niet dekt: USO, family guides, BIM Basis ILS, BEP/CDE |
+| [ifc-export-staalgewicht.md](wiki/ifc-export-staalgewicht.md) | concept | 2026-09-17 | Waarom staalgewicht niet in de IFC komt (S-9479_R25): het gewicht is een formuleveld in de staat, `Weight` = 0, `NLRS_S_gewicht` bestaat niet; vier oplossingsrichtingen voor de BIM-coördinator |
+| [ifc-import-verboden-tekens-in-namen.md](wiki/ifc-import-verboden-tekens-in-namen.md) | concept | 2026-09-17 | Waarom een aangeleverd IFC niet in Revit 2027 laadt maar wel in 2025: `<` en `>` uit de template-placeholders in `IfcBuilding.Name` en `IfcSite.Name`. Met de vindplaats van de echte fout (het `.ifc.log.html`) en de meting dat S-9497_R27 dezelfde placeholders heeft. |
 
 ## Revit API en versies
 
 _Gedekt door de skills `revit-api-docs` en `pyrevit-codestijl`. Wat die niet
-dekken staat in `rebar-api-parameters.md`._
+dekken staat in `rebar-api-parameters.md` en in het artikel hieronder._
+
+| Artikel | Status | Bijgewerkt | Waarover |
+|---|---|---|---|
+| [modeless-venster-persistente-engine.md](wiki/modeless-venster-persistente-engine.md) | concept | 2026-09-17 | Waarom een modeless WPF-knop Revit kan laten crashen: pyRevit wist de module-scope als de engine niet persistent is, en de bundle.yaml-vlag komt niet op elke pyRevit-versie aan (6.1.0 niet, 6.5.5 wel). Met het patroon uit ProjectNotitie 1.8 en de diagnose via journaal en crashdump. |
 
 ## SCI-conventies en projecten
 
@@ -117,12 +131,18 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   (`NLRS_28_TAG-SCOL_kolom-dec_SCI`), voor wapening onbekend.
 - **Volgen de IFC-exportscripts de BIM Basis ILS-stappen?** Een export die
   technisch slaagt maar niet ILS-conform is, komt terug van de ontvanger.
+- **Staan de IFC-placeholders in `SCI_template_2025.rte` zelf?** In model
+  `S-9497_R27` staan `Building Name` = `<RVB-gebouwnummer>` en `SiteName` =
+  `<Kadastrale aanduiding>`; die tekens blokkeren de IFC-import bij een
+  Revit 2027-ontvanger. Een `.rte` is binair, dus dit vraagt openen in Revit.
+  Zie `wiki/ifc-import-verboden-tekens-in-namen.md` §4.
 - **Gebruikt SCI Robot Structural Analysis?** Staat niet in de tech stack. Zo nee,
   dan kan `wiki/revit-robot-interoperabiliteit.md` dun blijven.
-- **Blijft de Routes Server aan tussen Revit-sessies?** De README spreekt
-  zichzelf bijna tegen. Op 2026-08-26 stond `enabled = true` in `[routes]` van
-  `pyRevit_config.ini`, dus de instelling wordt bewaard; of dat een herstart
-  overleeft is niet nagemeten.
+- **Blijft de Routes Server aan tussen Revit-sessies? — grotendeels beantwoord
+  (2026-09-17).** De instelling overleeft een herstart, maar niet een reset van
+  `pyRevit_config.ini`: op 2026-09-07 verdween `[routes]` bij zo'n reset
+  (`outputs/2026-09-07-mcp-server-herstel.md`). Op 2026-09-17 staat er
+  `enabled = true` en `host = "127.0.0.1"`. Oorzaak van de reset onbekend.
 - **Routes-binding — opgelost en geverifieerd (2026-08-28).** De live socket
   stond op `0.0.0.0:48884`; `host = 127.0.0.1` gezet met
   `pyrevit configs "routes:host" 127.0.0.1`. Na een Revit-herstart bindt de socket
@@ -130,10 +150,12 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   vast (bekend), de herstart was de weg. Zie `wiki/mcp-revit-koppeling.md` §2. (Het
   tutorial-commando `--host` bleek niet te bestaan in deze pyRevit.)
 - **Draait er ergens pyRevit 6.5.3?** Die versie zou een Routes-bug hebben;
-  6.4.0 is aangeraden. Onbevestigd, geen issuenummer, versie niet gemeten. Zie
-  `wiki/mcp-revit-koppeling.md` §5 punt 7.
+  6.4.0 is aangeraden. Onbevestigd, geen issuenummer. Gemeten sinds: werkplek AWO
+  6.5.5, S-WUL1N 6.1.0 (`wiki/modeless-venster-persistente-engine.md`); de rest van
+  het team niet. Zie `wiki/mcp-revit-koppeling.md` §5 punt 7.
 - **Welke Revit-versies draait SCI in productie?** Op 2026-08-28 draaide de
-  werkplek **Revit 2025**. Of de rest van het bereik 2024/2026/2027 in productie
+  werkplek **Revit 2025**; op 2026-09-16 is projectmodel `S-9497_R27` gemeten, dus
+  ook **2027** draait in productie. Open blijven 2024 en 2026. Of de rest van het bereik 2024/2026/2027 in productie
   is, bepaalt of de Autodesk 2027 MCP-server in beeld komt. Zie
   `wiki/mcp-versus-custom-tools.md` §4.
 
@@ -141,7 +163,7 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 - Vervangende leesroute vastgelegd: de **Nonica-connector**, bevestigd door de
   gebruiker op 2026-08-31. Zie `wiki/mcp-revit-koppeling.md` §4.
-  [ONBEVESTIGD] blijft of die route ook kan schrijven.
+  Nonica kan ook schrijven via `set_*`-tools (toollijst, 2026-09-17).
 - Sectie 6 van de 2026-08-31-bron is alsnog verwerkt: nieuw artikel
   `wiki/appartementdata-genereren-met-ai.md`.
 - `mcp-versus-custom-tools.md` §3 gecorrigeerd naar "tweede SCI-werkafspraak".
@@ -179,7 +201,7 @@ elders al gecorrigeerd, maar niet overal doorgevoerd. Zie
   §4. Dit is buiten `/kb-verwerk` om gebeurd (een live-debugsessie, geen
   `raw/`-bestand); hier alsnog gelogd in `memory.md` omdat de wijziging anders
   geen spoor in het logboek had.
-- **Alle veertien artikelen staan op `concept`.** Promotie naar een skill vraagt
+- **Alle 21 artikelen staan op `concept`** (geteld 2026-09-17). Promotie naar een skill vraagt
   `stabiel` plus twee onafhankelijke bronnen (`CLAUDE.md` §4). De meeste
   rebar-artikelen leunen nog op één gecureerde samenvatting. Uitzondering sinds
   2026-08-28: `rebar-api-parameters.md` heeft er een tweede, onafhankelijke bron
@@ -198,3 +220,40 @@ elders al gecorrigeerd, maar niet overal doorgevoerd. Zie
 - **`W:` is onbereikbaar vanuit cloudsessies.** De extensies, `Actielijst
   lint.xlsm` en de logbestanden staan op de netwerkschijf. Structureel; begrenst
   wat een cloudsessie kan verwerken.
+
+### Uit de health check van 2026-09-17 — punt 1-17 afgehandeld, 18 open
+
+Volledig actieplan (18 punten) in `outputs/2026-09-17-healthcheck.md`. Punt 1-11
+zijn dezelfde dag uitgevoerd (zie `memory.md`):
+
+- `KNOWN_ISSUES.md` verwerkt in het nieuwe `wiki/routes-thread-veiligheid.md`;
+  conflictblok in `wiki/mcp-eigen-tools-toevoegen.md` §1.
+- De Lees-MCP heeft een artikel: `wiki/lees-mcp-koppeling.md`.
+- `wiki/mcp-revit-koppeling.md`: regelnummers, `/selection_info/`, Python 2-bewijs,
+  §5 punt 5-6 (junction, `uv run`), faalpunten 8-11, en §6: de acht oude
+  skill-toolnamen zijn Nonica's.
+- Verwijderdatum `execute_code` rechtgezet in vier artikelen en `memory.md`
+  (route eind augustus uit `startup.py`, bestanden 09-09).
+- `raw/2026-09-01-automated-alignment-researchers.md` gelogd als bewust niet
+  verwerkt.
+- `wiki/mcp-versus-custom-tools.md` §4: 2027 in productie.
+- Datum en bron van `wiki/nlrs-en-bim-standaarden.md`; kruisverwijzingen hersteld.
+
+Punt 12-17 zijn dezelfde dag ook uitgevoerd (zie `memory.md`): zeven claims van
+een bron of [ONBEVESTIGD] voorzien, de overgeslagen delen van §1 van de
+2026-08-31-bron verwerkt, stijl van `wiki/externe-patronen-revit-repos.md`,
+de tellingen in `CLAUDE.md` en `wiki/ai-brain-kennisorganisatie-pyrevit.md`, twee
+memories, en de skillbron `sci-bim-context` (geüpload en vastgelegd).
+
+Nog open:
+
+- ~~Upload `sci-bim-context`~~ — geüpload en vastgelegd op 2026-09-17 (sha256 `4ac149be…`).
+- **`Downloads\kennisextractie-externe-revit-repos.md` naar `raw/` kopiëren**, zodat de
+  bron onder `wiki/externe-patronen-revit-repos.md` niet verdwijnt. Handwerk van de
+  gebruiker (`raw/` is alleen voor de gebruiker).
+- **Punt 18:** is de OneDrive-clone van deze repo nog nodig? Beslissing gebruiker.
+- **Revu Max en `ScriptEngine.exe`:** de foutmelding wijst op Max; niet getest.
+- **7850 kg/m³ in NEN-EN 1993-1-1 §3.2.6** nalezen.
+- `wiki/mcp-revit-koppeling.md` telt ruim 480 regels; splitsen (keten versus
+  historiek) is een kandidaat.
+- `wiki/bluebeam-sets-revisies-automatisch.md` heeft geen verwant artikel.

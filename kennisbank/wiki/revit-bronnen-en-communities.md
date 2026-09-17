@@ -1,11 +1,12 @@
 ---
 titel: Waar Revit-kennis vandaan komt — bronnen, kanalen en het P.R.O.C.E.S.S.-kader
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-09-17
 bronnen:
   - "raw/2026-08-25 samenvatting-bronnen.md §2 t/m §5"
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §7"
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1, §2 en §7"
+  - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\02_Beta\\Beta.extension\\02_Beta.tab (docstrings van As_Aanzichten en SCIda_Invoer, gelezen 2026-09-17)"
 verwant:
   - rebar-api-parameters.md
   - mcp-revit-koppeling.md
@@ -14,6 +15,7 @@ verwant:
   - ai-tools-voor-pyrevit-ontwikkeling.md
   - batch-upgrade-en-conversie-revit-bestanden.md
   - vyssuals-datavisualisatie.md
+  - rebar-documentatie-en-staten.md
 skill: revit-api-docs
 ---
 
@@ -140,7 +142,36 @@ Geen ranglijst, maar een wegwijzer.
 | **BIM Pure** | Revit-basis, templates, coördinatensysteem, view ranges, central versus local |
 | **Balkan Architect** | architectuur, en foutafhandeling |
 | **Man and Machine** | breed CAD/BIM, ook AutoCAD Electrical, Vault, Inventor |
-| **Gavin Nicholls** (interviewgast bij BIM Pure) | AI-strategie bij grotere bureaus, determinisme versus AI-agents, zie `mcp-versus-custom-tools.md` §3 |
+| **Gavin Nicholls** (interviewgast bij BIM Pure) | AI-strategie bij grotere bureaus, determinisme versus AI-agents, zie `mcp-versus-custom-tools.md` §3; Dynamo naast AI, zie hieronder |
+
+### Dynamo naast AI
+
+Uit het interview met Gavin Nicholls (`raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md` §1, deel Forma, APS en
+Dynamo's toekomst):
+
+- Hij gebruikt Dynamo nog voor prototyping en vooral voor **geometrie**, omdat
+  geometrie programmeren in de Revit API veel omslachtiger is. Ook voor een
+  eenmalige taak die dezelfde middag af moet.
+- Zijn eigen Dynamo-pakket **Pickles** herschrijft hij in C#, omdat Python in
+  Dynamo voor hem te onbetrouwbaar werd door versie- en engineproblemen.
+  [ONBEVESTIGD] De bron noemt alleen "op mijn GitHub", geen URL.
+- Wie de API-begrippen niet kent, gebruikt de verkeerde termen in een prompt en
+  krijgt foute code terug. Zijn voorbeeld: filteren versus collecteren van
+  elementen. Dynamo leert die terminologie.
+
+Dat raakt een lopende SCI-beweging: Dynamo-scripts worden omgezet naar
+pyRevit-knoppen in 02_Beta. De docstrings noemen het zelf, bijvoorbeeld "vervangt
+het Dynamo-script '022 As Aanzichten'" (`As_Aanzichten.pushbutton/script.py`) en
+"vervangt het Dynamo-script '400 SCIda invoer_v22.1.dyn'"
+(`SCIda_Invoer.pushbutton/script.py`); ook `Sheet_Fase`, `Wand_Aanzichten` en de
+knoppen in `Palen.panel` verwijzen naar een Dynamo-voorganger (W:\4 - Tijdelijk
+en verwijderen\AWO\Extensions\02_Beta, gelezen 2026-09-17). Het versieprobleem
+dat Gavin noemt is een argument vóór die omzetting; zijn geometrie-argument is de
+reden om bij geometriezwaar werk eerst een prototype in Dynamo te overwegen.
+
+Twee randopmerkingen uit hetzelfde deel, zonder SCI-gevolg: Gavin is positief over
+Autodesk Platform Services (APS) als poging de dataschema's van Autodesk-producten
+te verenigen, en Revit LT ondersteunt geen add-ins.
 
 ### Twee foutmeldingen die het waard zijn te onthouden
 

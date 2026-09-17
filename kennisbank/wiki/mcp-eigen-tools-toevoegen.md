@@ -1,17 +1,21 @@
 ---
 titel: Een eigen MCP-tool toevoegen aan deze repo
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-09-17
 bronnen:
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §4 en §5"
   - startup.py, tools/__init__.py (deze repo)
   - skill pyrevit-codestijl
   - skill bimtools-logging
-  - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code, 2026-08-31)"
+  - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code)"
+  - "KNOWN_ISSUES.md (repo-root, 2026-09-09)"
+  - "gemeten 2026-09-17: de extensiemap in %APPDATA%\\pyRevit\\Extensions is een junction naar de Documents-clone"
 verwant:
   - mcp-revit-koppeling.md
   - mcp-versus-custom-tools.md
   - ai-tools-voor-pyrevit-ontwikkeling.md
+  - routes-thread-veiligheid.md
+  - lees-mcp-koppeling.md
 skill: sci-bim-context
 ---
 
@@ -23,7 +27,8 @@ extern hulpmiddel dat het handwerk automatiseert — zie
 repo-specifieke kant: de route-module, de tool-module en de twee registraties.
 
 `mcp-revit-koppeling.md` §4 somt de negentien bestaande tools op (twintig tot
-`execute_revit_code` op 2026-08-31 verwijderd werd). Dit artikel gaat over het
+`execute_revit_code` verdween: de route eind augustus uit `startup.py`, de
+toolbestanden op 2026-09-09). Dit artikel gaat over het
 bouwen van een twintigste. Het patroon komt uit de transcripties
 van Erik Frits en BIM Pure (`raw/2026-08-27_revit_mcp_bronnen_transcripties.md`
 §4) en is hier gelegd naast de echte registratieplekken in deze repo.
@@ -36,6 +41,21 @@ Vergeet je één van de vier stukken, dan verschijnt de tool niet of geeft hij 4
 ---
 
 ## 1. De route-module — binnen Revit
+
+> **Conflict met `KNOWN_ISSUES.md` (repo-root, 2026-09-09). Lees dit vóór je
+> bouwt.** Het recept hieronder laat de handler de Revit API aanroepen vanaf de
+> thread van de Routes-server. Volgens `KNOWN_ISSUES.md` is dat niet thread-safe
+> en crasht Revit daar met tussenpozen op, ook bij alleen lezen. De vrijwel
+> identieke route `/selection_info/` ging twee keer goed, liet Revit de derde
+> keer vallen en geeft sinds 09-09-2026 direct 501. Het advies daar: **geen
+> nieuwe model-aanrakende routes in deze vorm.** Een route die het model raakt,
+> moet zijn werk via `IExternalEventHandler` + `ExternalEvent` op de API-thread
+> laten doen. Zie `routes-thread-veiligheid.md`; een werkend voorbeeld van dat
+> patroon, zonder Routes, is `lees-mcp-koppeling.md`.
+>
+> De transcripties waar dit recept uit komt zijn ouder en noemen het risico
+> niet. `KNOWN_ISSUES.md` is gemeten in déze keten en gaat voor. De
+> registratiekant in §2-§4 blijft geldig.
 
 Een nieuw bestand in `revit_mcp/` (bijvoorbeeld `revit_mcp/selection.py`). Dit
 draait binnen het Revit-proces onder **IronPython 2.7**, dus de beperkingen uit
@@ -140,10 +160,12 @@ De tool bestaat pas als beide servers hem kennen. Dit bevestigt de noot in
 | MCP | `tools/__init__.py` | `register_selection_tools` importeren en aanroepen |
 
 Na de Revit-kant is een pyRevit-reload nodig, soms een volledige herstart — zelfde
-faalpunt als `mcp-revit-koppeling.md` §5 punt 3. En let op faalpunt 6 daar: de
-extensie draait uit `%APPDATA%\pyRevit\Extensions\`, niet uit deze repo. Een nieuw
-bestand in `revit_mcp/` in de repo doet in Revit niets tot het naar die map is
-gekopieerd.
+faalpunt als `mcp-revit-koppeling.md` §5 punt 3. De extensie laadt uit
+`%APPDATA%\pyRevit\Extensions\mcp-server-for-revit-python.extension`. Dat is een
+junction naar de clone in `C:\Users\S-WOU1A\Documents\GitHub\mcp-server-for-revit-python`
+(gemeten 2026-09-17). Een nieuw bestand in `revit_mcp/` van díe clone komt dus
+direct aan; in de OneDrive-clone niet. Zie faalpunt 6 in
+`mcp-revit-koppeling.md` §5.
 
 ## 4. Testen met de MCP Inspector
 

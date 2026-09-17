@@ -1,9 +1,10 @@
 ---
 titel: AI-Brain — een raw/wiki/skills-kennisdatabase voor de Revit API
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-09-17
 bronnen:
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §5"
+  - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1, deel Kwaliteit van de code (Gavin Nicholls)"
 verwant:
   - revit-bronnen-en-communities.md
 ---
@@ -103,9 +104,17 @@ volgen. Mens bepaalt de betekenis en stuurt de kwalitatieve analyse; de AI doet
 het kruisverwijzen en indexeren.
 
 Voor deze kennisbank is dat een directe toetssteen: `kennisbank/CLAUDE.md`
-telt op 2026-08-31 acht genummerde secties, geen 600 regels. Zolang die
-verhouding zo blijft, is de eigen waarschuwing niet van toepassing — maar het
-is de vergelijkingsmaat om bij te houden als het schema in de toekomst groeit.
+telt op 2026-09-17 negen genummerde secties en ruim 200 regels, geen 600. (Hier
+stond "acht"; §9 over de SessionStart-hook was over het hoofd gezien.) Zolang
+die verhouding zo blijft, is de eigen waarschuwing niet van toepassing, maar het
+is de vergelijkingsmaat om bij te houden als het schema groeit.
+
+Gavin Nicholls komt onafhankelijk tot dezelfde les over omvang (`raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md`
+§1, deel Kwaliteit van de code). Hij stapte over van een contextbestand van
+8.000 woorden naar een samenvatting van 1.200 woorden plus een set voorbeelden
+waar de AI zelf doorheen navigeert, en kreeg daarmee consistentere resultaten.
+Dat is dezelfde verhouding als hier tussen `CLAUDE.md` (kort, altijd gelezen) en
+`wiki/` (lang, alleen op aanvraag).
 
 ## 6. Doel: sneller coderen en studentondersteuning
 

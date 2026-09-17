@@ -1,7 +1,7 @@
 ---
 titel: Wapening documenteren — tags, filters en buigstaten
 status: concept
-laatst-bijgewerkt: 2026-08-28
+laatst-bijgewerkt: 2026-09-17
 bronnen:
   - "raw/2026-08-25 samenvatting-bronnen.md §1.4 en §1.7"
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §1.C"
@@ -9,6 +9,7 @@ verwant:
   - rebar-3d-modelleren.md
   - rebar-api-parameters.md
   - nlrs-en-bim-standaarden.md
+  - revit-bronnen-en-communities.md
 skill: sci-bim-context
 ---
 
@@ -44,6 +45,9 @@ categorieën, en ze zijn gescheiden:
 
 - `Structural Rebar` voor staven
 - `Structural Fabric Reinforcement` voor netten
+
+Filters en view templates in plaats van losse grafische overrides is ook het
+advies van Balkan Architect (`revit-bronnen-en-communities.md` §4).
 
 > **Conflict met skill `sci-bim-context`:** de bronnen-dump §1.7 stelt voor om
 > zulke filters op te zetten. Volgens `sci-bim-context`

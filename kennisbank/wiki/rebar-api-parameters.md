@@ -1,10 +1,10 @@
 ---
 titel: BuiltInParameters voor wapening — wat er klopt van de dump
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-09-17
 bronnen:
   - "gemeten 2026-08-28: live Routes-API op localhost:48884, Revit 2025, Enum.IsDefined(BuiltInParameter, <naam>) via /execute_code/"
-  - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code, 2026-08-31)"
+  - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code)"
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §5 (de te controleren tabel)"
   - https://forums.autodesk.com/t5/revit-api-forum/get-rebar-layout-rule/td-p/12431938
   - https://www.revitapidocs.com/2015/669bcf80-e0b7-ee57-30c0-82fdf4184012.htm
@@ -17,6 +17,9 @@ verwant:
   - revit-bronnen-en-communities.md
   - batch-upgrade-en-conversie-revit-bestanden.md
   - appartementdata-genereren-met-ai.md
+  - externe-patronen-revit-repos.md
+  - mcp-versus-custom-tools.md
+  - lees-mcp-koppeling.md
 skill: revit-api-docs
 ---
 
@@ -52,14 +55,15 @@ zonder controle. Dit artikel legt vast wat de controle heeft opgeleverd.
 > een documentatiepagina, mits Revit lokaal bereikbaar is via de Routes-server
 > (zie `mcp-revit-koppeling.md` §4).
 >
-> **[Verouderd sinds 2026-08-31]** Deze methode liep via `/execute_code/`. Die
-> route is op 2026-08-31 volledig uit deze repo verwijderd (crash-risico zonder
-> sandbox of transactie, zie `mcp-revit-koppeling.md` §4). De hieronder
+> **[Verouderd sinds eind augustus 2026]** Deze methode liep via `/execute_code/`. Die
+> route is kort na deze meting uit deze repo verwijderd, de bestanden op 09-09-2026
+> (crash-risico, zie `mcp-revit-koppeling.md` §4 en `routes-thread-veiligheid.md`). De hieronder
 > beschreven `Enum.IsDefined`-toets is dus niet meer op deze manier te herhalen
 > — ook niet voor de nog openstaande 2024/2027-spotcheck in §6. Vervangende
 > leesroute: de **Nonica-connector** (`mcp-revit-koppeling.md` §4, bevestigd
-> door de gebruiker op 2026-08-31). Of `Enum.IsDefined`-achtige checks daarmee
-> mogelijk zijn, is niet vastgelegd.
+> door de gebruiker op 2026-08-31). Die connector heeft vaste lees- en
+> `set_*`-tools en voert geen willekeurige code uit (toollijst, 2026-09-17), dus
+> een `Enum.IsDefined`-check kan er niet mee.
 
 **Geen enkele claim hieronder is geverifieerd in de zin van `revit-api-docs` §0
 regel 3.** Die regel eist een opgehaalde documentatiepagina. In de sessie waarin
@@ -230,6 +234,9 @@ zich vóór en na 2024 verschillend. Dit staat niet in de migratie-cheatsheet in
 Bron: [BuiltInParameter Enumeration, 2024](https://www.revitapidocs.com/2024/fb011c91-be7e-f737-28c7-3f1e1917a0e0.htm).
 Pagina niet opgehaald.
 
+Dezelfde versiespanning speelt aan de MCP-kant: de officiële Autodesk-server
+werkt pas vanaf Revit 2027 (`mcp-versus-custom-tools.md` §4).
+
 **Bijvangst die de skill bevestigt:** dezelfde GUID
 `fb011c91-be7e-f737-28c7-3f1e1917a0e0` levert de enum-pagina op voor 2017.1, 2024
 én 2026. Dat is de GUID-truc uit `revit-api-docs` §3, hier onafhankelijk
@@ -275,7 +282,13 @@ open is:
 - **2024 en 2027.** Gemeten is alleen 2025. Voor deze langbestaande enum-leden is
   verschil onwaarschijnlijk, maar strikt genomen niet uitgesloten. **Niet meer
   "in seconden gedaan" zoals hier eerder stond:** de route waarmee dat kon,
-  `/execute_code/`, is op 2026-08-31 verwijderd (zie §0). De spotcheck vraagt nu
-  óf de vervangende leesroute (de Nonica-connector, zie §0) een gelijkwaardige
-  `Enum.IsDefined`-achtige check biedt, óf een opgehaalde documentatiepagina
-  volgens `revit-api-docs`.
+  `/execute_code/`, is verwijderd (zie §0). De spotcheck vraagt nu
+  een opgehaalde documentatiepagina volgens `revit-api-docs`, want de
+  Nonica-connector voert geen willekeurige code uit (zie §0). De eigen Lees-MCP (`lees-mcp-koppeling.md`) heeft
+  alleen vaste leestools en voert geen willekeurige code uit, dus ook daar geen
+  `Enum.IsDefined`. [ONBEVESTIGD] Of `get_parameters_from_elementid` op een
+  wapeningselement de parameters als BuiltInParameter-naam teruggeeft; dan zou
+  het bestaan per versie indirect te toetsen zijn in een 2024- of 2027-model.
+  Dat de documentatieroute werkt voor 2024 én 2027 laat
+  `externe-patronen-revit-repos.md` zien: daar is op 2026-09-14 onder meer
+  `Rebar.DoesBarExistAtPosition` met de GUID-truc in beide jaren opgezocht.
