@@ -3,7 +3,7 @@ titel: Bruikbare patronen uit externe Revit-repo's (Prio-1-ronde)
 status: concept
 laatst-bijgewerkt: 2026-09-17
 bronnen:
-  - "C:\\Users\\S-WOU1A\\Downloads\\kennisextractie-externe-revit-repos.md (opdracht, 2026-09-14; nog niet in raw/, zie Bronnen en notities)"
+  - "raw/2026-09-17-kennisextractie-externe-revit-repos.md (de opdracht van 2026-09-14; op 2026-09-17 in raw/ gezet)"
   - "github.com/m-wolin/PyRebar@3e77de8 (GPL v3)"
   - "github.com/aiamkovoi/DimensionAuto@f038f8f (MIT)"
   - "github.com/RevitStandards/NLRS_ModelChecker@b8d738e (GPL v3)"
@@ -15,6 +15,7 @@ bronnen:
 verwant:
   - rebar-api-parameters.md
   - nlrs-en-bim-standaarden.md
+  - externe-repos-kandidaten-en-afgevallen.md
 skill: pyrevit-codestijl
 ---
 
@@ -44,9 +45,9 @@ vóór het lezen vastgesteld (zie Repo-register), en niet aan het model overgela
   `revit-api-verifieren-lokaal`, verwijzen naar notities in het werkgeheugen van
   Claude, buiten deze kennisbank. Ze zijn context, geen bron in de zin van
   `kennisbank/CLAUDE.md` §6.
-- De opdracht waaruit deze ronde ontstond staat nog in de Downloads-map, niet in
-  `raw/`. Zolang hij daar staat, kan hij verdwijnen en daarmee de herkomst van de
-  prioritering.
+- De opdracht waaruit deze ronde ontstond staat sinds 2026-09-17 in `raw/`. Wat
+  daarin staat over de nog niet geopende repo's en de afgevallen zoekpaden, is
+  uitgewerkt in `externe-repos-kandidaten-en-afgevallen.md`.
 
 ## Verificatiestatus (2026-09-14)
 
@@ -361,6 +362,8 @@ Drie verplichte caveats, in de bron bevestigd:
    AutoDismiss, IfcOpenShell/ifctester, zexus) zijn deze ronde overgeslagen — de
    keuze was Prio-1 + wiki. Structural-analysis (rekenmodelcontrole) en
    revit-auto-tag (2D-wapeningstagger) zijn de sterkste openstaande kandidaten.
+   Wat de opdracht per kandidaat zoekt, en welke zoekpaden al zijn afgesloten,
+   staat in `externe-repos-kandidaten-en-afgevallen.md`.
 
 ## Repo-register
 

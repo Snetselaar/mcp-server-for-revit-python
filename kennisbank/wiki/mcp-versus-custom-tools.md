@@ -18,6 +18,7 @@ verwant:
   - rebar-api-parameters.md
   - routes-thread-veiligheid.md
   - lees-mcp-koppeling.md
+  - externe-repos-kandidaten-en-afgevallen.md
 skill: sci-bim-context
 ---
 
@@ -68,6 +69,11 @@ transactie kon crashen (§4 van `mcp-revit-koppeling.md`). Het tweede,
 timeout-risico, geldt onverkort voor de resterende routes. Daar kwam op
 09-09-2026 een derde risico bij: model-aanrakende routes kunnen Revit laten
 crashen omdat ze niet op de API-thread draaien (`routes-thread-veiligheid.md`).
+
+Er bestaan meer Revit-MCP-implementaties dan deze repo (`horizun-revit-mcp`,
+`BIM-Bot`) en een C#-agent, `zexus`, die begrenst wat een in-process agent mag
+uitvoeren. Geen van die drie is bekeken; ze staan als kandidaat in
+`externe-repos-kandidaten-en-afgevallen.md` §2-§3.
 
 ## 3. Het advies — bouw tools *met* AI, niet autonome MCP
 

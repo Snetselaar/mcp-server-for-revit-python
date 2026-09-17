@@ -12,6 +12,7 @@ verwant:
   - lees-mcp-koppeling.md
   - modeless-venster-persistente-engine.md
   - mcp-versus-custom-tools.md
+  - externe-repos-kandidaten-en-afgevallen.md
 skill: pyrevit-codestijl
 ---
 
@@ -110,6 +111,11 @@ Zie `lees-mcp-koppeling.md`.
 Een callback die via `ExternalEvent` loopt, heeft zijn eigen valkuil op een
 niet-persistente engine: de module-scope is dan gewist. Zie
 `modeless-venster-persistente-engine.md`.
+
+[ONBEVESTIGD] Of andere Revit-MCP-implementaties (`horizun-revit-mcp`, `BIM-Bot`)
+het thread-probleem anders oplossen, is niet bekeken. Ze staan als afgevallen
+zoekpad in `externe-repos-kandidaten-en-afgevallen.md` §3, met als reden "onze
+koppeling werkt"; die reden gold niet meer toen hij werd opgeschreven.
 
 ## 6. Leesroutes die wel stabiel zijn
 

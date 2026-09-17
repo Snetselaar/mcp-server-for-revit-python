@@ -11,6 +11,7 @@ bronnen:
 verwant:
   - ifc-import-verboden-tekens-in-namen.md
   - lees-mcp-koppeling.md
+  - externe-repos-kandidaten-en-afgevallen.md
 skill: sci-bim-context
 ---
 
@@ -115,6 +116,12 @@ Beslissing ligt bij de BIM-coördinator. Geen van deze routes is uitgevoerd.
 4. **Snelle test zonder familiewerk.** Een kopie van de staalstaat met "Pset_"
    in de titel, exporteren, controleren in BIMcollab. Bewijst of route 3 uit de
    tabel in §3 werkt.
+
+Voor een volgende ronde externe repo's staan vier IFC-kandidaten klaar: de
+exporter zelf (`Autodesk/revit-ifc`, welke property sets hij standaard schrijft),
+IDS en `ifctester` om een IFC vóór verzending te valideren, en een Nederlandse
+pyRevit-tool die de mappingtabel bewerkt. Zie
+`externe-repos-kandidaten-en-afgevallen.md` §2.
 
 Een tweede gat in dezelfde keten staat in
 `ifc-import-verboden-tekens-in-namen.md`: de placeholders in Project

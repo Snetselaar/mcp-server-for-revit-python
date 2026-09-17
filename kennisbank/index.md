@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 21 artikelen, 2026-09-17. Laatste health check:
+**Stand:** 22 artikelen, 2026-09-17. Laatste health check:
 [2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
 MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
 niet en de Lees-MCP heeft geen artikel. Daarvoor:
@@ -48,6 +48,7 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 | [vyssuals-datavisualisatie.md](wiki/vyssuals-datavisualisatie.md) | concept | 2026-08-31 | Kleurgebaseerde data-analyse van Revit-modellen in de browser, met een eigen MCP-koppeling naar Claude Code |
 | [batch-upgrade-en-conversie-revit-bestanden.md](wiki/batch-upgrade-en-conversie-revit-bestanden.md) | concept | 2026-08-31 | BIM Pure Plugin v0.4: RVT/RFA batchgewijs upgraden en family-eenheden converteren |
 | [externe-patronen-revit-repos.md](wiki/externe-patronen-revit-repos.md) | concept | 2026-09-17 | Prio-1-ronde langs 6 publieke repo's: Revit-vrije regelmodule + CI, dubbeldetectie, maatlijn-zonelogica, failure-preprocessor, ES-schema, NLRS-checklijst, per-versie stubs. Licentie-gefilterd; dragende API's geverifieerd in 2024 én 2027. |
+| [externe-repos-kandidaten-en-afgevallen.md](wiki/externe-repos-kandidaten-en-afgevallen.md) | concept | 2026-09-17 | Wat de opdracht achter de Prio-1-ronde nog meer bevat: twaalf niet-geopende kandidaten (rekenmodelcontrole, offline CHM-docs, IFC/IDS, agent-begrenzing) en dertien afgesloten zoekpaden met reden. Alles ongeverifieerd. |
 
 ## Interoperabiliteit en standaarden
 
@@ -201,7 +202,7 @@ elders al gecorrigeerd, maar niet overal doorgevoerd. Zie
   §4. Dit is buiten `/kb-verwerk` om gebeurd (een live-debugsessie, geen
   `raw/`-bestand); hier alsnog gelogd in `memory.md` omdat de wijziging anders
   geen spoor in het logboek had.
-- **Alle 21 artikelen staan op `concept`** (geteld 2026-09-17). Promotie naar een skill vraagt
+- **Alle 22 artikelen staan op `concept`** (geteld 2026-09-17). Promotie naar een skill vraagt
   `stabiel` plus twee onafhankelijke bronnen (`CLAUDE.md` §4). De meeste
   rebar-artikelen leunen nog op één gecureerde samenvatting. Uitzondering sinds
   2026-08-28: `rebar-api-parameters.md` heeft er een tweede, onafhankelijke bron
@@ -248,12 +249,25 @@ memories, en de skillbron `sci-bim-context` (geüpload en vastgelegd).
 Nog open:
 
 - ~~Upload `sci-bim-context`~~ — geüpload en vastgelegd op 2026-09-17 (sha256 `4ac149be…`).
-- **`Downloads\kennisextractie-externe-revit-repos.md` naar `raw/` kopiëren**, zodat de
-  bron onder `wiki/externe-patronen-revit-repos.md` niet verdwijnt. Handwerk van de
-  gebruiker (`raw/` is alleen voor de gebruiker).
+- ~~`kennisextractie-externe-revit-repos.md` naar `raw/`~~ — op 2026-09-17 verwerkt (zie hieronder).
 - **Punt 18:** is de OneDrive-clone van deze repo nog nodig? Beslissing gebruiker.
 - **Revu Max en `ScriptEngine.exe`:** de foutmelding wijst op Max; niet getest.
 - **7850 kg/m³ in NEN-EN 1993-1-1 §3.2.6** nalezen.
 - `wiki/mcp-revit-koppeling.md` telt ruim 480 regels; splitsen (keten versus
   historiek) is een kandidaat.
 - `wiki/bluebeam-sets-revisies-automatisch.md` heeft geen verwant artikel.
+
+### Uit de verwerking van `raw/2026-09-17-kennisextractie-externe-revit-repos.md`
+
+- **Twaalf kandidaat-repo's zijn niet geopend** en alles over ze is de beschrijving
+  van de opdrachtgever. Sterkste twee: `pyrevit-structural-analysis-extension`
+  (rekenmodelcontrole, drempels van `host_match.py` op SCI-modellen toetsen) en
+  `revit-api-chms` + `chm-converter` (offline API-verificatie per versie, ook voor de
+  open 2024/2027-spotcheck in `wiki/rebar-api-parameters.md` §6). Zie
+  `wiki/externe-repos-kandidaten-en-afgevallen.md` §2.
+- **Lossen andere Revit-MCP's (`horizun-revit-mcp`, `BIM-Bot`) het thread-probleem
+  op?** Afgevallen met "onze koppeling werkt", maar die reden gold al niet meer.
+- **Tekla Open API: .NET/C#?** Eerst vast te stellen vóór de vakwerkbematingstool
+  een stackkeuze krijgt.
+- **Bouwtekening24/PyRevit-IFC-Parameter-Mapping:** licentie en inhoud onbekend.
+

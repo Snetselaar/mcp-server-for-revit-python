@@ -9,6 +9,7 @@ verwant:
   - rebar-documentatie-en-staten.md
   - ifc-import-verboden-tekens-in-namen.md
   - externe-patronen-revit-repos.md
+  - externe-repos-kandidaten-en-afgevallen.md
 skill: sci-bim-context
 ---
 
@@ -69,6 +70,11 @@ Eén ILS-punt is sinds 2026-09-16 harder dan een afspraak. Blijven de
 placeholders in Project Information staan, dan krijgen `IfcBuilding.Name` en
 `IfcSite.Name` tekens die Revit 2027 in een naam weigert, en kan de ontvanger
 het bestand niet importeren. Zie `ifc-import-verboden-tekens-in-namen.md`.
+
+Een kant-en-klare repo voor BIM Basis ILS in Revit bestaat volgens de opdracht voor
+de externe-reporonde niet: de ene is een ZIP uit 2019 onder een niet-commerciële
+licentie, de andere een Solibri-ruleset (`externe-repos-kandidaten-en-afgevallen.md`
+§3). Een IDS-validatie met `ifctester` is de open kandidaat.
 
 ---
 

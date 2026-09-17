@@ -20,6 +20,7 @@ verwant:
   - externe-patronen-revit-repos.md
   - mcp-versus-custom-tools.md
   - lees-mcp-koppeling.md
+  - externe-repos-kandidaten-en-afgevallen.md
 skill: revit-api-docs
 ---
 
@@ -292,3 +293,6 @@ open is:
   Dat de documentatieroute werkt voor 2024 én 2027 laat
   `externe-patronen-revit-repos.md` zien: daar is op 2026-09-14 onder meer
   `Rebar.DoesBarExistAtPosition` met de GUID-truc in beide jaren opgezocht.
+  Een derde route, niet geprobeerd: de `RevitAPI.chm`-bestanden per versie,
+  omgezet naar Markdown (`externe-repos-kandidaten-en-afgevallen.md` §2).
+  [ONBEVESTIGD] Of die de `BuiltInParameter`-leden per jaar volledig bevatten.

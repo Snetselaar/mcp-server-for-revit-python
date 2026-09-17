@@ -7,6 +7,7 @@ bronnen:
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1, deel Kwaliteit van de code (Gavin Nicholls)"
 verwant:
   - revit-bronnen-en-communities.md
+  - externe-repos-kandidaten-en-afgevallen.md
 ---
 
 # AI-Brain — een raw/wiki/skills-kennisdatabase voor de Revit API
@@ -115,6 +116,12 @@ Gavin Nicholls komt onafhankelijk tot dezelfde les over omvang (`raw/2026-08-31-
 waar de AI zelf doorheen navigeert, en kreeg daarmee consistentere resultaten.
 Dat is dezelfde verhouding als hier tussen `CLAUDE.md` (kort, altijd gelezen) en
 `wiki/` (lang, alleen op aanvraag).
+
+Een derde opzet om naast deze twee te leggen staat als kandidaat klaar:
+`ai-pyrevit-developer-template`, met `AGENTS.md`, een plan-naar-taken-workflow en
+CI-checks die verouderde documentatie tegenhouden
+(`externe-repos-kandidaten-en-afgevallen.md` §2). Die laatste doet automatisch wat
+`/kb-check` hier maandelijks met de hand doet.
 
 ## 6. Doel: sneller coderen en studentondersteuning
 
