@@ -1,7 +1,7 @@
 ---
 titel: Bluebeam-sets automatisch aanvullen met nieuwe PDF-revisies en hun opmerkingen
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-09-25
 bronnen:
   - "waargenomen in P:\\9000-9999\\9400-9449\\9429 - bedrijfsgebouw op bedrijventerrein Kraaienhoef Poederoijen\\8 Interne controle\\02. Sets\\S-9429.bex en de PDF's in die map, 2026-09-17"
   - "W:\\7 - Software\\Bluebeam\\Sets\\S-0000.bex (sjabloonset), 2026-09-17"
@@ -12,6 +12,10 @@ bronnen:
   - https://support.bluebeam.com/revu/subscription/subscription-features.html (rij "Implement scripting commands", opgehaald 2026-09-17)
   - https://support.bluebeam.com/online-help/revu21/Content/RevuHelp/Menus/Document/Script/Using-Scripts.htm
   - "gebruiker, 2026-09-17: PDF's met meer dan één blad komen nooit voor; idee verzonden set geparkeerd; formaatwissel is bekend en wordt bij het printen voorkomen; het team werkt al 3 jaar met sets"
+  - "collega-test 2026-09-17/18: bij een andere gebruiker stonden de nieuwe tekeningen los; gemeten met pypdf op de PDF's van S-9429 (/BSITags aanwezig bij Revu, afwezig bij het script)"
+  - "eigen meting 2026-09-18: drie incrementele pypdf-schrijfacties op dezelfde PDF laten het XRef-object een objectnummer hergebruiken"
+  - "gebruiker, 2026-09-25: formaatwissel toch automatisch laten controleren, keuze 'per keer vragen'"
+  - "tests op een kopie van de UO-set van S-8667 met nagemaakte prints (A0 -> A1, liggend -> staand, /Rotate 90), ps1 1.5 en Plot v5 2.14, 2026-09-25"
 verwant: []
 ---
 
@@ -53,6 +57,22 @@ Waargenomen in `S-9429.bex`:
 - Revu voegde de v0.03-regels achteraan toe; volgorde in het bestand doet er
   niet toe.
 - `<Table>` bevat per categorie trefwoorden (`Fundering; grondvloer; palenplan`).
+
+**De set is niet de enige plek waar de tags staan.** Bluebeam schrijft het
+bladnummer en revisienummer ook in de PDF zelf, als `/BSITags` op de pagina:
+
+```
+25 0 obj << /Type /Tag /ID /SheetNumber   /TagType /Text   /Value (11) >> endobj
+26 0 obj << /Type /Tag /ID /RevisionNumber /TagType /Number /Value (3)  >> endobj
+27 0 obj [ 25 0 R 26 0 R ] endobj      % de pagina krijgt /BSITags 27 0 R
+```
+
+Gemeten op 2026-09-18: elke PDF die Revu zelf aan de set koppelde heeft die
+tags. Staat de koppeling alleen in de `.bex`, dan ziet de gebruiker die het
+script draaide de set goed, maar een andere gebruiker de nieuwe tekeningen los
+van hun revisiereeks. Dat kostte in S-9429 de geschiedenis van vijf bladen: bij
+het handmatig rechtzetten verdwenen de oudere revisies van 00, 11, 31, 41 en 42
+uit de set.
 
 ## 2. Wat niet kan
 
@@ -101,7 +121,7 @@ Twee delen, samen gestart vanuit `Set bijwerken.bat`:
 | Bestand | Draait op | Doet |
 |---|---|---|
 | `Set bijwerken.ps1` | Windows PowerShell 5.1 | nieuwe PDF's zoeken, bladnummer en revisie bepalen, set bijwerken, set openen |
-| `markups_overzetten.py` | de CPython van pyRevit (`%APPDATA%\pyRevit-Master\bin\cengines\CPY3123\python.exe`) | opmerkingen overzetten, vorige revisie stempelen |
+| `markups_overzetten.py` | de CPython van pyRevit (`%APPDATA%\pyRevit-Master\bin\cengines\CPY3123\python.exe`) | `/BSITags` zetten, opmerkingen overzetten, vorige revisie stempelen |
 | `lib\pypdf` | idem | PDF-bibliotheek, pure Python, meegeleverd (6.18.1, BSD) |
 | `Vervangen-stempel.pdf` | | voorbeeld van de stempel `Vervangen` |
 
@@ -138,8 +158,18 @@ Werking van het Python-deel, nagebouwd op §3:
   draaien voegt daardoor niets dubbel toe.
 - Het stempelt elke pagina van de vorige revisie die nog geen `Vervangen`-stempel
   heeft. De stempel schaalt mee met de paginamaat.
-- Beide PDF's schrijft het als incrementele update via een tijdelijk bestand. De
-  oorspronkelijke bytes blijven staan.
+- Het zet `/BSITags` op de eerste pagina, met dezelfde opbouw als Revu. Staan de
+  goede waarden er al, dan schrijft het niets.
+- Beide PDF's schrijft het volledig opnieuw weg, via een tijdelijk bestand.
+  **Niet incrementeel.** Bij een tweede of derde incrementele update hergebruikt
+  pypdf 6.18.1 objectnummers: het nieuwe XRef-object krijgt dan het nummer van
+  een object dat net is toegevoegd, en een eerder gezette tag wijst daarna naar
+  de XRef in plaats van naar zijn `/Tag` (gemeten 2026-09-18, drie keer schrijven
+  op dezelfde PDF). Volledig herschrijven doorstaat die test wel, met behoud van
+  annotaties, lagen, `/BSIAnnotColumns` en paginalabels, en kost ongeveer 3%
+  bestandsgrootte.
+- De stand `-Herstel` (`Tags herstellen.bat`) zet in elke PDF die al in de set
+  staat de tags uit de `.bex`, voor sets waar dit al is misgegaan.
 
 Een gestempelde vorige PDF groeit ongeveer 150 kB, door het ingesloten lettertype
 van de stempel. Revu's eigen stempel doet hetzelfde.
@@ -163,8 +193,39 @@ maar dat geval hoeft niet getest te worden.
 
 Een formaatwissel (bijvoorbeeld A1 naar A0) laat de opmerkingen verschuiven,
 ook in Revu zelf. Het team werkt al drie jaar met sets, kent dat en houdt er
-bij het printen rekening mee (gebruiker, 2026-09-17). Het script waarschuwt
-alleen; verder is het geen open punt.
+bij het printen rekening mee (gebruiker, 2026-09-17). Tot en met ps1 1.4
+waarschuwde het script pas achteraf. Op 2026-09-25 vroeg de gebruiker om een
+controle vooraf; zie §5a.
+
+## 5a. Controle op een ander papierformaat (ps1 1.5, Plot v5 2.14)
+
+Opmerkingen staan in de coördinaten van de MediaBox van de pagina. Is de nieuwe
+revisie op een ander formaat geprint, dan komen ze op dezelfde coördinaten en
+dus op de verkeerde plek terecht. Dat geldt ook voor een wissel tussen staand en
+liggend in de MediaBox zelf. Alleen een `/Rotate` op dezelfde MediaBox telt niet
+als wissel.
+
+- Het script meet vóór het plannen de ruwe MediaBox van de nieuwe PDF en van de
+  vorige revisie. Lukt dat bij de vorige niet, dan gebruikt het Width/Height uit
+  de `.bex`, en telt staand of liggend daar niet mee. De speling is 5 pt
+  (1,8 mm), want Revu schrijft hele punten in de `.bex`.
+- De melding noemt het formaat: `A0 liggend (1189 x 841 mm) -> A1 liggend (841 x 594 mm)`.
+- **Wat er dan gebeurt**, keuze van de gebruiker "per keer vragen":
+  - vanuit Plot (`-Json`): de ps1 stopt voordat er iets gewijzigd is, met
+    `keuze_nodig` en de lijst `formaatwissels`. Plot vraagt: zonder opmerkingen
+    toevoegen of overslaan. Bij meer bladen kan dat ook allemaal tegelijk of per
+    blad. Daarna draait Plot de ps1 opnieuw: over te slaan bladen staan niet
+    meer in `-Lijst`, de rest staat in `-ZonderOpmerkingen`. Wie het venster
+    wegklikt, laat de set ongewijzigd.
+  - in het venster (bat): per blad `z` (zonder opmerkingen) of `o` (overslaan).
+  - `-Proef` meldt de wissel alleen.
+- "Zonder opmerkingen" = `markups_overzetten.py --geen-opmerkingen`. De tags
+  en de stempel `Vervangen` op de vorige revisie komen er wel. De samenvatting
+  van Plot waarschuwt dat de opmerkingen met de hand over moeten.
+- Getest buiten Revit (2026-09-25): alle routes van de ps1, en de keuzelogica
+  van Plot in CPython met nagebootste dialogen en de echte ps1. Plot compileert
+  onder IronPython 2.7.12. In Revit is het nog niet gedraaid (testpunt T10 in
+  `RnD.extension	est_matrix.md`).
 
 ## 6. Stand en vervolg
 

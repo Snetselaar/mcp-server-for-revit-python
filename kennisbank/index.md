@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 22 artikelen, 2026-09-17. Laatste health check:
+**Stand:** 23 artikelen, 2026-09-21. Laatste health check:
 [2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
 MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
 niet en de Lees-MCP heeft geen artikel. Daarvoor:
@@ -28,18 +28,24 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 | [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-09-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
 | [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-09-17 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector. Met een conflictblok: geen model-aanrakende route zonder ExternalEvent |
 | [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-09-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
-| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-09-17 | De eigen alleen-lezen koppeling (03_R&D-knop Lees MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, 40 tools met Nonica-namen, versies 1.0-1.2, aantoonbaar op 2025 en 2027. |
+| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-09-21 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 44 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.1. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken): rollback en poorten werken, twee fouten gevonden en gerepareerd. |
 | [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-09-17 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-09-17 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 | [ai-tools-voor-pyrevit-ontwikkeling.md](wiki/ai-tools-voor-pyrevit-ontwikkeling.md) | concept | 2026-08-31 | Gratis Claude Code via OpenRouter (Ox Alpha) en Erik Frits' browser-based WPF Form Builder |
 | [ai-brain-kennisorganisatie-pyrevit.md](wiki/ai-brain-kennisorganisatie-pyrevit.md) | concept | 2026-09-17 | Erik Frits' raw/wiki/skills-kennisdatabase voor de Revit API, gebaseerd op Karpathy's LLM Wiki-concept — vrijwel identieke opzet als deze kennisbank |
 | [appartementdata-genereren-met-ai.md](wiki/appartementdata-genereren-met-ai.md) | concept | 2026-08-31 | Claude Code + pyRevit MCP: afstanden, ramen, buren en plafondhoogte per appartement berekenen, wegschrijven naar Area-parameters, en er een vaste `Unit Data`-knop van maken |
 
+## Modelleren
+
+| Artikel | Status | Bijgewerkt | Waarover |
+|---|---|---|---|
+| [structural-connection-blijft-hangen-na-kopie.md](wiki/structural-connection-blijft-hangen-na-kopie.md) | concept | 2026-09-17 | Een gekopieerd profiel neemt de structural connection naar een kolom mee en blijft vastzitten. Werkende oplossing: splitten en het stuk met de connection deleten. Het alternatief (de connection zelf verwijderen) is ongetest. |
+
 ## Tekeningcontrole en Bluebeam
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-09-17 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met het idee voor een verzonden set in `7 Uit`. |
+| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-09-25 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met de vondst van 18-09: de tags staan ook ín de PDF (`/BSITags`), anders ziet een andere gebruiker de tekening los. Sinds 25-09 (§5a) de controle vooraf op een ander papierformaat in Plot v5 2.14 / ps1 1.5. Plus het idee voor een verzonden set in `7 Uit`. |
 
 ## Tools en plugins van derden
 
