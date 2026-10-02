@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 23 artikelen, 2026-09-21. Laatste health check:
+**Stand:** 24 artikelen, 2026-09-28. Laatste health check:
 [2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
 MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
 niet en de Lees-MCP heeft geen artikel. Daarvoor:
@@ -45,7 +45,7 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-09-25 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met de vondst van 18-09: de tags staan ook ín de PDF (`/BSITags`), anders ziet een andere gebruiker de tekening los. Sinds 25-09 (§5a) de controle vooraf op een ander papierformaat in Plot v5 2.14 / ps1 1.5. Plus het idee voor een verzonden set in `7 Uit`. |
+| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-09-25 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met de vondst van 18-09: de tags staan ook ín de PDF (`/BSITags`), anders ziet een andere gebruiker de tekening los. Sinds 25-09 (§5a) de controle vooraf op een ander papierformaat in Plot v5 2.15 / ps1 1.6: zonder, toch of overslaan, en in het rood in het eindvenster. Plus het idee voor een verzonden set in `7 Uit`. |
 
 ## Tools en plugins van derden
 
@@ -82,6 +82,10 @@ _Gedekt door de skill `sci-bim-context`._
 
 _Gedekt door de skills `bimtools-promotie`, `bimtools-logging` en
 `bimtools-actielijst`._
+
+| Artikel | Status | Bijgewerkt | Waarover |
+|---|---|---|---|
+| [model-vergelijken-fase0-ifc-rvt-link.md](wiki/model-vergelijken-fase0-ifc-rvt-link.md) | concept | 2026-09-28 | Fase 0 van de knop Model vergelijken op drie aanleveringen IKC Cunera (GAJ): van de elementen die blijven bestaan houdt 99,9-100% zijn GlobalId, sparingen niet (en 14 dubbel). Wat een IFC-link binnenbrengt: DirectShapes zonder Level, IfcGUID gelijk aan het bestand, ramen en sparingen in Generic Models, dragend-vlag leeg bij deze architect. Plus de API-toets: `CreateEqualsRule(.., String, Boolean)` weg in 2026, `LoadFrom` wist de undo. |
 
 ---
 

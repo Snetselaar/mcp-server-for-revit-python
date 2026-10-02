@@ -16,6 +16,7 @@ bronnen:
   - "eigen meting 2026-09-18: drie incrementele pypdf-schrijfacties op dezelfde PDF laten het XRef-object een objectnummer hergebruiken"
   - "gebruiker, 2026-09-25: formaatwissel toch automatisch laten controleren, keuze 'per keer vragen'"
   - "tests op een kopie van de UO-set van S-8667 met nagemaakte prints (A0 -> A1, liggend -> staand, /Rotate 90), ps1 1.5 en Plot v5 2.14, 2026-09-25"
+  - "gebruiker, 2026-09-25: 2.14 in Revit getest op S-8667, 'werkt echt super'; wens: opmerkingen toch kunnen overzetten, en de formaatwissel in het rood in het eindvenster"
 verwant: []
 ---
 
@@ -197,7 +198,7 @@ bij het printen rekening mee (gebruiker, 2026-09-17). Tot en met ps1 1.4
 waarschuwde het script pas achteraf. Op 2026-09-25 vroeg de gebruiker om een
 controle vooraf; zie §5a.
 
-## 5a. Controle op een ander papierformaat (ps1 1.5, Plot v5 2.14)
+## 5a. Controle op een ander papierformaat (ps1 1.5-1.6, Plot v5 2.14-2.15)
 
 Opmerkingen staan in de coördinaten van de MediaBox van de pagina. Is de nieuwe
 revisie op een ander formaat geprint, dan komen ze op dezelfde coördinaten en
@@ -219,13 +220,25 @@ als wissel.
     wegklikt, laat de set ongewijzigd.
   - in het venster (bat): per blad `z` (zonder opmerkingen) of `o` (overslaan).
   - `-Proef` meldt de wissel alleen.
+- Sinds 2.15 / ps1 1.6 is er een derde keuze: **opmerkingen toch overzetten**
+  (`-TochOverzetten`). De opmerkingen gaan dan mee op dezelfde plek op het
+  papier, en de samenvatting vraagt hun positie te controleren. Gevraagd door
+  de gebruiker na de eerste echte test (2026-09-25).
 - "Zonder opmerkingen" = `markups_overzetten.py --geen-opmerkingen`. De tags
   en de stempel `Vervangen` op de vorige revisie komen er wel. De samenvatting
   van Plot waarschuwt dat de opmerkingen met de hand over moeten.
+- **Opvallend melden (2.15).** Met `forms.alert` kan het eindvenster geen kleur
+  tonen. Staat er een formaatwissel in de run, dan toont Plot daarom een eigen
+  WPF-venster (XAML-string in het script) met een rode balk bovenaan. Elke regel
+  met "papierformaat" staat daarin vet en rood. Het uitvoervenster krijgt
+  dezelfde regels in het rood via `print_html`. Zonder formaatwissel blijft het
+  eindvenster de gewone `forms.alert`.
 - Getest buiten Revit (2026-09-25): alle routes van de ps1, en de keuzelogica
   van Plot in CPython met nagebootste dialogen en de echte ps1. Plot compileert
-  onder IronPython 2.7.12. In Revit is het nog niet gedraaid (testpunt T10 in
-  `RnD.extension	est_matrix.md`).
+  onder IronPython 2.7.12. Op 2026-09-25 heeft de gebruiker 2.14 in Revit getest
+  op S-8667, met als oordeel "werkt echt super". 2.15 is buiten Revit getest:
+  de keuzeroutes, en de XAML die onder WPF laadt en goed rendert. Open staan de
+  testpunten T10 en T11 in `RnD.extension	est_matrix.md`.
 
 ## 6. Stand en vervolg
 
