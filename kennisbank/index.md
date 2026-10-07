@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 24 artikelen, 2026-09-28. Laatste health check:
+**Stand:** 25 artikelen, 2026-10-07. Laatste health check:
 [2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
 MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
 niet en de Lees-MCP heeft geen artikel. Daarvoor:
@@ -86,6 +86,7 @@ _Gedekt door de skills `bimtools-promotie`, `bimtools-logging` en
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [model-vergelijken-fase0-ifc-rvt-link.md](wiki/model-vergelijken-fase0-ifc-rvt-link.md) | concept | 2026-09-28 | Fase 0 van de knop Model vergelijken op drie aanleveringen IKC Cunera (GAJ): van de elementen die blijven bestaan houdt 99,9-100% zijn GlobalId, sparingen niet (en 14 dubbel). Wat een IFC-link binnenbrengt: DirectShapes zonder Level, IfcGUID gelijk aan het bestand, ramen en sparingen in Generic Models, dragend-vlag leeg bij deze architect. Plus de API-toets: `CreateEqualsRule(.., String, Boolean)` weg in 2026, `LoadFrom` wist de undo. |
+| [peil-0-en-hoogtes-meten.md](wiki/peil-0-en-hoogtes-meten.md) | concept | 2026-10-07 | Peil 0 = projectbasispunt; het lint gebruikt daarvoor twee routes (`GetProjectBasePoint().Position.Z` en `Level.ProjectElevation`) die alleen gelijk zijn als "project origin" het interne nulpunt is. Onderkant van een profiel meten aan de solids, niet aan de systeemlijn. Toegepast in Vakwerk Overzicht 2.11 (meerderheid per type, > 1 mm = fout). |
 
 ---
 
@@ -129,6 +130,12 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   Zie `wiki/rebar-api-parameters.md` §4.
 
 ### Uit te zoeken in Revit of op W:
+
+- **Waar meet `Level.ProjectElevation` vanaf?** (2026-10-07) De documentatie
+  zegt "project origin". Kolommen_Taggen en Bovenkant paal aansluiten rekenen
+  alsof dat het interne nulpunt is, NAP_Wijzigen alsof het het
+  projectbasispunt is. Toetsen in een model met een verhoogd projectbasispunt.
+  Zie `wiki/peil-0-en-hoogtes-meten.md`.
 
 - **De acht BuiltInParameters — bestaan afgehandeld (2026-08-28).** Alle acht
   namen gaven `True` op `Enum.IsDefined` in de live Revit 2025-API via het
