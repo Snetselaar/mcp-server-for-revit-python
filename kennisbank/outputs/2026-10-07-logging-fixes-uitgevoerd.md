@@ -109,3 +109,19 @@ de hele `01_SCI.tab` en `lib` dat weer.
    Staal_Controle), ingeslikte fouten zonder traceback (Paal-Paal en de inner
    handlers in Framing/Kolommen_Taggen), en ModelVergelijk `__version__` 1.4
    tegen Versie-regel 1.3.
+
+## Addendum, later dezelfde dag
+
+Op opdracht van Albert ook gepubliceerd naar de gedeelde map:
+**AutoDim Detail 1.17 → 1.22** en **Tag Details 1.15 → 1.34**. Toolboek-CSV,
+tooltips, PDF's en actielijst zijn bijgewerkt; de actielijst meldt nu "alles
+gelijk", en de hele `02_Beta.tab` is byte-gelijk aan de AWO-werkmap. De zin
+hierboven dat die twee "bewust op de gepubliceerde versie" staan, is daarmee
+achterhaald.
+
+Let op bij de Revit-test: AutoDim Detail 1.22 (wandrijen bij een enkele wand
+omgedraaid, 06-10-2026) is nog niet in Revit gedraaid. Op 29-09-2026 liet een
+tussenversie (autopilot iter_08) Revit crashen en ging de knop terug naar 1.17;
+1.18-1.21 liepen daarna via de annotatie-autopilot in een echt model. Tag
+Details 1.16-1.34 zijn per stap door Albert getest. Backups van de vorige
+gedeelde versies staan in de sessie-scratchpad (`backup_gedeeld_beta`).
