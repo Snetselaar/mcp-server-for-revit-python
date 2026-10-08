@@ -11,7 +11,8 @@ bronnen:
   - "reflectie op RevitAPI.dll 2024-2027 met RnD.extension\\tools\\check_api.ps1 (07-10-2026): BasePoint.GetProjectBasePoint, BasePoint.Position, Options.DetailLevel, GeometryInstance.GetInstanceGeometry, Edge.Tessellate"
   - https://rvtdocs.com/2024/Autodesk.Revit.DB.Level.ProjectElevation
   - https://rvtdocs.com/2027/Autodesk.Revit.DB.Level.ProjectElevation
-verwant: []
+verwant:
+  - zoek-revit-api.md
 skill: revit-api-docs
 ---
 
@@ -33,7 +34,7 @@ Geometrie staat in interne coördinaten. Een hoogte t.o.v. peil is dus altijd
 
 | Route | Gebruikt in | Wat het teruggeeft |
 |---|---|---|
-| `BasePoint.GetProjectBasePoint(doc).Position.Z` | As_Aanzichten, Wand_Aanzichten, Vakwerk Overzicht 2.11 | Z van het projectbasispunt in interne coördinaten; bestaat in 2024-2027 (reflectie, 07-10-2026) |
+| `BasePoint.GetProjectBasePoint(doc).Position.Z` | As_Aanzichten, Wand_Aanzichten, Vakwerk Overzicht 2.11 | Z van het projectbasispunt in interne coördinaten; bestaat in 2024-2027 (reflectie, 07-10-2026; sindsdien ook via `zoek_revit_api`, zie `zoek-revit-api.md`) |
 | `Level.ProjectElevation` | NAP_Wijzigen, Kolommen_Taggen, Bovenkant paal aansluiten | volgens de documentatie "the elevation relative to project origin", in 2024 en 2027 gelijk verwoord |
 
 [ONBEVESTIGD] Of "project origin" in die omschrijving het interne nulpunt is

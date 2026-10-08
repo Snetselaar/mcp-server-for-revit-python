@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 25 artikelen, 2026-10-07. Laatste health check:
+**Stand:** 26 artikelen, 2026-10-08. Laatste health check:
 [2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
 MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
 niet en de Lees-MCP heeft geen artikel. Daarvoor:
@@ -28,7 +28,8 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 | [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-09-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
 | [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-09-17 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector. Met een conflictblok: geen model-aanrakende route zonder ExternalEvent |
 | [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-09-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
-| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-09-21 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 44 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.1. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken): rollback en poorten werken, twee fouten gevonden en gerepareerd. |
+| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-10-08 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 50 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.4. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken). Sinds 08-10 vastgelegd: de luisterthread is serieel, een wachtende modeltool houdt ook ping en opzoekingen op. |
+| [zoek-revit-api.md](wiki/zoek-revit-api.md) | concept | 2026-10-08 | MCP-tool `zoek_revit_api` (server 2.4): signaturen, Obsolete-tekst en IronPython-hints uit momentopnames van de geïnstalleerde DLL's, zonder Revit. Waarom buiten Revit (route C), gebruik, wat het wel en niet bewijst, en de gevonden verschillen 2024-2027 (`ElementId`, `Curve.Intersect`). |
 | [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-09-17 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-09-17 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 | [ai-tools-voor-pyrevit-ontwikkeling.md](wiki/ai-tools-voor-pyrevit-ontwikkeling.md) | concept | 2026-08-31 | Gratis Claude Code via OpenRouter (Ox Alpha) en Erik Frits' browser-based WPF Form Builder |

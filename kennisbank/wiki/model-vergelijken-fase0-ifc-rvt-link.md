@@ -12,6 +12,7 @@ bronnen:
 verwant:
   - ifc-import-verboden-tekens-in-namen.md
   - lees-mcp-koppeling.md
+  - zoek-revit-api.md
 skill: revit-api-docs
 ---
 
@@ -142,7 +143,8 @@ Alle aangenomen API-namen uit het bouwplan zijn met `check_api.ps1` getoetst in 
 RevitAPI.dll van 2024, 2025, 2026 en 2027. Ze bestaan in alle vier met dezelfde
 signatuur, op één na: `ParameterFilterRuleFactory.CreateEqualsRule(ElementId,
 String, Boolean)` bestaat alleen in 2024/2025. `CreateEqualsRule(ElementId,
-String)` staat in alle vier.
+String)` staat in alle vier. Sinds 08-10-2026 kan dezelfde toets ook via de
+MCP-tool `zoek_revit_api` (`zoek-revit-api.md`).
 
 Uit de documentatie, 2024 en 2027:
 

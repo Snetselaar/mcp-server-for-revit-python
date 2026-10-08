@@ -1,7 +1,7 @@
 ---
 titel: De MCP-koppeling — eigen koppeling tussen Claude en Revit, lezen en schrijven
 status: concept
-laatst-bijgewerkt: 2026-09-21
+laatst-bijgewerkt: 2026-10-08
 bronnen:
   - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\03_R&D.tab\\Tools.panel\\Lees_MCP.pushbutton\\script.py (versie 2.1, gelezen 2026-09-21)"
   - "hetzelfde pad, bundle.yaml (tooltip, engine: persistent: true)"
@@ -11,7 +11,9 @@ bronnen:
   - ".mcp.json (deze repo), server revit-lezen, gelezen 2026-09-17"
   - "waargenomen: gebruikt als meetroute in S-9479_R25 (2026-09-15) en S-9497_R27 (2026-09-16)"
   - "eerste schrijfrun: IKC Cunera_CON_SNE_9204_DO_R25 (Revit 2025), 2026-09-21, 175 verzoeken"
+  - "docstrings van knop 2.4 en server 2.4 (versies 2.2-2.4), en _maak_luisterlus/_behandel_client in script.py, gelezen 2026-10-08"
 verwant:
+  - zoek-revit-api.md
   - routes-thread-veiligheid.md
   - mcp-revit-koppeling.md
   - ifc-export-staalgewicht.md
@@ -109,7 +111,10 @@ aanroep.
 ## 5. De tools
 
 44 tools (`@mcp.tool`, geteld 2026-09-21): twee voor sessiebeheer, `get_status`,
-37 leestools, drie schrijftools en `haal_resultaat`.
+37 leestools, drie schrijftools en `haal_resultaat`. Sinds server 2.4
+(08-10-2026) zijn het er 50: vijf `ap_`-tools voor de annotatie-autopilot (2.2)
+en `zoek_revit_api` (2.4). Die laatste draait volledig in de server en stuurt
+niets naar Revit; zie `zoek-revit-api.md`.
 
 Afspraken die de server aan Claude meegeeft: lengtes en coördinaten in
 **millimeters** ten opzichte van de projectinterne oorsprong, element-id's als
@@ -176,6 +181,9 @@ het werk van de gebruiker.
 | 1.2 | 14-09-2026 | `'unknown' codec can't decode byte 0xb2` bij het teken ² in een weergavewaarde. IronPython-`json` met `ensure_ascii=True` decodeert tekst ≥ 0x80 als UTF-8; nu `ensure_ascii=False` |
 | 2.0 | 21-09-2026 | knop heet MCP, drie standen, drie schrijftools, id en deadline per aanvraag, `haal_resultaat`, bevestigingsdialoog, worksharing |
 | 2.1 | 21-09-2026 | na de eerste echte schrijfrun: de nameting van `nieuw` gebeurt na de commit in plaats van erin, en de deadline gaat als absolute `verval_op` mee van de client. Zie §9 |
+| 2.2 | 28-09-2026 | knop en server: vijf `ap_`-tools voor de annotatie-autopilot |
+| 2.3 | 28-09 / 05-10-2026 | knop: een `tekstvak` per tag (gedraaide view). Server: elk verzoek kwam "al verlopen" aan door 50 dode sessiebestanden; nu pid-filter, parallel pingen en `verval_op` pas na de sessiekeuze |
+| 2.4 | 01-10 / 08-10-2026 | knop: `outline` van de view in papier-mm. Server: `zoek_revit_api` (`zoek-revit-api.md`) |
 
 De eerste twee fouten zijn IronPython 2.7-eigenaardigheden en horen bij de
 valkuilen uit de skill `pyrevit-codestijl`.
@@ -306,6 +314,14 @@ Revit in de sketch-modus staat (`IsModifiable`).
   neemt mm. Het `weergave`-veld (`AsValueString`) is de mm-waarde en is dus de
   juiste bron bij een vergelijking voor en na. Gemeten in de code op
   2026-09-21, bewust niet gewijzigd om de leeskant ongemoeid te laten.
+- **De luisterthread is serieel.** `_maak_luisterlus` roept `_behandel_client`
+  synchroon aan, en die wacht in `WaitOne` tot een modeltool klaar is (tot
+  300 s). Ook `ping` en `haal_resultaat` komen pas aan de beurt als die thread
+  vrij is. De server pingt vóór elke aanroep met een wachttijd van 3 + 10 s.
+  Wacht er langer dan 13 s een modeltool op een bezette Revit, dan lijkt de sessie
+  dood en krijgt Claude "Geen Revit-sessie met de Lees-MCP aan". Gelezen in de
+  code op 2026-10-08 (knop 2.4, server 2.3); niet in een draaiend Revit
+  uitgelokt. Dit was de reden om `zoek_revit_api` buiten Revit te bouwen.
 - Staat in 03_R&D, dus alleen voor de beperkte doelgroep.
 - Werkt op 2025 én 2027, en is daarmee een versie-onafhankelijk alternatief voor
   de Autodesk MCP-server, die pas vanaf 2027 draait
