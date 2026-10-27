@@ -16,6 +16,7 @@ verwant:
   - rebar-api-parameters.md
   - nlrs-en-bim-standaarden.md
   - externe-repos-kandidaten-en-afgevallen.md
+  - externe-bronnen-ronde-okt2026.md
 skill: pyrevit-codestijl
 ---
 

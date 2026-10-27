@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 26 artikelen, 2026-10-08. Laatste health check:
+**Stand:** 28 artikelen, 2026-10-27. Laatste health check:
 [2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
 MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
 niet en de Lees-MCP heeft geen artikel. Daarvoor:
@@ -56,6 +56,7 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 | [batch-upgrade-en-conversie-revit-bestanden.md](wiki/batch-upgrade-en-conversie-revit-bestanden.md) | concept | 2026-08-31 | BIM Pure Plugin v0.4: RVT/RFA batchgewijs upgraden en family-eenheden converteren |
 | [externe-patronen-revit-repos.md](wiki/externe-patronen-revit-repos.md) | concept | 2026-09-17 | Prio-1-ronde langs 6 publieke repo's: Revit-vrije regelmodule + CI, dubbeldetectie, maatlijn-zonelogica, failure-preprocessor, ES-schema, NLRS-checklijst, per-versie stubs. Licentie-gefilterd; dragende API's geverifieerd in 2024 én 2027. |
 | [externe-repos-kandidaten-en-afgevallen.md](wiki/externe-repos-kandidaten-en-afgevallen.md) | concept | 2026-09-17 | Wat de opdracht achter de Prio-1-ronde nog meer bevat: twaalf niet-geopende kandidaten (rekenmodelcontrole, offline CHM-docs, IFC/IDS, agent-begrenzing) en dertien afgesloten zoekpaden met reden. Alles ongeverifieerd. |
+| [externe-bronnen-ronde-okt2026.md](wiki/externe-bronnen-ronde-okt2026.md) | concept | 2026-10-27 | Tweede zoekronde, alleen kandidaten: Tekla-MCP en DimensionCreator, ifcdiff en IfcTester/IDS, SAF, Revit-MCP's (Autodesk Public, read-only-patroon, ElementId-helpers) |
 
 ## Interoperabiliteit en standaarden
 
@@ -74,6 +75,7 @@ dekken staat in `rebar-api-parameters.md` en in het artikel hieronder._
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [modeless-venster-persistente-engine.md](wiki/modeless-venster-persistente-engine.md) | concept | 2026-09-17 | Waarom een modeless WPF-knop Revit kan laten crashen: pyRevit wist de module-scope als de engine niet persistent is, en de bundle.yaml-vlag komt niet op elke pyRevit-versie aan (6.1.0 niet, 6.5.5 wel). Met het patroon uit ProjectNotitie 1.8 en de diagnose via journaal en crashdump. |
+| [revit-2027-runtime-en-api-wijzigingen.md](wiki/revit-2027-runtime-en-api-wijzigingen.md) | concept | 2026-10-27 | .NET 10 (ook voor 2025/2026 gepland, onbevestigd), verplaatste all-users add-in-map, `New*BoundaryConditions` deprecated in 2027 (geverifieerd in de momentopnames), pyRevit 7.0 niet bevestigd, WebView2 per versie testen |
 
 ## SCI-conventies en projecten
 
@@ -286,6 +288,20 @@ Nog open:
 - **Lossen andere Revit-MCP's (`horizun-revit-mcp`, `BIM-Bot`) het thread-probleem
   op?** Afgevallen met "onze koppeling werkt", maar die reden gold al niet meer.
 - **Tekla Open API: .NET/C#?** Eerst vast te stellen vóór de vakwerkbematingstool
-  een stackkeuze krijgt.
+  een stackkeuze krijgt. Aanwijzing (2026-10-27): PyTekla wikkelt de Open API via
+  Python.NET, dus .NET; zie `wiki/externe-bronnen-ronde-okt2026.md` §1.
 - **Bouwtekening24/PyRevit-IFC-Parameter-Mapping:** licentie en inhoud onbekend.
 
+### Uit de verwerking van `raw/2026-10-27-externe-bronnen-revit-ifc-scia-tekla.md`
+
+- **Gaan Revit 2025 en 2026 naar .NET 10?** Mogelijk conflict met skill
+  `revit-api-docs` §5 (daar vast .NET 8). Te onderbouwen via
+  `blog.autodesk.io/tag/net-10/`. Zie `wiki/revit-2027-runtime-en-api-wijzigingen.md` §1.
+- **Scan op `clr.AddReference`, eigen DLL's en WinForms/WPF per knop** (de .NET 10-scan
+  uit de bron) is niet gedaan.
+- **Is WebView2 beschikbaar op 2024, 2025, 2026 en 2027?** Vraag aan Albert, vóór een
+  HTML-paneel op WebView2 gebouwd wordt.
+- **Mag `ifcdiff` extern aangeroepen worden vanuit een knop?** Vraag aan Albert.
+- **Autodesk Public MCP Server: ingebouwd of aparte add-on, schrijven of alleen-lezen?**
+  Twee tweedehands bronnen spreken elkaar tegen
+  (`wiki/mcp-versus-custom-tools.md` §4 versus `wiki/externe-bronnen-ronde-okt2026.md` §4).

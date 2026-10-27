@@ -12,6 +12,7 @@ verwant:
   - ifc-export-staalgewicht.md
   - nlrs-en-bim-standaarden.md
   - lees-mcp-koppeling.md
+  - externe-bronnen-ronde-okt2026.md
 skill: sci-bim-context
 ---
 

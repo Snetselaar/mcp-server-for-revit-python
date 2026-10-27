@@ -21,6 +21,7 @@ verwant:
   - mcp-versus-custom-tools.md
   - lees-mcp-koppeling.md
   - externe-repos-kandidaten-en-afgevallen.md
+  - revit-2027-runtime-en-api-wijzigingen.md
 skill: revit-api-docs
 ---
 

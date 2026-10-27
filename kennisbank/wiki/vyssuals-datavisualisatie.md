@@ -8,6 +8,7 @@ verwant:
   - mcp-versus-custom-tools.md
   - revit-bronnen-en-communities.md
   - mcp-revit-koppeling.md
+  - externe-bronnen-ronde-okt2026.md
 ---
 
 # Vyssuals — kleurgebaseerde data-analyse van Revit-modellen

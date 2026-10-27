@@ -12,6 +12,7 @@ bronnen:
 verwant:
   - lees-mcp-koppeling.md
   - routes-thread-veiligheid.md
+  - revit-2027-runtime-en-api-wijzigingen.md
 skill: pyrevit-codestijl
 ---
 

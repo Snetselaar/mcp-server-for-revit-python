@@ -22,6 +22,7 @@ verwant:
   - mcp-versus-custom-tools.md
   - rebar-api-parameters.md
   - mcp-eigen-tools-toevoegen.md
+  - externe-bronnen-ronde-okt2026.md
 skill: sci-bim-context
 ---
 

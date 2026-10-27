@@ -16,6 +16,7 @@ verwant:
   - peil-0-en-hoogtes-meten.md
   - model-vergelijken-fase0-ifc-rvt-link.md
   - externe-patronen-revit-repos.md
+  - revit-2027-runtime-en-api-wijzigingen.md
 skill: revit-api-docs
 ---
 
@@ -129,6 +130,13 @@ De `ElementId`-rijen komen overeen met `pyrevit-codestijl` §5. Daar staat
 attribuut stond in die tabel niet. Code die op 2024 t/m 2027 `Curve.Intersect`
 gebruikt, moet op versie vertakken: de nieuwe overload bestaat niet in 2024/2025.
 Bijgeschreven in `sci-bim-context`, `technische-issues.md` §A.4.
+
+Op 27-10-2026 kwam er een rij bij uit dezelfde momentopnames:
+`Creation.Document.New*BoundaryConditions` is in 2027 deprecated, met
+`BoundaryConditions.Create*BoundaryConditions` als nieuwe static methodes die alleen
+in 2027 bestaan. Uitgewerkt in `revit-2027-runtime-en-api-wijzigingen.md` §3. Dat
+was een claim uit een zoekronde die hier binnen een minuut te toetsen was, en te
+sterk bleek ("vervangen" in plaats van deprecated).
 
 ## 6. Verificatie
 

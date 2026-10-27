@@ -19,6 +19,8 @@ verwant:
   - routes-thread-veiligheid.md
   - lees-mcp-koppeling.md
   - externe-repos-kandidaten-en-afgevallen.md
+  - externe-bronnen-ronde-okt2026.md
+  - revit-2027-runtime-en-api-wijzigingen.md
 skill: sci-bim-context
 ---
 
@@ -177,6 +179,11 @@ bruikbaar. Hij dekt 2025 niet, en [ONBEVESTIGD] of 2024 en 2026 nog in productie
 zijn, is niet gemeten. Zolang er naast 2027 oudere versies draaien, blijft een
 versie-onafhankelijke leesroute nodig: de Nonica-connector of de eigen
 Lees-MCP (`lees-mcp-koppeling.md`, aantoonbaar op 2025 en 2027).
+
+De zoekronde van oktober 2026 beschrijft dezelfde server anders: een aparte
+add-on, alleen-lezen, met 7 tools (via HMK; `externe-bronnen-ronde-okt2026.md` §4).
+[ONBEVESTIGD] welke beschrijving klopt; beide zijn tweedehands. De Autodesk-blog
+van 17-06-2026 is de bron om te lezen.
 
 ## 5. Wat Claude Code met de brug kan — drie waarnemingen
 

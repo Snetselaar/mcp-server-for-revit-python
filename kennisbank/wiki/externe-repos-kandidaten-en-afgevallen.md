@@ -13,6 +13,7 @@ verwant:
   - nlrs-en-bim-standaarden.md
   - rebar-api-parameters.md
   - ai-brain-kennisorganisatie-pyrevit.md
+  - externe-bronnen-ronde-okt2026.md
 skill: pyrevit-codestijl
 ---
 
@@ -66,6 +67,10 @@ herhaling alleen de repo's bijwerken waarvan de `HEAD` veranderd is.
 | 3 | `OriAshkenazi/ai-pyrevit-developer-template` | `AGENTS.md`, plan-naar-taken-workflow, CI-checks tegen verouderde docs | werkwijze |
 | 3 | `QuanZ827/zexus` | hoe een in-process Revit-agent begrenst wat er uitgevoerd mag worden (C#) | MCP-koppeling |
 | 3 | `RevitStandards/NLRS_Revit_Settings` | alleen registreren: settingbestanden met Assembly Codes en Keynotes | SCI-template |
+
+De zoekronde van oktober 2026 (`externe-bronnen-ronde-okt2026.md`) noemt
+`TSOpenAPIExamples` (pad `Drawings/Applications/DimensionCreator`), `ifctester` en
+de structural-analysis-extension opnieuw. Geen van drie is daarmee geopend.
 
 ### Wat het meest oplevert, en waarom
 

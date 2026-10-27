@@ -13,6 +13,7 @@ verwant:
   - ifc-import-verboden-tekens-in-namen.md
   - lees-mcp-koppeling.md
   - zoek-revit-api.md
+  - externe-bronnen-ronde-okt2026.md
 skill: revit-api-docs
 ---
 
@@ -136,6 +137,12 @@ aandachtspunten; bij GAJ levert die vlag niets op.
 | bouwlaag uit IFC-parameters | `IfcSpatialContainer` |
 | dragende elementen eerst | vlag leeg bij GAJ; een andere toets is nodig |
 | Floors | bevat afwerkvloeren (`43_vloerbedekking`, `43_cementdekvloer_70mm`) |
+
+Een alternatief buiten Revit is `ifcdiff` van IfcOpenShell: vergelijkt twee IFC's op
+geometrie, relaties en properties en schrijft een JSON-diff (CPython). Genoemd in
+`externe-bronnen-ronde-okt2026.md` §2, niet getest. Het lost de instabiele
+sparing-GlobalIds hierboven niet vanzelf op, want ook `ifcdiff` koppelt
+[ONBEVESTIGD] op GlobalId.
 
 ## API-verificatie voor de bouw (28-09-2026)
 
