@@ -92,6 +92,19 @@ if (Test-Path $BIM) {
     }
 }
 
+# 5b. Handwerk uit de vorige back-up meenemen: claude-docs\ en losse zips in de
+#     hoofdmap (de claude.ai-export). Die maakt geen script, dus niet kwijtraken.
+$vorige = Get-ChildItem $Doel -Directory | Where-Object { $_.Name -lt $stamp } |
+          Sort-Object Name -Descending | Select-Object -First 1
+$meegenomen = @()
+if ($vorige) {
+    $cd = Join-Path $vorige.FullName 'claude-docs'
+    if (Test-Path $cd) { Copy-Item $cd (Join-Path $B 'claude-docs') -Recurse -Force; $meegenomen += 'claude-docs\' }
+    Get-ChildItem $vorige.FullName -File -Filter *.zip | ForEach-Object {
+        Copy-Item $_.FullName (Join-Path $B $_.Name) -Force; $meegenomen += $_.Name
+    }
+}
+
 # 6. API-key-check (alleen ja/nee)
 $apiKey = [bool]([Environment]::GetEnvironmentVariable('ANTHROPIC_API_KEY','User') -or
                  [Environment]::GetEnvironmentVariable('ANTHROPIC_API_KEY','Machine') -or
@@ -133,6 +146,9 @@ $deskMcp
 |---|---|
 $skillRegels
 
+## Meegenomen uit vorige back-up
+$(if ($meegenomen.Count) { "Uit $($vorige.Name): " + ($meegenomen -join ', ') } else { '- niets' })
+
 ## Handwerk op claude.ai (kan geen script doen)
 - Settings > Privacy > Export data: download en zet de zip in deze map
 - Claude Docs exporteren die je wilt houden
@@ -151,6 +167,7 @@ $manifest | ConvertTo-Json | Set-Content (Join-Path $B 'manifest.json') -Encodin
 
 Write-Host ""
 Write-Host "Klaar: $($manifest.Count) bestanden, $($skills.Count) skill-zips." -ForegroundColor Green
+if ($meegenomen.Count) { Write-Host "Meegenomen uit $($vorige.Name): $($meegenomen -join ', ')" }
 if ($waarsch.Count) {
     Write-Host "Let op:" -ForegroundColor Yellow
     $waarsch | ForEach-Object { Write-Host "  - $_" -ForegroundColor Yellow }
