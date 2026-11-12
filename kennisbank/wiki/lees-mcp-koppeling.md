@@ -116,6 +116,9 @@ aanroep.
 (08-10-2026) zijn het er 50: vijf `ap_`-tools voor de annotatie-autopilot (2.2)
 en `zoek_revit_api` (2.4). Die laatste draait volledig in de server en stuurt
 niets naar Revit; zie `zoek-revit-api.md`.
+Server 2.5 (16-10-2026) voegt er twee toe, 52 in totaal (knop 2.5: `get_sheets` erbij): `ap_controleer_sheet` en
+`ap_vergelijk_sheet`. Die meten in Revit via `ap_meet_annotaties` en scoren aan
+de serverkant met de autopilot-checker; alleen een samenvatting gaat terug.
 
 Afspraken die de server aan Claude meegeeft: lengtes en coördinaten in
 **millimeters** ten opzichte van de projectinterne oorsprong, element-id's als
@@ -185,6 +188,7 @@ het werk van de gebruiker.
 | 2.2 | 28-09-2026 | knop en server: vijf `ap_`-tools voor de annotatie-autopilot |
 | 2.3 | 28-09 / 05-10-2026 | knop: een `tekstvak` per tag (gedraaide view). Server: elk verzoek kwam "al verlopen" aan door 50 dode sessiebestanden; nu pid-filter, parallel pingen en `verval_op` pas na de sessiekeuze |
 | 2.4 | 01-10 / 08-10-2026 | knop: `outline` van de view in papier-mm. Server: `zoek_revit_api` (`zoek-revit-api.md`) |
+| 2.5 | 16-10-2026 | knop: `get_sheets` (sheets met hun projectbrowser-mappen via `BrowserOrganization.GetFolderItems`, alleen `.Name`). Server: `ap_controleer_sheet` (sheet, view-id's of selectie; per view per harde regel aantal + 3 voorbeelden, volledige uitkomst in `runs/controle_<run>/`) en `ap_vergelijk_sheet` (twee sessies, alleen verschillen). Alle views op de sheet doen mee met de regels van hun soort (detail, aanzicht, plattegrond; `totaal.per_soort`), legenda, drafting view en 3D onder `overgeslagen`. Ook `map='Tekeningen'` en `alle_sheets` (resultaat per sheet gegroepeerd, `max_views` standaard 150) en per view `ontbreekt`: staal zonder tag, doorgesneden beton/wand zonder maat (informatief, boorankers en metselwerk/metalstud uitgezonderd). Scoring in `harnas/sheet_controle.py` op dezelfde `regels.json`; naar Alberts aanzet `annotatie_check.py`/`vergelijk_annotatie.py`. Knop ongewijzigd |
 
 De eerste twee fouten zijn IronPython 2.7-eigenaardigheden en horen bij de
 valkuilen uit de skill `pyrevit-codestijl`.
