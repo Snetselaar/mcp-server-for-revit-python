@@ -1,7 +1,7 @@
 ---
 titel: Peil 0 en hoogtes meten in het SCI-lint
 status: concept
-laatst-bijgewerkt: 2026-10-07
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "02_Beta NAP_Wijzigen script.py:10 en :416 (W:, stand 07-10-2026)"
   - "02_Beta As_Aanzichten script.py:32 en :364, Wand_Aanzichten script.py:339 (W:, stand 07-10-2026)"
@@ -11,6 +11,7 @@ bronnen:
   - "reflectie op RevitAPI.dll 2024-2027 met RnD.extension\\tools\\check_api.ps1 (07-10-2026): BasePoint.GetProjectBasePoint, BasePoint.Position, Options.DetailLevel, GeometryInstance.GetInstanceGeometry, Edge.Tessellate"
   - https://rvtdocs.com/2024/Autodesk.Revit.DB.Level.ProjectElevation
   - https://rvtdocs.com/2027/Autodesk.Revit.DB.Level.ProjectElevation
+  - "03_R&D Peil_Diagnose.pushbutton/script.py 1.0 (W:, 16-11-2026), nog niet in Revit gedraaid"
 verwant:
   - zoek-revit-api.md
 skill: revit-api-docs
@@ -44,6 +45,14 @@ klopt alleen als het om het interne nulpunt gaat. NAP_Wijzigen noemt dezelfde
 waarde juist "t.o.v. het projectbasispunt". Beide kunnen niet waar zijn zodra
 het projectbasispunt een Z heeft die niet 0 is. Toetsen: een model waarvan het
 projectbasispunt verhoogd is, en daarin een level meten met beide routes.
+
+Daarvoor staat sinds 2026-11-16 de knop **Peil Diagnose** in 03_R&D
+(`Controle.panel\Peil_Diagnose.pushbutton`, versie 1.0, read-only). Die toont per
+level `Elevation`, `ProjectElevation` en het verschil, de Z van projectbasispunt
+en survey point, en in een aanzicht of doorsnede de interne Z van het level aan
+zijn bounding box, met een conclusie welke route klopt. Compileert onder
+IronPython 2.7.12 en geeft 0 bevindingen in `check_versies.py` (2024-2027); nog
+niet in Revit gedraaid.
 
 ## Onderkant van een profiel meten
 

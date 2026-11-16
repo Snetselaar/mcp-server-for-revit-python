@@ -145,7 +145,8 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   zegt "project origin". Kolommen_Taggen en Bovenkant paal aansluiten rekenen
   alsof dat het interne nulpunt is, NAP_Wijzigen alsof het het
   projectbasispunt is. Toetsen in een model met een verhoogd projectbasispunt.
-  Zie `wiki/peil-0-en-hoogtes-meten.md`.
+  Sinds 2026-11-16 staat daarvoor de testknop Peil Diagnose in 03_R&D; de meting
+  zelf is nog niet gedaan. Zie `wiki/peil-0-en-hoogtes-meten.md`.
 
 - **De acht BuiltInParameters — bestaan afgehandeld, ook voor 2024 en 2027
   (2026-11-12).** Live in 2025 op 2026-08-28; op 2026-11-12 met `zoek_revit_api`
@@ -159,7 +160,8 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   (`NLRS_28_TAG-SCOL_kolom-dec_SCI`), voor wapening onbekend.
 - **Volgen de IFC-exportscripts de BIM Basis ILS-stappen?** Een export die
   technisch slaagt maar niet ILS-conform is, komt terug van de ontvanger.
-- **Staan de IFC-placeholders in `SCI_template_2025.rte` zelf?** In model
+- **Staan de IFC-placeholders in `SCI_template_2025.rte` zelf? — ja (gemeten 2026-11-16).**
+  In een nieuw project uit het template staan dezelfde waarden. In model
   `S-9497_R27` staan `Building Name` = `<RVB-gebouwnummer>` en `SiteName` =
   `<Kadastrale aanduiding>`; die tekens blokkeren de IFC-import bij een
   Revit 2027-ontvanger. Een `.rte` is binair, dus dit vraagt openen in Revit.
@@ -351,9 +353,9 @@ die het eerst aandacht vragen:
   losse add-on voor 2027.2+, Read-Tools alleen-lezen met aparte Write-add-on. **Revit 2025.5 en
   2026.5 draaien op .NET 10**; de skill `revit-api-docs` §5 zegt .NET 8. Conflictblok in
   `wiki/revit-2027-runtime-en-api-wijzigingen.md` §1; de skill zelf is niet aangepast.
-- **Punt 18 open:** Revit stond uit (Lees-MCP niet bereikbaar op 2026-11-16).
-  `Level.ProjectElevation` in een model met verhoogd projectbasispunt, en de placeholders in
-  `SCI_template_2025.rte`, vragen een open Revit.
+- **Punt 18 half gedaan (2026-11-16):** de placeholders zitten in `SCI_template_2025.rte`
+  zelf. Voor `Level.ProjectElevation` staat de testknop Peil Diagnose klaar in 03_R&D; de
+  meting in een model met verhoogd projectbasispunt is nog niet gedaan.
 - **Klein:** twee padnamen waarin `\t` een tab werd (`bluebeam-...` r. 241,
   `lees-mcp-koppeling.md` r. 200), drie eenzijdige links, een verkeerde
   sectieverwijzing in `modeless-venster-persistente-engine.md` r. 53.

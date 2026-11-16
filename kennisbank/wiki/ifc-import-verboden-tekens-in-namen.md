@@ -8,6 +8,7 @@ bronnen:
   - "regels 32 en 42 van 11260016_B-BWK-B_HBA_Stramienen.ifc"
   - "waargenomen in model S-9497_R27 (Revit 2027), 2026-09-16, via de Lees-MCP: Project Information element 1238"
   - "melding van de gebruiker 2026-09-16: hetzelfde IFC laadt wel in Revit 2025"
+  - "waargenomen 2026-11-16 in Revit 2025, nieuw project uit SCI_template_2025.rte, via de Lees-MCP: Project Information element 1238"
 verwant:
   - ifc-export-staalgewicht.md
   - nlrs-en-bim-standaarden.md
@@ -101,11 +102,14 @@ ontvanger. Zie `nlrs-en-bim-standaarden.md` §2 over BIM Basis ILS.
 `BCB_ProjectFolder` in datzelfde model wijst naar
 `W:\1 - Informatie Snetselaar\Constructief tekenen\Revit\01. SCI families\2020\Template\`.
 
-> [ONBEVESTIGD] Of de placeholders uit de huidige template komen, is niet
-> geverifieerd. De nieuwste `.rte` op W: is
-> `01. SCI families\2025\Template\SCI_template_2025.rte` (de mappen 2026 en 2027
-> bevatten alleen `Snetselaar package`-familiebestanden). Een `.rte` is binair en
-> alleen in Revit uit te lezen, dus dit vraagt een controle in Revit zelf.
+**De placeholders komen uit het template.** Gemeten op 2026-11-16 in Revit 2025,
+in een nieuw project op basis van `01. SCI families\2025\Template\SCI_template_2025.rte`
+(door de gebruiker geopend, uitgelezen via de Lees-MCP): Project Information
+(element 1238) geeft `Building Name` = `<RVB-gebouwnummer>` en `SiteName` =
+`<Kadastrale aanduiding>`, met verder `Project Name` = `Template` en
+`Project Number` = `S-0000`. Elk SCI-model uit dit template waarin deze twee
+velden niet worden ingevuld, levert dus een IFC die een Revit 2027-ontvanger
+weigert. De mappen 2026 en 2027 op W: bevatten geen eigen `.rte`.
 
 ## 5. Aanpak aan ontvangende en zendende kant
 
@@ -130,8 +134,10 @@ ander gat in dezelfde keten.
 
 ## 6. Openstaand
 
-- Staan de placeholders in `SCI_template_2025.rte` zelf, of alleen in modellen?
-  Vraagt openen in Revit.
+- ~~Staan de placeholders in `SCI_template_2025.rte` zelf?~~ Ja, gemeten op
+  2026-11-16 (§4). Open blijft wat het template ervoor in de plaats krijgt: een
+  lege waarde breekt de import niet maar is ILS-vuil, een voorbeeldwaarde zonder
+  `<` en `>` lost alleen de importfout op.
 - Welke andere velden van Project Information belanden in een IFC-naam? Getoetst
   zijn alleen `Building Name` en `SiteName`.
 - Blijft `IFCMATERIAL('<Unnamed>')` — aangetroffen in
