@@ -101,7 +101,7 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 ### Vragen aan de skills — hier wijkt de kennisbank af van wat vastligt
 
-- **`sci-bim-context` §C, de Lees-MCP schrijft — bron bijgewerkt 2026-11-12, upload open.**
+- **`sci-bim-context` §C, de Lees-MCP schrijft — opgelost (geüpload 2026-11-16, sha256 `518209fb…`).**
   `references/template-en-mcp.md` noemde de Lees-MCP alleen-lezen. Bijgewerkt en
   ingepakt met `pack_skill.ps1`; de upload naar claude.ai (Team-account) en
   `skill_uploads.ps1 -Mark sci-bim-context` zijn handwerk. Tot dan staat er een

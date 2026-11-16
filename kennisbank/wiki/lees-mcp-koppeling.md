@@ -1,7 +1,7 @@
 ---
 titel: De MCP-koppeling — eigen koppeling tussen Claude en Revit, lezen en schrijven
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\03_R&D.tab\\Tools.panel\\Lees_MCP.pushbutton\\script.py (versie 2.1, gelezen 2026-09-21)"
   - "hetzelfde pad, bundle.yaml (tooltip, engine: persistent: true)"
@@ -41,8 +41,11 @@ doorloopt.
 > noemde de Lees-MCP tot 2026-11-12 een "eigen alleen-lezen koppeling" en zei
 > dat hij niet kan schrijven. Sinds knop 2.0 (21-09-2026) kan hij dat wel, in de
 > stand *Lezen en schrijven* (§2 en §5). De skillbron in `Snetselaar_BIM` is op
-> 2026-11-12 bijgewerkt. Tot de upload naar claude.ai gedaan en met
-> `skill_uploads.ps1 -Mark` vastgelegd is, leest Claude nog de oude tekst.
+> 2026-11-12 bijgewerkt (commit `da325f8`).
+>
+> **Opgelost 2026-11-16.** Geüpload naar claude.ai en vastgelegd met
+> `skill_uploads.ps1 -Mark sci-bim-context` (sha256 `518209fb…`). Skill en
+> artikel zeggen nu hetzelfde; dit blok blijft staan als bronketen.
 
 ## 1. Twee helften
 
