@@ -1,7 +1,7 @@
 ---
 titel: IFC-import faalt in Revit 2027 op verboden tekens in IfcBuilding- en IfcSite-namen
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "P:\\9000-9999\\9450-9499\\9497 - warehouse met kantoor DUI02 Duiven\\5 Aangeleverd bwk\\2026-09-14 RVT en IFC modellen\\11260016_B-BWK-B_HBA_Stramienen.ifc.log.html (importlog, 2026-09-16 07:39)"
   - "hetzelfde, 11260016_B-BWK-B_HBA_Gebouw.ifc.log.html (2026-09-15 14:56)"
@@ -23,7 +23,7 @@ Aanleiding: een aangeleverd IFC van Heembouw Architecten laadde niet in een
 Revit 2027-project, terwijl hetzelfde bestand in Revit 2025 wel inlaadt. Revit
 meldt alleen `Cannot open "…\11260016_B-BWK-B_HBA_Stramienen.ifc"`, zonder reden.
 
-## 1. Het symptoom bedriegt
+## 1. Symptoom: alleen "Cannot open"
 
 De melding lijkt op een bestands- of rechtenprobleem. Dat is het niet. Revit
 begint de import wel degelijk: hij schrijft naast het IFC een
@@ -63,7 +63,7 @@ laten staan in Project Information.
 > Een geschoonde kopie is niet geprobeerd — de gebruiker vond een RVT-versie van
 > hetzelfde model en had de import niet meer nodig.
 
-## 3. Waarom 2025 het wel slikt
+## 3. Verschil met Revit 2025
 
 De importer die de fout geeft is versie 27.2.0.39. Dezelfde bestanden importeren
 wel in Revit 2025.
@@ -77,7 +77,7 @@ exporter 27.2.0.39, schema IFC4). De 2027-exporter schrijft dus namen die de
 2027-importer weigert. Wie een IFC alleen controleert door hem te exporteren,
 merkt dit nooit.
 
-## 4. SCI heeft hetzelfde probleem
+## 4. Dezelfde placeholders in SCI-modellen
 
 Gemeten op 2026-09-16 in `S-9497_R27` (Revit 2027), Project Information
 (element 1238), via de Lees-MCP (`lees-mcp-koppeling.md`):
@@ -107,7 +107,7 @@ ontvanger. Zie `nlrs-en-bim-standaarden.md` §2 over BIM Basis ILS.
 > bevatten alleen `Snetselaar package`-familiebestanden). Een `.rte` is binair en
 > alleen in Revit uit te lezen, dus dit vraagt een controle in Revit zelf.
 
-## 5. Wat te doen
+## 5. Aanpak aan ontvangende en zendende kant
 
 **Aan de ontvangende kant**, als een aangeleverd IFC niet laadt:
 

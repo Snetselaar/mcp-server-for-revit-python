@@ -1,13 +1,15 @@
 ---
 titel: MCP versus custom tools — wanneer welke, en de Autodesk 2027-server
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §6, §7 en §8"
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1 en §7"
   - skill sci-bim-context §1
   - "waargenomen: projectmodellen S-9479_R25 (2026-09-15), S-9497_R27 (2026-09-16), S9475_R25 (2026-09-15)"
   - "KNOWN_ISSUES.md (repo-root, 2026-09-09)"
+  - https://help.autodesk.com/view/ADSKMCP/ENU/?guid=ADSKMCP_RevitMcp_revit_mcp_server_html
+  - https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/Usage-of-Revit-2027-MCP-Server.html
 verwant:
   - mcp-revit-koppeling.md
   - mcp-eigen-tools-toevoegen.md
@@ -182,8 +184,15 @@ Lees-MCP (`lees-mcp-koppeling.md`, aantoonbaar op 2025 en 2027).
 
 De zoekronde van oktober 2026 beschrijft dezelfde server anders: een aparte
 add-on, alleen-lezen, met 7 tools (via HMK; `externe-bronnen-ronde-okt2026.md` §4).
-[ONBEVESTIGD] welke beschrijving klopt; beide zijn tweedehands. De Autodesk-blog
-van 17-06-2026 is de bron om te lezen.
+Opgezocht op 2026-11-16 ([ONBEVESTIGD] alleen via zoekresultaten, de pagina's
+zelf niet opgehaald): de Revit Public MCP Server is een **losse add-on**, geen
+ingebouwde functie. Volgens Autodesk Help werkt hij in de Technical Preview
+alleen op Revit 2027.2 en hoger; 2026 en ouder worden nog onderzocht. De
+download heet "Read-Tools Technical Preview" en kan het model niet wijzigen;
+daarnaast bestaan een Write- en een Experimental-add-on. De server draait lokaal
+over stdio. Beide eerdere beschrijvingen hadden dus deels gelijk: "aparte add-on,
+alleen-lezen" klopt voor de Read-add-on, maar schrijven bestaat in een aparte
+add-on. De geïnstalleerde 2027 hier is build 27.2.0.39, dus 2027.2.
 
 ## 5. Wat Claude Code met de brug kan — drie waarnemingen
 

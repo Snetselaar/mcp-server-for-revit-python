@@ -1,7 +1,7 @@
 ---
 titel: BuiltInParameters voor wapening — wat er klopt van de dump
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "gemeten 2026-08-28: live Routes-API op localhost:48884, Revit 2025, Enum.IsDefined(BuiltInParameter, <naam>) via /execute_code/"
   - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code)"
@@ -24,6 +24,7 @@ verwant:
   - externe-repos-kandidaten-en-afgevallen.md
   - revit-2027-runtime-en-api-wijzigingen.md
   - zoek-revit-api.md
+  - mcp-revit-koppeling-historiek.md
 skill: revit-api-docs
 ---
 
@@ -57,7 +58,7 @@ zonder controle. Dit artikel legt vast wat de controle heeft opgeleverd.
 > Dit legt ook een methode vast die de skill `revit-api-docs` niet noemt: een
 > naam toetsen tegen de **draaiende** API met `Enum.IsDefined` is definitiever dan
 > een documentatiepagina, mits Revit lokaal bereikbaar is via de Routes-server
-> (zie `mcp-revit-koppeling.md` §4).
+> (zie `mcp-revit-koppeling-historiek.md` §1).
 >
 > **[Verouderd sinds eind augustus 2026]** Deze methode liep via `/execute_code/`. Die
 > route is kort na deze meting uit deze repo verwijderd, de bestanden op 09-09-2026

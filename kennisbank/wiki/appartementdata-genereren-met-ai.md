@@ -1,7 +1,7 @@
 ---
 titel: Appartementdata genereren en wegschrijven met Claude Code + pyRevit MCP
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §6"
 verwant:
@@ -32,7 +32,7 @@ hoogste plafondhoogte. Claude moet zelf de bijbehorende **project-parameters**
 op de Area-categorie aanmaken met het juiste datatype: *Length* voor afstanden
 en hoogtes, *Integer* voor aantallen ramen en buren, *Area* voor glasoppervlak.
 
-## 2. Interactieve verduidelijking — zonder daarom gevraagd te zijn
+## 2. Interactieve verduidelijking door Claude
 
 Nick vergat in de eerste prompt te vermelden dat Claude moest doorvragen bij
 onduidelijkheid; Claude deed dat toch, uit zichzelf. Drie vragen, met de

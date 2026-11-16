@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 28 artikelen, 2026-11-12. Laatste health check:
+**Stand:** 29 artikelen, 2026-11-16. Laatste health check:
 [2026-11-12](outputs/2026-11-12-healthcheck.md) — 43 bevindingen, ernstigste: de
 skill `sci-bim-context` en `mcp-revit-koppeling.md` noemen de Lees-MCP
 alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
@@ -27,6 +27,7 @@ alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-09-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
+| [mcp-revit-koppeling-historiek.md](wiki/mcp-revit-koppeling-historiek.md) | concept | 2026-11-16 | Afgesplitst op 2026-11-16: de verwijderde route `execute_revit_code` (met het dode `use_transaction`-veld) en de bronketen van de twee opgeloste conflicten met `sci-bim-context`. Alleen historie. |
 | [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-09-17 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector. Met een conflictblok: geen model-aanrakende route zonder ExternalEvent |
 | [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-09-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
 | [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-11-12 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 52 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.5. Conflictblok: de skill noemt hem nog alleen-lezen tot de upload. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken). Sinds 08-10 vastgelegd: de luisterthread is serieel, een wachtende modeltool houdt ook ping en opzoekingen op. |
@@ -123,7 +124,7 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md`. De skill is op
   2026-08-28 naar claude.ai geüpload en vastgelegd met `skill_uploads.ps1 -Mark`
   (sha256 `6513f443…`, commit `aec356d`). Skill-in-gebruik en wiki lopen niet
-  langer uiteen; het conflictblok in `wiki/mcp-revit-koppeling.md` §6 is daarmee
+  langer uiteen; het conflictblok in `wiki/mcp-revit-koppeling-historiek.md` §2 is daarmee
   historisch. Toelichting in
   [outputs/2026-08-28-sci-bim-context-toolstabel.md](outputs/2026-08-28-sci-bim-context-toolstabel.md).
 - **Diameterfilters bestaan al.** De bronnen-dump stelt voor filters op
@@ -229,7 +230,7 @@ elders al gecorrigeerd, maar niet overal doorgevoerd. Zie
   §4. Dit is buiten `/kb-verwerk` om gebeurd (een live-debugsessie, geen
   `raw/`-bestand); hier alsnog gelogd in `memory.md` omdat de wijziging anders
   geen spoor in het logboek had.
-- **Alle 28 artikelen staan op `concept`** (geteld 2026-11-12). Promotie naar een skill vraagt
+- **Alle 29 artikelen staan op `concept`** (geteld 2026-11-16). Promotie naar een skill vraagt
   `stabiel` plus twee onafhankelijke bronnen (`CLAUDE.md` §4). De meeste
   rebar-artikelen leunen nog op één gecureerde samenvatting. Uitzondering sinds
   2026-08-28: `rebar-api-parameters.md` heeft er een tweede, onafhankelijke bron
@@ -313,7 +314,7 @@ Nog open:
   Twee tweedehands bronnen spreken elkaar tegen
   (`wiki/mcp-versus-custom-tools.md` §4 versus `wiki/externe-bronnen-ronde-okt2026.md` §4).
 
-### Uit de health check van 2026-11-12 — 43 bevindingen; punt 1-9 uitgevoerd op 2026-11-12, 10-18 open
+### Uit de health check van 2026-11-12 — 43 bevindingen; punt 1-17 uitgevoerd (12 en 16-11-2026), 18 open
 
 Volledig rapport en actieplan in `outputs/2026-11-12-healthcheck.md`. De punten
 die het eerst aandacht vragen:
@@ -344,6 +345,15 @@ die het eerst aandacht vragen:
     `wiki/bluebeam-sets-revisies-automatisch.md` alleen nog de stand bijwerken.
   - **De SCI-Viewer krijgt geen wiki-artikel.** De kennis blijft in memory en
     `outputs/`; gat G1 uit het rapport vervalt bewust.
+- **Punt 10-17 uitgevoerd (2026-11-16).** Bluebeam-stand (Plot 2.24 in `Tools.panel`, Set bijwerken
+  uitgerold) en pyRevit-stand bijgewerkt; koppen als onderwerp; `mcp-revit-koppeling.md` gesplitst
+  (keten 379 regels, nog boven de 200; historiek apart). Opgezocht: de Autodesk MCP-server is een
+  losse add-on voor 2027.2+, Read-Tools alleen-lezen met aparte Write-add-on. **Revit 2025.5 en
+  2026.5 draaien op .NET 10**; de skill `revit-api-docs` §5 zegt .NET 8. Conflictblok in
+  `wiki/revit-2027-runtime-en-api-wijzigingen.md` §1; de skill zelf is niet aangepast.
+- **Punt 18 open:** Revit stond uit (Lees-MCP niet bereikbaar op 2026-11-16).
+  `Level.ProjectElevation` in een model met verhoogd projectbasispunt, en de placeholders in
+  `SCI_template_2025.rte`, vragen een open Revit.
 - **Klein:** twee padnamen waarin `\t` een tab werd (`bluebeam-...` r. 241,
   `lees-mcp-koppeling.md` r. 200), drie eenzijdige links, een verkeerde
   sectieverwijzing in `modeless-venster-persistente-engine.md` r. 53.

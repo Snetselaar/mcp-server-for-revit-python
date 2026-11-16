@@ -1,7 +1,7 @@
 ---
 titel: Routes-handlers en de Revit API-thread — waarom model-aanrakende routes crashen
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "KNOWN_ISSUES.md (repo-root), commits 8b70d7c, d695d83 en e9232b4 (2026-09-07 t/m 2026-09-09)"
   - "revit_mcp/views.py:378-400 (route /selection_info/, uitgeschakeld met status 501)"
@@ -13,6 +13,7 @@ verwant:
   - modeless-venster-persistente-engine.md
   - mcp-versus-custom-tools.md
   - externe-repos-kandidaten-en-afgevallen.md
+  - mcp-revit-koppeling-historiek.md
 skill: pyrevit-codestijl
 ---
 
@@ -49,7 +50,7 @@ Dat verklaart waarom een **read-only** route ook crasht. Alleen lezen is hier
 niet hetzelfde als veilig (`revit_mcp/views.py`, docstring van
 `get_selection_info`). Het verklaart ook de eerdere diagnose van
 `execute_code` niet volledig weg: die route voerde willekeurige code uit zonder
-sandbox of transactie (`mcp-revit-koppeling.md` §4), maar de crash van
+sandbox of transactie (`mcp-revit-koppeling-historiek.md` §1), maar de crash van
 `/selection_info/` laat zien dat het probleem breder is dan die ene route.
 
 Dit is een derde technisch risico naast de twee die `mcp-versus-custom-tools.md`

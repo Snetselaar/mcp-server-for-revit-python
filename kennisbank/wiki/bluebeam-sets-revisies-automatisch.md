@@ -1,13 +1,15 @@
 ---
 titel: Bluebeam-sets automatisch aanvullen met nieuwe PDF-revisies en hun opmerkingen
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "waargenomen in P:\\9000-9999\\9400-9449\\9429 - bedrijfsgebouw op bedrijventerrein Kraaienhoef Poederoijen\\8 Interne controle\\02. Sets\\S-9429.bex en de PDF's in die map, 2026-09-17"
   - "W:\\7 - Software\\Bluebeam\\Sets\\S-0000.bex (sjabloonset), 2026-09-17"
   - "C:\\Program Files\\Bluebeam Software\\Bluebeam Revu\\21\\Help\\Bluebeam Script Reference.pdf (Script Reference 2.0.11)"
   - "test van ScriptEngine.exe op de werkplek van AWO, Revu 21.11.0.23287 Complete, 2026-09-17"
-  - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\01_SCI\\SCI.extension\\01_SCI.tab\\Printen.panel\\Plot.pushbutton\\script.py:1080-1108, 1274-1305, 1386-1407"
+  - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\01_SCI\\SCI.extension\\01_SCI.tab\\Tools.panel\\Plot.pushbutton\\script.py (versie 2.24, gelezen 2026-11-16): resolve_output_paths r. 1484, verzendmap r. 1575-1640, _set_script_draaien r. 2529; tot 2.16 stond Plot in Printen.panel en golden de regels 1080-1108, 1274-1305 en 1386-1407"
+  - "gebruiker, 2026-11-12: Set bijwerken is uitgerold en werkt, geen vervolgwerk"
+  - "memory bluebeam-set-bijwerken (Plot v5 2.16 naar 01_SCI en gepubliceerd op 02-10-2026), context"
   - "tests op kopieën van de S-9429-set met prints 0.04 en 0.05, en controle in Revu door de gebruiker, 2026-09-17"
   - https://support.bluebeam.com/revu/subscription/subscription-features.html (rij "Implement scripting commands", opgehaald 2026-09-17)
   - https://support.bluebeam.com/online-help/revu21/Content/RevuHelp/Menus/Document/Script/Using-Scripts.htm
@@ -28,8 +30,9 @@ Elke nieuwe PDF kreeg met de hand een Bladnummer en Revisienummer in de
 Tags-dialoog, terwijl die gegevens al in de bestandsnaam staan. AutoMark op een
 gebied van de tekening wilde het team bewust niet gebruiken.
 
-Stand 2026-09-17: een werkend testscript, door collega's in test. Nog niet
-uitgerold.
+Stand 2026-09-17: een werkend testscript, door collega's in test. Sinds
+2026-10-02 zit het in Plot in 01_SCI en is het gepubliceerd; op 2026-11-12
+bevestigd als uitgerold en werkend (§6).
 
 ## 1. De set is gewone XML
 
@@ -242,6 +245,14 @@ als wissel.
 
 ## 6. Stand en vervolg
 
+**Stand 2026-11-16: uitgerold en af.** Plot v5 (03_R&D, vanaf 24-09-2026) is op
+02-10-2026 als Plot 2.16 naar 01_SCI gegaan en gepubliceerd naar de gedeelde
+Lint-map. De submap `Set bijwerken` gaat mee in de knopmap. Plot staat
+inmiddels in `Tools.panel`, versie 2.24 (gelezen 2026-11-16). Volgens de
+gebruiker is het uitgerold en werkt het; er komt geen vervolgwerk (2026-11-12).
+
+Wat hieronder staat, is de stand van september:
+
 - Testpakket: `W:\4 - Tijdelijk en verwijderen\AWO\Bluebeam Set bijwerken`
   (`Set bijwerken.bat`, `LEESMIJ.txt`, map `_Set bijwerken`). Gebruik: de bat en
   de map samen naar `02. Sets` van een project kopiëren. De set en de tekeningen
@@ -260,9 +271,11 @@ de laatste verzonden versie bovenaan heeft.
 
 Wat daarbij anders is dan bij de interne controle:
 
-- **In verzendmodus heeft de bestandsnaam geen datum en geen suffix.** Plot
+- **In verzendmodus heeft de bestandsnaam geen datum en geen suffix.** Sinds
+  Plot 2.19 (05-11-2026) staat er wel de revisie achter, bijvoorbeeld
+  `S-9464 - DO-100 - 3D rev A.pdf` (docstring van `script.py`, r. 139-158). Plot
   schrijft naar `7 Uit\<jjjj-mm-dd>[_<suffix>][ (n)]\` en zet de datum alleen in
-  de mapnaam (`script.py:1386-1407`). Elke verzending van DO-01 heet dus
+  de mapnaam (`script.py:1575-1640` in 2.24). Elke verzending van DO-01 heet dus
   `S-9429 - DO-01 - Fundering Begane grondvloer.pdf`.
 - Het huidige script valt dan terug op de wijzigdatum van het bestand. Dat is
   onbetrouwbaar, want opslaan met opmerkingen en de `Vervangen`-stempel wijzigen
@@ -276,4 +289,5 @@ Wat daarbij anders is dan bij de interne controle:
 - Of de `Vervangen`-stempel ook in een verzonden set gewenst is, is niet besproken.
   Het script moet hem dan kunnen uitzetten (`--geen-stempel` bestaat al).
 
-Status: geparkeerd op 2026-09-17, "een gedachte". Niet gebouwd.
+Status: geparkeerd op 2026-09-17, "een gedachte". Niet gebouwd, en volgens de
+gebruiker op 2026-11-12 ook geen vervolgwerk.

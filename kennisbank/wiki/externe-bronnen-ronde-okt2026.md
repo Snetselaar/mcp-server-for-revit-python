@@ -1,13 +1,14 @@
 ---
 titel: Externe bronnen, ronde oktober 2026 — Tekla, IFC/IDS, SAF en Revit-MCP's
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "raw/2026-10-27-externe-bronnen-revit-ifc-scia-tekla.md §B-§E en 'Voorgestelde volgorde' (zoekrondes 21-27 okt 2026; sterren, licentie, laatste commit en werking niet gecontroleerd)"
   - https://www.autodesk.com/blogs/aec/2026/06/17/revit-public-mcp-server/
   - https://www.bimpure.com/blog/pyrevit-mcp-claude-code-tutorial
   - https://gitbook.saf.guide
   - https://marketplace.autodesk.com/apps/586f7e37-09c5-4f1e-bfbd-41c79d63c409
+  - https://help.autodesk.com/view/ADSKMCP/ENU/?guid=ADSKMCP_RevitMcp_revit_mcp_server_html
 verwant:
   - externe-repos-kandidaten-en-afgevallen.md
   - externe-patronen-revit-repos.md
@@ -112,7 +113,9 @@ rekent alleen met Technosoft en SCIA, niet met Robot (gebruiker, 2026-11-12);
 
 De beschrijving van de Autodesk-server wijkt af van `mcp-versus-custom-tools.md` §4,
 dat hem "ingebouwd" noemt met "veel elementen niet bewerkbaar". Beide bronnen
-zijn tweedehands; [ONBEVESTIGD] welke klopt tot de Autodesk-blog gelezen is.
+zijn tweedehands. Opgezocht op 2026-11-16: een losse add-on, Read-Tools alleen-lezen
+plus aparte Write- en Experimental-add-ons, Revit 2027.2 en hoger; zie
+`mcp-versus-custom-tools.md` §4.
 
 Twee patronen sluiten aan op wat er al staat. Het read-only-standaard-met-aparte-
 schrijfvrijgave van `revit-model-mcp` is hetzelfde ontwerp als de Lees-MCP

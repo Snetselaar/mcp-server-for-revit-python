@@ -1,7 +1,7 @@
 ---
 titel: Modeless WPF-venster en de persistente engine in pyRevit
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "waargenomen bij S-WUL1N op 2026-09-15: crash in model S9475_R25, journaal P:\\9000-9999\\9450-9499\\9475 - fase 1 MJKO Emstek\\3 Tek\\Journals\\journal.0041.txt en journal.0041.0001.dmp"
   - https://raw.githubusercontent.com/pyrevitlabs/pyRevit/master/dev/pyRevitLabs.PyRevit.Runtime/IronPythonEngine.cs
@@ -23,7 +23,7 @@ Een pyRevit-knop die zijn venster modeless opent (`Show()` in plaats van
 dat het venster blijft leven nadat het script is afgelopen. Wat de eventhandlers
 van dat venster daarna nog kunnen aanraken, is beperkter dan het lijkt.
 
-## Wat pyRevit opruimt
+## Opruimen van de module-scope
 
 `IronPythonEngine.Execute()` maakt per run een verse scope. In het `finally`-blok
 staat:
@@ -54,7 +54,7 @@ een persistente engine elke run een verse scope geeft (`lees-mcp-koppeling.md`
 model-aanrakende routes (`routes-thread-veiligheid.md` §5); de valkuil hieronder
 geldt daar dus evengoed.
 
-## Dat een vlag in bundle.yaml staat, wil niet zeggen dat hij aankomt
+## De persistent-vlag per pyRevit-versie
 
 De vlag hoort in `bundle.yaml`:
 
@@ -79,7 +79,14 @@ herleid; de DLL van die werkplek is niet ingezien.
 De praktische regel: **reken er niet op dat de persistente engine aanstaat.**
 Versies lopen per werkplek uiteen en dat is van buitenaf niet zichtbaar.
 
-## Waarom het een crash wordt en geen foutmelding
+Het risico is sinds oktober kleiner. Op 02-10-2026 zijn alle zes modelleurs
+nagekeken en op 6.5.5 gezet, en sindsdien meldt een versiecheck in `startup.py`
+van de gedeelde extensie (`lib\sci_pyrevitcheck.py`) een te oude versie bij
+het starten (memory `pyrevit-versiecheck`, context). Albert draait sinds
+04-11-2026 7.0.0 (`revit-2027-runtime-en-api-wijzigingen.md` §4). De regel blijft
+staan: een collega die een update overslaat, valt terug op het oude gedrag.
+
+## Crash in plaats van foutmelding
 
 Op 2026-09-15 crashte Revit 2025 bij een collega op het moment dat zij in
 ProjectNotitie op Opslaan klikte. Het journaal toont de klik op de knop
@@ -101,7 +108,7 @@ De schade is niet zichtbaar in `Gebruikslog.csv`. Een harde crash schrijft geen
 logregel, en ProjectNotitie is niet aangehaakt op `runmark`, dus er komt ook geen
 status `Vastgelopen`.
 
-## Het patroon dat wel houdt
+## Het patroon uit ProjectNotitie 1.8
 
 ProjectNotitie 1.8 (2026-09-16) lost dit op door niets meer aan de module-scope
 over te laten. De vier regels, in volgorde van belang:
@@ -125,7 +132,7 @@ Een functie op moduleniveau aanroepen vanuit zo'n callback helpt niet: die
 functie zoekt zijn eigen globals op in dezelfde gewiste scope. Daarom is
 `save_notitie()` in 1.8 vervallen en zit die logica in de handler.
 
-## De keerzijde blijft
+## Keerzijde: de reload-hang
 
 Draait de engine wél persistent, dan blijft die de hele Revit-sessie leven.
 `pyRevit → Reload` probeert de nog levende engine met venster en ExternalEvent af
@@ -135,7 +142,7 @@ ProjectNotitie in Revit 2026 en op 2026-08-28 bij de Routes-configuratie
 zodra zo'n knop deze sessie gebruikt is. Dat gedrag is onafhankelijk van de fix
 hierboven.
 
-## Diagnose bij een melding die je niet kunt naspelen
+## Diagnose op afstand
 
 - Vraag de **pyRevit-versie** van de melder (pyRevit → About) voordat je in de
   code zoekt. Verschillen tussen werkplekken verklaren meer dan ze lijken.

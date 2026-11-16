@@ -1,7 +1,7 @@
 ---
 titel: Revit 2027 — .NET 10, verplaatste add-in-map, BoundaryConditions en WebView2
 status: concept
-laatst-bijgewerkt: 2026-11-12
+laatst-bijgewerkt: 2026-11-16
 bronnen:
   - "raw/2026-10-27-externe-bronnen-revit-ifc-scia-tekla.md §A1-A4 en §F (zoekrondes 21-27 okt 2026, zelf ongeverifieerd)"
   - https://blog.autodesk.io/revit-2027-sdk-net-10-api-changes-and-additions/
@@ -11,6 +11,8 @@ bronnen:
   - "skill revit-api-docs, SKILL.md §5 (runtime-tabel)"
   - "memory pyrevit-standaardversie (team op 6.5.5 sinds 02-10-2026; Albert op 7.0.0 sinds 04-11-2026)"
   - "gemeten 2026-11-12 op de werkplek van Albert: pyrevit --version = v7.0.0.26278+2233"
+  - https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/Revit--Requirements-for-products-affected-by-the-Microsoft--NET-10-transition.html
+  - https://blog.autodesk.io/autodesk-desktop-products-2025-2026-net-10-updates/
 verwant:
   - zoek-revit-api.md
   - mcp-versus-custom-tools.md
@@ -32,16 +34,24 @@ is.
 Revit 2027 draait op .NET 10; dat staat al in skill `revit-api-docs` §5, met 2025
 en 2026 op .NET 8. De zoekronde voegt twee punten toe:
 
-- [ONBEVESTIGD] Autodesk plant Revit 2025 en 2026 ook naar .NET 10 te migreren
-  en heeft daarvoor een call for preview testing uitgeschreven. Microsoft stopt
-  de support voor .NET 8 op 10-11-2026.
+- **Revit 2026.5 en 2025.5 draaien op .NET 10** (Autodesk-supportpagina over de
+  .NET 10-overgang en de Autodesk-ontwikkelaarsblog, opgezocht 2026-11-16 via
+  zoekresultaten; [ONBEVESTIGD] de pagina's zelf niet opgehaald). Reden: Microsoft
+  stopte de support voor .NET 8 op 10-11-2026. Volgens Autodesk verandert de API
+  niet; add-ins breken alleen op breaking changes van .NET 10 zelf. 2026.5 kwam
+  begin augustus 2026 uit; voor 2025.5 noemen de bronnen een preview en een GA in
+  september 2026.
+- Op deze werkplek: Revit 2026 is build 26.5.0.55, dus 2026.5 en .NET 10. Revit
+  2025 is build 25.4.60.9, dus nog 2025.4 op .NET 8 (builds uit
+  `zoek-revit-api.md` §5, gemeten 2026-10-08).
 - [ONBEVESTIGD] Voorbeeld van breuk: de add-in AVAIL verliest drag-and-drop zodra
   de .NET 10-builds van 2025/2026 uitkomen.
 
-> **Mogelijk conflict met skill `revit-api-docs`:** de skill noemt 2025 en 2026
-> vast als .NET 8. Komt de migratie er, dan geldt die tabel alleen nog voor de
-> huidige builds. Niet aangepast: de bron is ongeverifieerd. Te onderbouwen door
-> de Autodesk-blog (`blog.autodesk.io/tag/net-10/`) te lezen.
+> **Conflict met skill `revit-api-docs`:** §5 van de skill zet 2025 en 2026 vast
+> op .NET 8. Dat geldt alleen tot en met 2025.4 en 2026.4; 2025.5 en 2026.5 zijn
+> .NET 10. Voorstel voor de skill: de runtime per update noemen in plaats van per
+> jaar. Skill niet aangepast (2026-11-16); dat vraagt een besluit en daarna een
+> upload.
 
 Voor de pyRevit-scripts zelf verandert er niets; de runtime raakt gecompileerde
 DLL's (skill `revit-api-docs` §5). Wel geraakt kunnen zijn: `clr.AddReference`
