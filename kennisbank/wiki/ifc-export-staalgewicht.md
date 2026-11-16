@@ -1,13 +1,15 @@
 ---
 titel: Staalgewicht komt niet mee in de IFC-export
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "waargenomen in model S-9479_R25 (Revit 2025), 2026-09-15, via de Lees-MCP"
   - "W:\\1 - Informatie Snetselaar\\Constructief tekenen\\Revit\\01. SCI families\\2023\\IFC export setting 21\\IFC Configuration - SCI_IFC.json"
   - "W:\\1 - Informatie Snetselaar\\Constructief tekenen\\Revit\\03. Support\\ExportMappings\\RSF_NLRS_3.0.1_CustomPSets.txt"
   - "W:\\1 - Informatie Snetselaar\\Constructief tekenen\\Revit\\03. Support\\ExportMappings\\SCI_ParameterSets.txt"
   - "screenshots van het IFC Modify Setup-venster, aangeleverd door de gebruiker op 2026-09-15"
+  - outputs/2026-10-12-stappenplan-staalgewicht-ifc.md
+  - "gebruiker, 2026-11-12: stappenplan 'dacht het wel' uitgevoerd"
 verwant:
   - ifc-import-verboden-tekens-in-namen.md
   - lees-mcp-koppeling.md
@@ -103,7 +105,12 @@ gewicht.
 
 ## 4. Oplossingsrichtingen
 
-Beslissing ligt bij de BIM-coördinator. Geen van deze routes is uitgevoerd.
+Beslissing ligt bij de BIM-coördinator. Stand 2026-09-17: geen van deze routes
+was uitgevoerd.
+
+Een uitgewerkt stappenplan voor route 1 staat in
+`outputs/2026-10-12-stappenplan-staalgewicht-ifc.md`. [ONBEVESTIGD] Of het is
+uitgevoerd: de gebruiker denkt van wel (2026-11-12), nagemeten is het niet.
 
 1. **Kg/m als typeparameter uit de lookup table.** Het gewicht wordt kg/m ×
    lengte, via een familieformule of een script. Mappen naar `NLRS_S_gewicht`
@@ -112,8 +119,12 @@ Beslissing ligt bij de BIM-coördinator. Geen van deze routes is uitgevoerd.
 2. **`Nominal Weight` en `Section Area` vullen** vanuit de lookup table. Dan
    klopt ook Revit's eigen `Weight`, mits de aanname in §2 klopt.
 3. **Dichtheid op de `SCI_Staal_*`-materialen** en materiaal op de kolommen.
-   Botst met de afspraak dat S235 `Structural Material` bewust leeg laat
-   vanwege de IFC-export (skill `sci-bim-context`). Eerst afstemmen.
+   Sinds versie 1.2 van de S235-knop (14-10-2026) vult ook S235
+   `Structural Material` = `SCI_Staal_S235`; daarvoor bleef dat veld bij S235
+   bewust leeg (memory `sci-staalsoort-structuralclass`, context). Oude modellen
+   hebben dus nog lege S235-elementen. Hier stond tot 2026-11-12 dat de skill
+   `sci-bim-context` die lege-S235-afspraak vastlegt; de skillbron bevat hem niet
+   (grep 2026-11-12).
 4. **Snelle test zonder familiewerk.** Een kopie van de staalstaat met "Pset_"
    in de titel, exporteren, controleren in BIMcollab. Bewijst of route 3 uit de
    tabel in §3 werkt.

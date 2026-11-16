@@ -1,7 +1,7 @@
 ---
 titel: IFC-import faalt in Revit 2027 op verboden tekens in IfcBuilding- en IfcSite-namen
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "P:\\9000-9999\\9450-9499\\9497 - warehouse met kantoor DUI02 Duiven\\5 Aangeleverd bwk\\2026-09-14 RVT en IFC modellen\\11260016_B-BWK-B_HBA_Stramienen.ifc.log.html (importlog, 2026-09-16 07:39)"
   - "hetzelfde, 11260016_B-BWK-B_HBA_Gebouw.ifc.log.html (2026-09-15 14:56)"
@@ -13,6 +13,7 @@ verwant:
   - nlrs-en-bim-standaarden.md
   - lees-mcp-koppeling.md
   - externe-bronnen-ronde-okt2026.md
+  - model-vergelijken-fase0-ifc-rvt-link.md
 skill: sci-bim-context
 ---
 
@@ -31,7 +32,8 @@ De import breekt daarna af, er komt geen `<bestandsnaam>.ifc.RVT` uit, en pas
 dán volgt "Cannot open".
 
 **Het logbestand naast het IFC is de eerste plek om te kijken.** Bij een
-mislukte import staat daar de echte fout in.
+mislukte import staat daar de echte fout in. Ook een IFC-link schrijft dat
+bestand, naast een `.ifc.RVT` (`model-vergelijken-fase0-ifc-rvt-link.md`).
 
 ## 2. De fout in het log
 

@@ -1,7 +1,7 @@
 ---
 titel: Bruikbare patronen uit externe Revit-repo's (Prio-1-ronde)
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-09-17-kennisextractie-externe-revit-repos.md (de opdracht van 2026-09-14; op 2026-09-17 in raw/ gezet)"
   - "github.com/m-wolin/PyRebar@3e77de8 (GPL v3)"
@@ -17,6 +17,7 @@ verwant:
   - nlrs-en-bim-standaarden.md
   - externe-repos-kandidaten-en-afgevallen.md
   - externe-bronnen-ronde-okt2026.md
+  - zoek-revit-api.md
 skill: pyrevit-codestijl
 ---
 
@@ -338,6 +339,8 @@ Drie verplichte caveats, in de bron bevestigd:
   RevitAPI.dll's, `revit-api-verifieren-lokaal`): die doet in feite al een
   vergelijkbare diff zonder draaiende host. Beoordeel of de TSV-vorm iets toevoegt
   boven wat `check_versies.py` nu meet — zo niet, dan is dit een dood spoor. Zie Openstaande vragen, vraag 3.
+  Sinds 08-10-2026 maakt `zoek_revit_api` per-versie-vergelijkingen op
+  momentopnames van de DLL's (`zoek-revit-api.md`), wat de vraag kleiner maakt.
 
 ## Openstaande vragen
 

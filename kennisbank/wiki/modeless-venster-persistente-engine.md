@@ -1,7 +1,7 @@
 ---
 titel: Modeless WPF-venster en de persistente engine in pyRevit
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "waargenomen bij S-WUL1N op 2026-09-15: crash in model S9475_R25, journaal P:\\9000-9999\\9450-9499\\9475 - fase 1 MJKO Emstek\\3 Tek\\Journals\\journal.0041.txt en journal.0041.0001.dmp"
   - https://raw.githubusercontent.com/pyrevitlabs/pyRevit/master/dev/pyRevitLabs.PyRevit.Runtime/IronPythonEngine.cs
@@ -50,7 +50,7 @@ daarmee in een lege scope.
 De Lees-MCP-knop loopt tegen hetzelfde aan en lost het anders op: hij bewaart zijn
 toestand in AppDomain-data in plaats van in de module-scope, omdat pyRevit ook op
 een persistente engine elke run een verse scope geeft (`lees-mcp-koppeling.md`
-§7). Een `ExternalEvent`-callback is ook de voorgeschreven weg voor
+§2 en §10). Een `ExternalEvent`-callback is ook de voorgeschreven weg voor
 model-aanrakende routes (`routes-thread-veiligheid.md` §5); de valkuil hieronder
 geldt daar dus evengoed.
 

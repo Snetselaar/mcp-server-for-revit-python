@@ -2,10 +2,11 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 28 artikelen, 2026-10-27. Laatste health check:
-[2026-09-17](outputs/2026-09-17-healthcheck.md) — 45 bevindingen, ernstigste: de
-MCP-artikelen kennen `KNOWN_ISSUES.md` (thread-onveiligheid van de Routes-handlers)
-niet en de Lees-MCP heeft geen artikel. Daarvoor:
+**Stand:** 28 artikelen, 2026-11-12. Laatste health check:
+[2026-11-12](outputs/2026-11-12-healthcheck.md) — 43 bevindingen, ernstigste: de
+skill `sci-bim-context` en `mcp-revit-koppeling.md` noemen de Lees-MCP
+alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
+[2026-09-17](outputs/2026-09-17-healthcheck.md) (45 bevindingen),
 [2026-08-31](outputs/2026-08-31-healthcheck.md) (driemaal gedraaid, geconvergeerd),
 [2026-08-28](outputs/2026-08-28-healthcheck.md) en
 [2026-08-25](outputs/2026-08-25-healthcheck.md) met een
@@ -19,7 +20,7 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 |---|---|---|---|
 | [rebar-3d-modelleren.md](wiki/rebar-3d-modelleren.md) | concept | 2026-08-26 | Kolom-, balk- en vloerwapening, free form, splices — met een versietabel 2024–2027 |
 | [rebar-documentatie-en-staten.md](wiki/rebar-documentatie-en-staten.md) | concept | 2026-09-17 | Partitions, filters, tags, Multi-Rebar Annotation, buigstaten en Bending Details |
-| [rebar-api-parameters.md](wiki/rebar-api-parameters.md) | concept | 2026-09-17 | De acht BuiltInParameters, live geverifieerd op Revit 2025: alle namen bestaan, alleen CLEAR_COVER's beschrijving is fout |
+| [rebar-api-parameters.md](wiki/rebar-api-parameters.md) | concept | 2026-11-12 | De acht BuiltInParameters: bestaan in 2024, 2025 en 2027, alleen CLEAR_COVER's beschrijving is fout. Plus de hernoemingen in 2026 (`REBAR_*HOOK*` → `REBAR_*TERMINATION*`) en verdwenen leden |
 
 ## MCP en gereedschap
 
@@ -28,7 +29,7 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 | [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-09-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
 | [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-09-17 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector. Met een conflictblok: geen model-aanrakende route zonder ExternalEvent |
 | [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-09-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
-| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-10-08 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 50 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.4. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken). Sinds 08-10 vastgelegd: de luisterthread is serieel, een wachtende modeltool houdt ook ping en opzoekingen op. |
+| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-11-12 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 52 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.5. Conflictblok: de skill noemt hem nog alleen-lezen tot de upload. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken). Sinds 08-10 vastgelegd: de luisterthread is serieel, een wachtende modeltool houdt ook ping en opzoekingen op. |
 | [zoek-revit-api.md](wiki/zoek-revit-api.md) | concept | 2026-10-08 | MCP-tool `zoek_revit_api` (server 2.4): signaturen, Obsolete-tekst en IronPython-hints uit momentopnames van de geïnstalleerde DLL's, zonder Revit. Waarom buiten Revit (route C), gebruik, wat het wel en niet bewijst, en de gevonden verschillen 2024-2027 (`ElementId`, `Curve.Intersect`). |
 | [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-09-17 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-09-17 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
@@ -62,7 +63,7 @@ niet en de Lees-MCP heeft geen artikel. Daarvoor:
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [revit-robot-interoperabiliteit.md](wiki/revit-robot-interoperabiliteit.md) | concept | 2026-08-26 | De bidirectionele link met Robot, en de Pinned-Pinned-valkuil bij export |
+| [revit-robot-interoperabiliteit.md](wiki/revit-robot-interoperabiliteit.md) | concept | 2026-11-12 | De bidirectionele link met Robot, en de Pinned-Pinned-valkuil bij export. SCI gebruikt Robot niet (alleen Technosoft en SCIA); bewust dun |
 | [nlrs-en-bim-standaarden.md](wiki/nlrs-en-bim-standaarden.md) | concept | 2026-09-17 | Alleen wat `sci-bim-context` niet dekt: USO, family guides, BIM Basis ILS, BEP/CDE |
 | [ifc-export-staalgewicht.md](wiki/ifc-export-staalgewicht.md) | concept | 2026-09-17 | Waarom staalgewicht niet in de IFC komt (S-9479_R25): het gewicht is een formuleveld in de staat, `Weight` = 0, `NLRS_S_gewicht` bestaat niet; vier oplossingsrichtingen voor de BIM-coördinator |
 | [ifc-import-verboden-tekens-in-namen.md](wiki/ifc-import-verboden-tekens-in-namen.md) | concept | 2026-09-17 | Waarom een aangeleverd IFC niet in Revit 2027 laadt maar wel in 2025: `<` en `>` uit de template-placeholders in `IfcBuilding.Name` en `IfcSite.Name`. Met de vindplaats van de echte fout (het `.ifc.log.html`) en de meting dat S-9497_R27 dezelfde placeholders heeft. |
@@ -75,7 +76,7 @@ dekken staat in `rebar-api-parameters.md` en in het artikel hieronder._
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
 | [modeless-venster-persistente-engine.md](wiki/modeless-venster-persistente-engine.md) | concept | 2026-09-17 | Waarom een modeless WPF-knop Revit kan laten crashen: pyRevit wist de module-scope als de engine niet persistent is, en de bundle.yaml-vlag komt niet op elke pyRevit-versie aan (6.1.0 niet, 6.5.5 wel). Met het patroon uit ProjectNotitie 1.8 en de diagnose via journaal en crashdump. |
-| [revit-2027-runtime-en-api-wijzigingen.md](wiki/revit-2027-runtime-en-api-wijzigingen.md) | concept | 2026-10-27 | .NET 10 (ook voor 2025/2026 gepland, onbevestigd), verplaatste all-users add-in-map, `New*BoundaryConditions` deprecated in 2027 (geverifieerd in de momentopnames), pyRevit 7.0 niet bevestigd, WebView2 per versie testen |
+| [revit-2027-runtime-en-api-wijzigingen.md](wiki/revit-2027-runtime-en-api-wijzigingen.md) | concept | 2026-11-12 | .NET 10 (ook voor 2025/2026 gepland, onbevestigd), verplaatste all-users add-in-map, `New*BoundaryConditions` deprecated in 2027 (geverifieerd in de momentopnames), pyRevit 7.0.0 bij Albert (team 6.5.5; outputvenster WebView2 in 7.0, IE11 in 6.5.5), WebView2 per versie testen |
 
 ## SCI-conventies en projecten
 
@@ -100,6 +101,11 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
 
 ### Vragen aan de skills — hier wijkt de kennisbank af van wat vastligt
 
+- **`sci-bim-context` §C, de Lees-MCP schrijft — bron bijgewerkt 2026-11-12, upload open.**
+  `references/template-en-mcp.md` noemde de Lees-MCP alleen-lezen. Bijgewerkt en
+  ingepakt met `pack_skill.ps1`; de upload naar claude.ai (Team-account) en
+  `skill_uploads.ps1 -Mark sci-bim-context` zijn handwerk. Tot dan staat er een
+  conflictblok in `wiki/lees-mcp-koppeling.md`.
 - **`sci-bim-context` §C, de `execute_revit_code`-kwestie — opgelost (geüpload
   2026-08-31).** De `execute_revit_code`-rij is verwijderd uit
   `Snetselaar_BIM/sci-bim-context/references/template-en-mcp.md` §C, "twintig
@@ -140,11 +146,11 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   projectbasispunt is. Toetsen in een model met een verhoogd projectbasispunt.
   Zie `wiki/peil-0-en-hoogtes-meten.md`.
 
-- **De acht BuiltInParameters — bestaan afgehandeld (2026-08-28).** Alle acht
-  namen gaven `True` op `Enum.IsDefined` in de live Revit 2025-API via het
-  Routes-endpoint. `REBAR_SHAPE_IMAGE` blijkt tóch een BuiltInParameter. Rest
-  open: de betekenis (drie beschrijvingen) en een spot-check op 2024/2027. Zie
-  `wiki/rebar-api-parameters.md` §0 en §6.
+- **De acht BuiltInParameters — bestaan afgehandeld, ook voor 2024 en 2027
+  (2026-11-12).** Live in 2025 op 2026-08-28; op 2026-11-12 met `zoek_revit_api`
+  in 2024 en 2027: alle acht en de zes `CLEAR_COVER*`-leden aanwezig. Nog niet in
+  het artikel verwerkt (actieplan health check 2026-11-12, punt 4). Rest open: de
+  betekenis van drie beschrijvingen. Zie `wiki/rebar-api-parameters.md` §0 en §6.
 - **Zijn 0/20/40 mm de SCI-dekkingswaarden** of generieke voorbeelden uit de bron?
 - **Heeft SCI een conventie voor de Partition-parameter?** `sci-bim-context`
   beschrijft `hoofd_map` en `sub_map`, maar zegt niets over Partition.
@@ -157,8 +163,9 @@ Gevuld door `/kb-check` en `/kb-verwerk`. Elk punt is een kandidaat voor een
   `<Kadastrale aanduiding>`; die tekens blokkeren de IFC-import bij een
   Revit 2027-ontvanger. Een `.rte` is binair, dus dit vraagt openen in Revit.
   Zie `wiki/ifc-import-verboden-tekens-in-namen.md` §4.
-- **Gebruikt SCI Robot Structural Analysis?** Staat niet in de tech stack. Zo nee,
-  dan kan `wiki/revit-robot-interoperabiliteit.md` dun blijven.
+- **Gebruikt SCI Robot Structural Analysis? — beantwoord (2026-11-12): nee.** SCI
+  rekent alleen met Technosoft en SCIA (gebruiker). `wiki/revit-robot-interoperabiliteit.md`
+  blijft dun.
 - **Blijft de Routes Server aan tussen Revit-sessies? — grotendeels beantwoord
   (2026-09-17).** De instelling overleeft een herstart, maar niet een reset van
   `pyRevit_config.ini`: op 2026-09-07 verdween `[routes]` bij zo'n reset
@@ -222,7 +229,7 @@ elders al gecorrigeerd, maar niet overal doorgevoerd. Zie
   §4. Dit is buiten `/kb-verwerk` om gebeurd (een live-debugsessie, geen
   `raw/`-bestand); hier alsnog gelogd in `memory.md` omdat de wijziging anders
   geen spoor in het logboek had.
-- **Alle 22 artikelen staan op `concept`** (geteld 2026-09-17). Promotie naar een skill vraagt
+- **Alle 28 artikelen staan op `concept`** (geteld 2026-11-12). Promotie naar een skill vraagt
   `stabiel` plus twee onafhankelijke bronnen (`CLAUDE.md` §4). De meeste
   rebar-artikelen leunen nog op één gecureerde samenvatting. Uitzondering sinds
   2026-08-28: `rebar-api-parameters.md` heeft er een tweede, onafhankelijke bron
@@ -305,3 +312,38 @@ Nog open:
 - **Autodesk Public MCP Server: ingebouwd of aparte add-on, schrijven of alleen-lezen?**
   Twee tweedehands bronnen spreken elkaar tegen
   (`wiki/mcp-versus-custom-tools.md` §4 versus `wiki/externe-bronnen-ronde-okt2026.md` §4).
+
+### Uit de health check van 2026-11-12 — 43 bevindingen; punt 1-9 uitgevoerd op 2026-11-12, 10-18 open
+
+Volledig rapport en actieplan in `outputs/2026-11-12-healthcheck.md`. De punten
+die het eerst aandacht vragen:
+
+- **Lees-MCP schrijft, maar skill en `wiki/mcp-revit-koppeling.md` zeggen
+  alleen-lezen.** Skillbron `sci-bim-context/references/template-en-mcp.md` r. 52
+  en r. 94, artikel §4 r. 263-264 en §7 r. 486. `wiki/lees-mcp-koppeling.md` mist
+  het conflictblok uit `CLAUDE.md` §3 regel 2.
+- **pyRevit 7.0 bestaat.** `wiki/revit-2027-runtime-en-api-wijzigingen.md` §4 zegt
+  "niet bevestigd"; Albert draait 7.0.0 sinds 04-11-2026 (outputvenster daar
+  WebView2, §5 zegt IE11).
+- **Revit 2026 hernoemt wapeningsparameters (verwerkt).** `REBAR_ELEM_HOOK_*_ORIENT` →
+  `REBAR_ELEM_TERMINATION_*_ORIENT`, `REBAR_HOOK_ROTATION_AT_*` →
+  `REBAR_TERMINATION_ROTATION_AT_*`; `REBAR_SHAPE_HOOK_START/END_TYPE`,
+  `REBAR_SHAPE_ENDTREATMENT_*_TYPE` en `REBAR_FREE_FORM_HOOK_*_PLANE_ANGLE` zijn weg
+  (`zoek_revit_api`, 2024 tegenover 2027). De wissel zit in 2026, niet 2027 (nagemeten 2026-11-12, `wiki/rebar-api-parameters.md` §7).
+- **S235 vult sinds 14-10 `Structural Material`**; `wiki/ifc-export-staalgewicht.md`
+  §4 route 3 schrijft de skill een tegengestelde afspraak toe die daar niet staat.
+- **Gaten:** de SCI-Viewer heeft geen artikel; het stappenplan staalgewicht
+  (`outputs/2026-10-12-...`) en Model vergelijken na fase 0 zijn niet teruggekoppeld;
+  DWG-export heeft geen artikel en geen skill.
+- **Antwoorden van de gebruiker (2026-11-12):**
+  - SCI rekent alleen met **Technosoft en SCIA**, niet met Robot.
+    `wiki/revit-robot-interoperabiliteit.md` kan dun blijven; de open vraag is dicht.
+  - Stappenplan staalgewicht: "dacht het wel" uitgevoerd. Blijft `[ONBEVESTIGD]`
+    tot iemand het in een export of familie nameet.
+  - **Set bijwerken is uitgerold en werkt.** Geen vervolgwerk;
+    `wiki/bluebeam-sets-revisies-automatisch.md` alleen nog de stand bijwerken.
+  - **De SCI-Viewer krijgt geen wiki-artikel.** De kennis blijft in memory en
+    `outputs/`; gat G1 uit het rapport vervalt bewust.
+- **Klein:** twee padnamen waarin `\t` een tab werd (`bluebeam-...` r. 241,
+  `lees-mcp-koppeling.md` r. 200), drie eenzijdige links, een verkeerde
+  sectieverwijzing in `modeless-venster-persistente-engine.md` r. 53.

@@ -1,7 +1,7 @@
 ---
 titel: Appartementdata genereren en wegschrijven met Claude Code + pyRevit MCP
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §6"
 verwant:
@@ -55,11 +55,11 @@ locatie.
 
 De Path of Travel-tool laat bij de afstandsmeting naar lift en trap een gat
 van ongeveer **1 foot 6 inches (± 45 cm)**, door hoe start- en eindpunt
-geplaatst worden. Nick's correctie: handmatig revisietrajecten tekenen via het
+geplaatst worden. Nick's correctie: de looproutes (Path of Travel) handmatig tekenen via het
 tabblad **Analyze**, het appartementnummer aan een custom veld koppelen, en
 die preciezere data terugvoeren naar Claude.
 
-Dit is dezelfde soort systematische meetfout als de ~45 cm-marge zelf: een
+Het is een systematische meetfout: een
 tool die intern een aanname doet over start-/eindpunten, zonder dat in de
 resultaten te vermelden. Vergelijkbaar met de constatering in
 `rebar-api-parameters.md` §2 dat dekking per vlak geldt en niet per element —
@@ -107,8 +107,9 @@ externe partner aanlevert, en discrepanties direct aanwijzen.
   Claude Code draaien is duur; **eenmalig een pyRevit-tool laten schrijven en
   lokaal uitrollen** is de goedkopere weg. Dit is dezelfde afweging als de
   kosten-/schaalkolom in `mcp-versus-custom-tools.md` §1 ("bulk hoort bij een
-  knop, verkennen bij de brug"), hier met een concreet getal erbij: een tool
-  bouwen kost eenmalige tijd, herhaald gebruik via de chatbrug loopt op.
+  knop, verkennen bij de brug"), hier uit de praktijk van de bron: een tool
+  bouwen kost eenmalige tijd, herhaald gebruik via de chatbrug loopt op. De
+  bron noemt daarbij geen bedrag of tokenaantal.
 
 [ONBEVESTIGD] Of dit patroon (Area-analyse → parameters → vaste knop →
 reconciliatie) iets is waar SCI een concrete toepassing voor heeft — de bron

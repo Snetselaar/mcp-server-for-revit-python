@@ -1,7 +1,7 @@
 ---
 titel: De MCP-koppeling — eigen koppeling tussen Claude en Revit, lezen en schrijven
 status: concept
-laatst-bijgewerkt: 2026-10-08
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\03_R&D.tab\\Tools.panel\\Lees_MCP.pushbutton\\script.py (versie 2.1, gelezen 2026-09-21)"
   - "hetzelfde pad, bundle.yaml (tooltip, engine: persistent: true)"
@@ -23,6 +23,7 @@ verwant:
   - rebar-api-parameters.md
   - mcp-eigen-tools-toevoegen.md
   - externe-bronnen-ronde-okt2026.md
+  - model-vergelijken-fase0-ifc-rvt-link.md
 skill: sci-bim-context
 ---
 
@@ -31,9 +32,17 @@ skill: sci-bim-context
 Een eigen MCP-koppeling waarmee Claude een open Revit-model leest en, in de
 hoogste stand, ook wijzigt. Gebouwd op 14-09-2026 als vervanger van de
 Nonica-connector, die een daglimiet heeft, en als uitweg uit de instabiele
-pyRevit Routes-server (`routes-thread-veiligheid.md`). Stand 2026-09-21: knop
-**MCP** in 03_R&D, versie 2.1. De knopmap heet nog `Lees_MCP.pushbutton`, zodat
-de reeks in `Gebruikslog.csv` onder `LeesMCP` doorloopt.
+pyRevit Routes-server (`routes-thread-veiligheid.md`). Stand 2026-10-16: knop
+**MCP** in 03_R&D en server, beide versie 2.5 (§7). De knopmap heet nog
+`Lees_MCP.pushbutton`, zodat de reeks in `Gebruikslog.csv` onder `LeesMCP`
+doorloopt.
+
+> **Conflict met skill `sci-bim-context`:** `references/template-en-mcp.md` §C
+> noemde de Lees-MCP tot 2026-11-12 een "eigen alleen-lezen koppeling" en zei
+> dat hij niet kan schrijven. Sinds knop 2.0 (21-09-2026) kan hij dat wel, in de
+> stand *Lezen en schrijven* (§2 en §5). De skillbron in `Snetselaar_BIM` is op
+> 2026-11-12 bijgewerkt. Tot de upload naar claude.ai gedaan en met
+> `skill_uploads.ps1 -Mark` vastgelegd is, leest Claude nog de oude tekst.
 
 ## 1. Twee helften
 
@@ -197,7 +206,7 @@ valkuilen uit de skill `pyrevit-codestijl`.
 
 Alle gebruikte API-leden zijn op 21-09-2026 via reflectie tegen de
 `RevitAPI.dll` en `RevitAPIUI.dll` van Revit 2024 **en** 2027 gecontroleerd, met
-`System.Reflection.Metadata` vanuit PowerShell (`RnD.extension	ools\check_api.ps1`,
+`System.Reflection.Metadata` vanuit PowerShell (`RnD.extension\tools\check_api.ps1`,
 op 21-09-2026 hiervoor geschreven; `tools/check_versies.py` in `Snetselaar_BIM`
 doet het lintbrede werk en blijft bestaan). Aanwezig in beide versies, met
 dezelfde signatuur:
@@ -328,6 +337,9 @@ Revit in de sketch-modus staat (`IsModifiable`).
   code op 2026-10-08 (knop 2.4, server 2.3); niet in een draaiend Revit
   uitgelokt. Dit was de reden om `zoek_revit_api` buiten Revit te bouwen.
 - Staat in 03_R&D, dus alleen voor de beperkte doelgroep.
+- Gebruikt als meetroute in `ifc-export-staalgewicht.md`,
+  `ifc-import-verboden-tekens-in-namen.md` en
+  `model-vergelijken-fase0-ifc-rvt-link.md` (IFC- en RVT-link in 9204, 28-09-2026).
 - Werkt op 2025 én 2027, en is daarmee een versie-onafhankelijk alternatief voor
   de Autodesk MCP-server, die pas vanaf 2027 draait
   (`mcp-versus-custom-tools.md` §4).

@@ -1,11 +1,13 @@
 ---
 titel: Revit en Robot Structural Analysis — de bidirectionele link
 status: concept
-laatst-bijgewerkt: 2026-08-26
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §2"
+  - "gebruiker, 2026-11-12: SCI rekent alleen met Technosoft en SCIA"
 verwant:
   - rebar-3d-modelleren.md
+  - externe-bronnen-ronde-okt2026.md
 skill: sci-bim-context
 ---
 
@@ -17,9 +19,10 @@ De koppeling tussen het fysieke model in Revit en het rekenmodel in Robot.
 niet-herleidbare bronverwijzingen. Behandel het als een startpunt, niet als
 werkinstructie.
 
-[ONBEVESTIGD] Of SCI Robot überhaupt gebruikt. `sci-bim-context` §2 noemt bij de
-tech stack pyRevit, EF-Tools en DiRoots, en verder Bluebeam voor tekenproductie —
-Robot staat er niet bij. Uitzoeken voordat hier tijd in gaat.
+**SCI gebruikt Robot niet.** Het rekenwerk loopt via Technosoft en SCIA
+(gebruiker, 2026-11-12). Dit artikel blijft daarom dun en wordt niet verder
+uitgewerkt. Wat de kennisbank over het rekenmodel bij SCI weet (SCIA, SAF,
+Technosoft), staat in `externe-bronnen-ronde-okt2026.md` §3.
 
 ---
 

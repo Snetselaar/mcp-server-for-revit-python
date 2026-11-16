@@ -1,7 +1,7 @@
 ---
 titel: Externe bronnen, ronde oktober 2026 — Tekla, IFC/IDS, SAF en Revit-MCP's
 status: concept
-laatst-bijgewerkt: 2026-10-27
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-10-27-externe-bronnen-revit-ifc-scia-tekla.md §B-§E en 'Voorgestelde volgorde' (zoekrondes 21-27 okt 2026; sterren, licentie, laatste commit en werking niet gecontroleerd)"
   - https://www.autodesk.com/blogs/aec/2026/06/17/revit-public-mcp-server/
@@ -18,6 +18,7 @@ verwant:
   - ifc-import-verboden-tekens-in-namen.md
   - vyssuals-datavisualisatie.md
   - lees-mcp-koppeling.md
+  - revit-robot-interoperabiliteit.md
 skill: sci-bim-context
 ---
 
@@ -80,7 +81,9 @@ bron: de eigen JSON-serialisatie aanhouden, zoals
 
 ## 3. SCIA, Technosoft en het rekenmodel
 
-SCIA-integratie staat geparkeerd; alleen oppakken als Albert erom vraagt.
+SCIA-integratie staat geparkeerd; alleen oppakken als Albert erom vraagt. SCI
+rekent alleen met Technosoft en SCIA, niet met Robot (gebruiker, 2026-11-12);
+`revit-robot-interoperabiliteit.md` blijft daarom dun.
 
 - **SAF** (Structural Analysis Format, Nemetschek/SCIA): open formaat op basis van
   Excel; docs op `gitbook.saf.guide` (met `llms.txt`), .NET-SDK `StructuralAnalysisFormat`

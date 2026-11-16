@@ -1,9 +1,10 @@
 ---
 titel: Hulpmiddelen om zelf pyRevit-tools te bouwen met AI
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §3 en §4"
+  - "overstap van SCI naar Claude Team, 2026-11-12 (organisatie Snetselaar-AI)"
 verwant:
   - mcp-eigen-tools-toevoegen.md
   - mcp-versus-custom-tools.md
@@ -38,6 +39,14 @@ Stappen:
    overschrijft naar `https://openrouter.ai/api/v1`, de OpenRouter-key erin
    zet, `default_model`/`opus_model`/`sonnet_model`/`haiku_model` vervangt door
    de exacte modelnaam, en `max_context_tokens` op 1.000.000 zet.
+
+[ONBEVESTIGD] De sleutelnamen in stap 3 (`default_model`, `opus_model`,
+`sonnet_model`, `haiku_model`, `max_context_tokens`) komen alleen uit de
+transcriptie en zijn niet getoetst tegen de Claude Code-documentatie.
+
+> **Stand 2026-11-12:** SCI werkt sinds die dag met een Claude Team-account
+> (Premium-stoel). Deze route is voor SCI daarmee niet meer nodig. De sectie
+> blijft staan als beschrijving van de bron.
 
 > **[ONBEVESTIGD] — houdbaarheid.** Een gratis frontier-model op OpenRouter is
 > per definitie een promotieactie; de bron zelf verwacht dat `ox-alpha` na de

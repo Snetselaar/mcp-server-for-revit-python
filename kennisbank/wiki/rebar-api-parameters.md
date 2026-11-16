@@ -1,7 +1,7 @@
 ---
 titel: BuiltInParameters voor wapening — wat er klopt van de dump
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "gemeten 2026-08-28: live Routes-API op localhost:48884, Revit 2025, Enum.IsDefined(BuiltInParameter, <naam>) via /execute_code/"
   - "mcp-revit-koppeling.md §4 (verwijdering execute_revit_code)"
@@ -10,6 +10,7 @@ bronnen:
   - https://www.revitapidocs.com/2015/669bcf80-e0b7-ee57-30c0-82fdf4184012.htm
   - https://help.autodesk.com/view/RVT/2025/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Discipline_Specific_Functionality_Structural_Engineering_Structural_Model_Elements_Reinforcement_Rebar_html
   - https://www.revitapidocs.com/2024/fb011c91-be7e-f737-28c7-3f1e1917a0e0.htm
+  - "zoek_revit_api, BuiltInParameter met lidfilter REBAR_, CLEAR_COVER, ORIENT, ROTATION_AT, CONSTRAINTS_STATUS, PLANE_ANGLE; versies 2024-2027 (builds 24.3.60.12, 25.4.60.9, 26.5.0.55, 27.2.0.39), 2026-11-12"
 verwant:
   - rebar-3d-modelleren.md
   - rebar-documentatie-en-staten.md
@@ -22,6 +23,7 @@ verwant:
   - lees-mcp-koppeling.md
   - externe-repos-kandidaten-en-afgevallen.md
   - revit-2027-runtime-en-api-wijzigingen.md
+  - zoek-revit-api.md
 skill: revit-api-docs
 ---
 
@@ -66,6 +68,11 @@ zonder controle. Dit artikel legt vast wat de controle heeft opgeleverd.
 > door de gebruiker op 2026-08-31). Die connector heeft vaste lees- en
 > `set_*`-tools en voert geen willekeurige code uit (toollijst, 2026-09-17), dus
 > een `Enum.IsDefined`-check kan er niet mee.
+>
+> **Update 2026-11-12 — 2024 en 2027 alsnog getoetst, nu via `zoek_revit_api`**
+> (`zoek-revit-api.md`), op de momentopnames van de geïnstalleerde DLL's: alle acht
+> namen en de zes `CLEAR_COVER*`-leden bestaan in 2024 (24.3.60.12) én 2027
+> (27.2.0.39), met dezelfde enumwaarde. Zie §6 en de nieuwe §7.
 
 **Geen enkele claim hieronder is geverifieerd in de zin van `revit-api-docs` §0
 regel 3.** Die regel eist een opgehaalde documentatiepagina. In de sessie waarin
@@ -281,7 +288,9 @@ open is:
   bij Fixed number) leunen op één forumfragment; de scope-correctie van
   `CLEAR_COVER` op Autodesk-docs die niet zijn opgehaald. Die drie zijn het
   narekenen waard tegen een echte doc-pagina of een testmodel.
-- **2024 en 2027.** Gemeten is alleen 2025. Voor deze langbestaande enum-leden is
+- ~~**2024 en 2027.**~~ **Afgehandeld op 2026-11-12** met `zoek_revit_api`: alle acht
+  bestaan in 2024 en 2027 (zie §0 en §7). Wat hieronder staat, is de stand van vóór
+  die toets. Gemeten was alleen 2025. Voor deze langbestaande enum-leden is
   verschil onwaarschijnlijk, maar strikt genomen niet uitgesloten. **Niet meer
   "in seconden gedaan" zoals hier eerder stond:** de route waarmee dat kon,
   `/execute_code/`, is verwijderd (zie §0). De spotcheck vraagt nu
@@ -297,3 +306,38 @@ open is:
   Een derde route, niet geprobeerd: de `RevitAPI.chm`-bestanden per versie,
   omgezet naar Markdown (`externe-repos-kandidaten-en-afgevallen.md` §2).
   [ONBEVESTIGD] Of die de `BuiltInParameter`-leden per jaar volledig bevatten.
+
+---
+
+## 7. Hernoemd en verdwenen in Revit 2026
+
+Bijvangst van de toets van 2026-11-12 (`zoek_revit_api`, `BuiltInParameter` met
+lidfilter, alle vier de versies; builds 24.3.60.12, 25.4.60.9, 26.5.0.55,
+27.2.0.39). De acht namen uit de dump zijn ongemoeid, maar andere `REBAR_*`-leden
+veranderen in **2026**, niet in 2027:
+
+| 2024 en 2025 | 2026 en 2027 | Waarde |
+|---|---|---|
+| `REBAR_ELEM_HOOK_START_ORIENT` | `REBAR_ELEM_TERMINATION_START_ORIENT` | -1017007 |
+| `REBAR_ELEM_HOOK_END_ORIENT` | `REBAR_ELEM_TERMINATION_END_ORIENT` | -1017009 |
+| `REBAR_SHAPE_HOOK_ROTATION_AT_START` / `_END` | `REBAR_SHAPE_TERMINATION_ROTATION_AT_START` / `_END` | -1155203 / -1155204 |
+| `REBAR_HOOK_ROTATION_AT_START` / `_END` | `REBAR_TERMINATION_ROTATION_AT_START` / `_END` | -1155205 / -1155206 |
+| `REBAR_HOOK_ROTATION_AT_START_SCHEDULES_TAGS_FILTERS` / `_END_...` | `REBAR_TERMINATION_ROTATION_AT_START_SCHEDULES_TAGS_FILTERS` / `_END_...` | -1155216 / -1155217 |
+| `REBAR_SHAPE_HOOK_START_TYPE` / `_END_TYPE` | weg | -1017023 / -1017024 |
+| `REBAR_SHAPE_ENDTREATMENT_START_TYPE` / `_END_TYPE` | weg | -1154657 / -1154658 |
+| `REBAR_FREE_FORM_HOOK_START_PLANE_ANGLE` / `_END_...` | weg | -1154690 / -1154691 |
+
+De waarde blijft gelijk bij een hernoeming. Code die de oude naam als attribuut
+opvraagt (`BuiltInParameter.REBAR_ELEM_HOOK_START_ORIENT`), breekt in 2026 met een
+`AttributeError`. Wie 2024 t/m 2027 moet bedienen: de naam met `hasattr` kiezen,
+of de parameter via de waarde ophalen. [ONBEVESTIGD] Of `get_Parameter` met de
+enumwaarde zelf in IronPython werkt zonder de naam; niet getest.
+
+Het lint gebruikt geen van deze namen: een grep op 2026-11-12 over de `.py`-bestanden
+onder `W:\4 - Tijdelijk en verwijderen\AWO\Extensions` vond alleen de API-stub
+`BuiltInParameter.py` van EF Tools (`save_DWGs.pushbutton`).
+
+Nieuw sinds 2025: `REBAR_CONSTRAINTS_STATUS` (-1180301), de parameter achter
+*Rebar Constraint Status* uit `rebar-3d-modelleren.md` §1. In 2024 bestaat hij niet.
+2026 voegt verder onder meer de crank- en splice-reeks toe (`REBAR_SHAPE_CRANK_*`,
+`REBAR_SHAPE_NAME`).

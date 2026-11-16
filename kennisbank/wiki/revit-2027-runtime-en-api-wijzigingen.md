@@ -1,7 +1,7 @@
 ---
 titel: Revit 2027 — .NET 10, verplaatste add-in-map, BoundaryConditions en WebView2
 status: concept
-laatst-bijgewerkt: 2026-10-27
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-10-27-externe-bronnen-revit-ifc-scia-tekla.md §A1-A4 en §F (zoekrondes 21-27 okt 2026, zelf ongeverifieerd)"
   - https://blog.autodesk.io/revit-2027-sdk-net-10-api-changes-and-additions/
@@ -9,7 +9,8 @@ bronnen:
   - https://github.com/pyrevitlabs/pyRevit/releases
   - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\mcp_lezen\\api_snapshots\\revit_api_<jaar>_<build>.json.gz, gelezen 2026-10-27 (builds 24.3.60.12, 25.4.60.9, 26.5.0.55, 27.2.0.39)"
   - "skill revit-api-docs, SKILL.md §5 (runtime-tabel)"
-  - "memory pyrevit-standaardversie (team op 6.5.5 sinds 02-10-2026)"
+  - "memory pyrevit-standaardversie (team op 6.5.5 sinds 02-10-2026; Albert op 7.0.0 sinds 04-11-2026)"
+  - "gemeten 2026-11-12 op de werkplek van Albert: pyrevit --version = v7.0.0.26278+2233"
 verwant:
   - zoek-revit-api.md
   - mcp-versus-custom-tools.md
@@ -91,9 +92,20 @@ De bron noemt als laatst geziene releases 6.4.0 (manifest-fix 2027), 6.5.0
 (2027-compat) en 6.5.3. Het team draait sinds 02-10-2026 op 6.5.5 (memory
 `pyrevit-standaardversie`); de bron loopt daar dus achter.
 
-**pyRevit 7.0 is niet bevestigd.** Claims over een ingebouwde MCP, WebView2 en
-snellere laadtijd kwamen uit een Gemini-samenvatting en staan niet op de
-releasepagina. Niet op bouwen. Issue #2124 (IronPython deprecaten ten gunste van
+**pyRevit 7.0 bestaat.** Hier stond op 27-10-2026 dat 7.0 niet bevestigd was; dat
+was toen al achterhaald. `zoek-revit-api.md` noemt de agent-runtime van 7.0
+(`lookup_revit_api`, uitgebracht 6 oktober 2026). Op de werkplek van Albert
+draait `pyrevit v7.0.0.26278+2233` (gemeten 2026-11-12 met `pyrevit --version`).
+Het team blijft op 6.5.5, dat het minimum is.
+
+Wat 7.0 anders doet, volgens de statische toets van het lint op 04-11-2026
+(memory `pyrevit-standaardversie`, context en geen bron in de zin van
+`kennisbank/CLAUDE.md` §6): de engine blijft IronPython 2.7.12, elk
+`forms.WPFWindow` krijgt `Theme.xaml` gemerged, het outputvenster is WebView2,
+en alle startup-scripts delen één engine. [ONBEVESTIGD] Of 7.0 een ingebouwde
+MCP heeft (claim uit een Gemini-samenvatting); niet nagelopen.
+
+Issue #2124 (IronPython deprecaten ten gunste van
 CPython) is een open discussie zonder besluit; alleen volgen.
 
 ## 5. WebView2
@@ -105,7 +117,8 @@ cachemap en een vereiste herstart. Het demo-project
 een dockpanel, fatale fout) en is alleen bruikbaar als patroon voor
 JS↔C#-berichten (`postMessage` / `ExecuteScriptAsync`).
 
-Dat raakt elk HTML-paneel. Het pyRevit-outputvenster is een WinForms
-WebBrowser met IE11-gedrag (memory `pyrevit-outputvenster-ie11`), dus geen
-WebView2. Een eigen paneel op WebView2 moet eerst op 2024, 2025, 2026 en 2027
+Dat raakt elk HTML-paneel. Het pyRevit-outputvenster is tot en met 6.5.5 een
+WinForms WebBrowser met IE11-gedrag (memory `pyrevit-outputvenster-ie11`); in
+7.0 is het WebView2 (§4). Zolang het team op 6.5.5 zit, blijft IE11-veilige HTML
+de eis. Een eigen paneel op WebView2 moet eerst op 2024, 2025, 2026 en 2027
 getest worden.

@@ -1,7 +1,7 @@
 ---
 titel: De MCP-Revit-koppeling — opbouw, tools en faalpunten
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - README.md (deze repo)
   - main.py, startup.py, tools/, revit_mcp/ (deze repo)
@@ -17,6 +17,7 @@ bronnen:
   - "outputs/2026-09-07-mcp-server-herstel.md, met de onderliggende bestanden extension.json, requirements.txt en %APPDATA%/pyRevit/pyRevit_config.ini (herlezen 2026-09-17)"
   - "gemeten 2026-09-17: junction %APPDATA%/pyRevit/Extensions/mcp-server-for-revit-python.extension, regelnummers in main.py en revit_mcp/"
   - "toollijst van de MCP-connectors Revit (Nonica) en revit-lezen, gelezen 2026-09-17"
+  - "lees-mcp-koppeling.md §5 (schrijftools sinds knop 2.0, 21-09-2026), doorgevoerd 2026-11-12"
 verwant:
   - rebar-api-parameters.md
   - revit-bronnen-en-communities.md
@@ -260,8 +261,11 @@ leestools `set_*`-tools aan, onder meer `set_parameter_value_for_elements`,
 `set_movement_for_elements`, `set_rotation_for_elements`, `set_copy_elements` en
 `set_delete_elements` (toollijst van de connector, 2026-09-17). Die horen alleen
 op expliciete opdracht gebruikt te worden. [ONBEVESTIGD] Hoe Nonica de aanroepen
-naar de API-thread brengt, is niet uitgezocht. De Lees-MCP kan bewust niet
-schrijven.
+naar de API-thread brengt, is niet uitgezocht. De Lees-MCP kan sinds knop 2.0
+(21-09-2026) ook schrijven: drie tools (`zet_parameter`, `wijzig_type`,
+`verplaats_elementen`), alleen in de stand *Lezen en schrijven* en altijd eerst
+met `dry_run`. Zie `lees-mcp-koppeling.md` §5. (Hier stond tot 2026-11-12 dat de
+Lees-MCP bewust niet kon schrijven.)
 
 #### `use_transaction` doet niets
 
@@ -483,4 +487,5 @@ openstaande tegenspraak.
 - Concrete parameters uitlezen: `rebar-api-parameters.md`. Dat ging tot
   eind augustus via `execute_revit_code` (zonder eigen transactie, zie §4); sinds
   de verwijdering zijn de Nonica-connector en de Lees-MCP de leesroutes (§4). Nonica
-  kan ook schrijven via `set_*`-tools; de Lees-MCP niet.
+  kan ook schrijven via `set_*`-tools, de Lees-MCP sinds 21-09-2026 via drie
+  schrijftools met `dry_run` vooraf (`lees-mcp-koppeling.md` §5).

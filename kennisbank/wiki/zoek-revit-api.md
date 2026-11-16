@@ -1,7 +1,7 @@
 ---
 titel: zoek_revit_api — Revit API-signaturen opzoeken via de MCP
 status: concept
-laatst-bijgewerkt: 2026-10-08
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "bouwplan 'zoek_revit_api in de MCP' (Albert, 07-10-2026): https://claude.ai/artifact/9BwUNs2mYjKRq7LZ2jL3eX, met de tab 'Rapport fase 0 en 1'"
   - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\mcp_lezen\\api_opzoeken.py (versie 1.0, 08-10-2026)"
@@ -17,6 +17,8 @@ verwant:
   - model-vergelijken-fase0-ifc-rvt-link.md
   - externe-patronen-revit-repos.md
   - revit-2027-runtime-en-api-wijzigingen.md
+  - rebar-api-parameters.md
+  - mcp-eigen-tools-toevoegen.md
 skill: revit-api-docs
 ---
 
@@ -125,11 +127,16 @@ Gemeten op 08-10-2026, builds 24.3.60.12 / 25.4.60.9 / 26.5.0.55 / 27.2.0.39.
 | `Curve.Intersect(Curve)` en `(Curve, out IntersectionResultArray)` | aanwezig | aanwezig | obsolete | ontbreekt |
 | `Curve.Intersect(Curve, CurveIntersectResultOption)` | ontbreekt | ontbreekt | aanwezig | aanwezig |
 
-De `ElementId`-rijen komen overeen met `pyrevit-codestijl` §5. Daar staat
+De `ElementId`-rijen komen overeen met `pyrevit-codestijl` §5. Het codevoorbeeld
+in `mcp-eigen-tools-toevoegen.md` §1 loopt op de ctor-rij vast. Daar staat
 "aanwezig" waar de tool "obsolete" meldt; dat is geen tegenspraak, want het
 attribuut stond in die tabel niet. Code die op 2024 t/m 2027 `Curve.Intersect`
 gebruikt, moet op versie vertakken: de nieuwe overload bestaat niet in 2024/2025.
 Bijgeschreven in `sci-bim-context`, `technische-issues.md` §A.4.
+
+Op 12-11-2026 leverde de tool de 2024/2027-toets van de wapeningsparameters en
+een reeks hernoemingen in 2026 (`REBAR_*HOOK*` naar `REBAR_*TERMINATION*`); zie
+`rebar-api-parameters.md` §7.
 
 Op 27-10-2026 kwam er een rij bij uit dezelfde momentopnames:
 `Creation.Document.New*BoundaryConditions` is in 2027 deprecated, met

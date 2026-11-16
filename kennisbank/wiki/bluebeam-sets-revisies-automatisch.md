@@ -1,7 +1,7 @@
 ---
 titel: Bluebeam-sets automatisch aanvullen met nieuwe PDF-revisies en hun opmerkingen
 status: concept
-laatst-bijgewerkt: 2026-09-25
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "waargenomen in P:\\9000-9999\\9400-9449\\9429 - bedrijfsgebouw op bedrijventerrein Kraaienhoef Poederoijen\\8 Interne controle\\02. Sets\\S-9429.bex en de PDF's in die map, 2026-09-17"
   - "W:\\7 - Software\\Bluebeam\\Sets\\S-0000.bex (sjabloonset), 2026-09-17"
@@ -238,7 +238,7 @@ als wissel.
   onder IronPython 2.7.12. Op 2026-09-25 heeft de gebruiker 2.14 in Revit getest
   op S-8667, met als oordeel "werkt echt super". 2.15 is buiten Revit getest:
   de keuzeroutes, en de XAML die onder WPF laadt en goed rendert. Open staan de
-  testpunten T10 en T11 in `RnD.extension	est_matrix.md`.
+  testpunten T10 en T11 in `RnD.extension\test_matrix.md`.
 
 ## 6. Stand en vervolg
 

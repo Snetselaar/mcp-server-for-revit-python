@@ -1,10 +1,11 @@
 ---
 titel: 3D-wapening modelleren in Revit
 status: concept
-laatst-bijgewerkt: 2026-08-26
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-08-25 samenvatting-bronnen.md §1.1 t/m §1.6"
   - "raw/2026-08-25-samenvatting-revit-structure-rebar.md §1.A en §1.B"
+  - "zoek_revit_api, BuiltInParameter.REBAR_CONSTRAINTS_STATUS, versies 2024-2027, 2026-11-12"
 verwant:
   - rebar-documentatie-en-staten.md
   - rebar-api-parameters.md
@@ -40,7 +41,12 @@ wat waar staat.
 | Realistic/Schematic Bending Details in 2D-aanzichten | 2025 (rebar-dump §1.C) | **nee** |
 | `Rebar Constraint Status` in schedules/filters/tags | 2025 (rebar-dump §1.B) | **nee** |
 
-[ONBEVESTIGD] Deze versiegrenzen komen uitsluitend uit de twee dumps. Geen ervan
+Eén rij is sinds 2026-11-12 getoetst: de parameter `REBAR_CONSTRAINTS_STATUS`
+bestaat in de API van 2025, 2026 en 2027 en niet in 2024 (`zoek_revit_api`, zie
+`rebar-api-parameters.md` §7). Dat bevestigt de 2025-grens van *Rebar Constraint
+Status*.
+
+[ONBEVESTIGD] De overige versiegrenzen komen uitsluitend uit de twee dumps. Geen ervan
 is nagelopen tegen release notes of documentatie — dat kon niet, want de
 API-bronnen zijn in de schrijfsessie geblokkeerd (zie
 `rebar-api-parameters.md` §0).

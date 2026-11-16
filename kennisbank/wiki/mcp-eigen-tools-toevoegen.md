@@ -1,7 +1,7 @@
 ---
 titel: Een eigen MCP-tool toevoegen aan deze repo
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-12
 bronnen:
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §4 en §5"
   - startup.py, tools/__init__.py (deze repo)
@@ -16,6 +16,7 @@ verwant:
   - ai-tools-voor-pyrevit-ontwikkeling.md
   - routes-thread-veiligheid.md
   - lees-mcp-koppeling.md
+  - zoek-revit-api.md
 skill: sci-bim-context
 ---
 
@@ -114,6 +115,12 @@ bestaande handlers in `revit_mcp/` gebruiken.
 > `revit-api-verifieren-lokaal`). Voor code die op 2024 t/m 2027 moet draaien:
 > vang beide af, of zoek de juiste vorm per doelversie op met `revit-api-docs`.
 > De skill gaat hier voor op de transcriptie.
+>
+> Hetzelfde geldt voor `DB.ElementId(int(id_str))` in `set_selection`: de
+> constructor `ElementId(Int32)` bestaat in 2026 en 2027 niet meer, alleen
+> `ElementId(Int64)` (`zoek-revit-api.md` §5). [ONBEVESTIGD] Of IronPython een
+> Python-`int` dan zelf naar de `Int64`-overload omzet; niet getest. Met
+> `DB.ElementId(System.Int64(int(id_str)))` is de keuze expliciet.
 
 ## 2. De tool-module — buiten Revit
 
