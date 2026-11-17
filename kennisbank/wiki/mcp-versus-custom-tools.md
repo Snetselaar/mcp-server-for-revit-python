@@ -1,7 +1,7 @@
 ---
 titel: MCP versus custom tools — wanneer welke, en de Autodesk 2027-server
 status: concept
-laatst-bijgewerkt: 2026-11-16
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "raw/2026-08-27_revit_mcp_bronnen_transcripties.md §6, §7 en §8"
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §1 en §7"
@@ -23,6 +23,8 @@ verwant:
   - externe-repos-kandidaten-en-afgevallen.md
   - externe-bronnen-ronde-okt2026.md
   - revit-2027-runtime-en-api-wijzigingen.md
+  - externe-bronnen-ronde-nov2026.md
+  - viktor-rekenplatform.md
 skill: sci-bim-context
 ---
 
@@ -98,6 +100,12 @@ ook stap **P** uit het P.R.O.C.E.S.S.-kader in `revit-bronnen-en-communities.md`
 was `execute_revit_code` de bewuste uitzondering op die regel; die uitzondering
 is inmiddels zelf verwijderd (zie §2 hierboven), wat de kernstelling van dit
 artikel eerder bevestigt dan tegenspreekt.
+
+In november 2026 kwamen nog twee bronnen op dezelfde lijn uit. VIKTOR stelt via
+zijn MCP alleen de logica van getoetste apps bloot, niet de projectdata
+(`viktor-rekenplatform.md`). En vier los ontstane Revit-MCP-ontwerpen schrijven
+allemaal pas na een zichtbaar voorstel en een akkoord in Revit
+(`externe-bronnen-ronde-nov2026.md` §1).
 
 ### Een tweede, onafhankelijke bron: Gavin Nicholls
 

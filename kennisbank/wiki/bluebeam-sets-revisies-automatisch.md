@@ -1,7 +1,7 @@
 ---
 titel: Bluebeam-sets automatisch aanvullen met nieuwe PDF-revisies en hun opmerkingen
 status: concept
-laatst-bijgewerkt: 2026-11-16
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "waargenomen in P:\\9000-9999\\9400-9449\\9429 - bedrijfsgebouw op bedrijventerrein Kraaienhoef Poederoijen\\8 Interne controle\\02. Sets\\S-9429.bex en de PDF's in die map, 2026-09-17"
   - "W:\\7 - Software\\Bluebeam\\Sets\\S-0000.bex (sjabloonset), 2026-09-17"
@@ -20,6 +20,8 @@ bronnen:
   - "tests op een kopie van de UO-set van S-8667 met nagemaakte prints (A0 -> A1, liggend -> staand, /Rotate 90), ps1 1.5 en Plot v5 2.14, 2026-09-25"
   - "gebruiker, 2026-09-25: 2.14 in Revit getest op S-8667, 'werkt echt super'; wens: opmerkingen toch kunnen overzetten, en de formaatwissel in het rood in het eindvenster"
 verwant: []
+verwant:
+  - externe-bronnen-ronde-nov2026.md
 ---
 
 # Bluebeam-sets automatisch aanvullen met nieuwe PDF-revisies en hun opmerkingen
@@ -262,6 +264,12 @@ Wat hieronder staat, is de stand van september:
 - Daarna samenvoegen met Plot in de modus interne controle, via 03_R&D. Plot
   weet de uitvoermap al (`resolve_output_paths`) en draait op IronPython 2.7,
   dus het Python-deel moet extern worden aangeroepen.
+
+Kandidaten uit de externe ronde van 17-11-2026, niet getoetst: `@cantoo/pdf-lib`
+kan incrementeel opslaan, maar moet eerst door dezelfde drie-keer-schrijven-toets
+als hierboven; en `bluebeam-set-status` laat zien hoe een Revu-reviewstatus als
+verborgen antwoord-annotatie in de PDF komt. Een open-source lezer voor
+`.bax`/`.btx`/`.bex` is niet gevonden (`externe-bronnen-ronde-nov2026.md` §2).
 
 ## 7. Idee: een verzonden set in `7 Uit`
 

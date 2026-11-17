@@ -1,7 +1,7 @@
 ---
 titel: De MCP-Revit-koppeling — opbouw, tools en faalpunten
 status: concept
-laatst-bijgewerkt: 2026-11-16
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - README.md (deze repo)
   - main.py, startup.py, tools/, revit_mcp/ (deze repo)
@@ -27,6 +27,7 @@ verwant:
   - routes-thread-veiligheid.md
   - lees-mcp-koppeling.md
   - mcp-revit-koppeling-historiek.md
+  - externe-bronnen-ronde-nov2026.md
 skill: sci-bim-context
 ---
 
@@ -377,3 +378,7 @@ opstellingen werken, maar het zijn er twee.
   de verwijdering zijn de Nonica-connector en de Lees-MCP de leesroutes (§4). Nonica
   kan ook schrijven via `set_*`-tools, de Lees-MCP sinds 21-09-2026 via drie
   schrijftools met `dry_run` vooraf (`lees-mcp-koppeling.md` §5).
+- De ingebouwde MCP van pyRevit zelf (Agent Runtime, pyRevit 7.0+): geen
+  Routes, maar een named pipe en `ExternalEvent`. Kandidaat om deze koppeling
+  op termijn te vervangen; zie `externe-bronnen-ronde-nov2026.md` §1 (stand
+  17-11-2026, niet gemeten).

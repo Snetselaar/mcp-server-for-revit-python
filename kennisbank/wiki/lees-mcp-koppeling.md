@@ -1,7 +1,7 @@
 ---
 titel: De MCP-koppeling — eigen koppeling tussen Claude en Revit, lezen en schrijven
 status: concept
-laatst-bijgewerkt: 2026-11-16
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "W:\\4 - Tijdelijk en verwijderen\\AWO\\Extensions\\03_R&D\\RnD.extension\\03_R&D.tab\\Tools.panel\\Lees_MCP.pushbutton\\script.py (versie 2.1, gelezen 2026-09-21)"
   - "hetzelfde pad, bundle.yaml (tooltip, engine: persistent: true)"
@@ -24,6 +24,7 @@ verwant:
   - mcp-eigen-tools-toevoegen.md
   - externe-bronnen-ronde-okt2026.md
   - model-vergelijken-fase0-ifc-rvt-link.md
+  - externe-bronnen-ronde-nov2026.md
 skill: sci-bim-context
 ---
 
@@ -346,5 +347,11 @@ Revit in de sketch-modus staat (`IsModifiable`).
 - Werkt op 2025 én 2027, en is daarmee een versie-onafhankelijk alternatief voor
   de Autodesk MCP-server, die pas vanaf 2027 draait
   (`mcp-versus-custom-tools.md` §4).
+- **Mogelijke opvolger in pyRevit zelf.** De Agent Runtime van pyRevit 7.0+ heeft
+  dezelfde ontwerpkeuzes als deze koppeling: `ExternalEvent` op de hoofdthread,
+  `dry_run`, schrijven pas na Keep/Discard in Revit, één undo-stap per run. Het
+  transport is een named pipe in plaats van een `TcpListener`. Of de Lees-MCP
+  erop overgaat, hangt af van een proef die nog niet gedaan is
+  (`externe-bronnen-ronde-nov2026.md` §1 en §4, stand 17-11-2026).
 - De schrijftools staan bewust **niet** in `permissions.allow` van Claude Code.
   Daardoor vraagt Claude Code zelf ook toestemming, naast de dialoog in Revit.

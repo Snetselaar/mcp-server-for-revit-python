@@ -1,7 +1,7 @@
 ---
 titel: Vyssuals — kleurgebaseerde data-analyse van Revit-modellen in de browser
 status: concept
-laatst-bijgewerkt: 2026-08-31
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "raw/2026-08-31-uitgebreide-transcriptie-ai-bim-revit-automation-.md §7"
 verwant:
@@ -9,6 +9,7 @@ verwant:
   - revit-bronnen-en-communities.md
   - mcp-revit-koppeling.md
   - externe-bronnen-ronde-okt2026.md
+  - externe-bronnen-ronde-nov2026.md
 ---
 
 # Vyssuals — kleurgebaseerde data-analyse van Revit-modellen
@@ -68,7 +69,9 @@ voorstellen; die voorstellen komen eerst zichtbaar in het dashboard te staan
 (met highlight-kleuren) voordat een BIM-manager ze goedkeurt en ze pas dán
 naar Revit worden geschreven.
 
-Dat mens-in-de-lus-patroon is dezelfde conclusie als `mcp-versus-custom-tools.md`
+Hetzelfde patroon zit in de Lees-MCP, de pyRevit Agent Runtime en
+`aec-model-bridge`; `externe-bronnen-ronde-nov2026.md` §1 zet de vier naast
+elkaar. Dat mens-in-de-lus-patroon is dezelfde conclusie als `mcp-versus-custom-tools.md`
 §3: bouw AI-ondersteuning met een bevestigingsmoment, niet als autonome
 uitvoering. Vyssuals is hiermee een derde, onafhankelijke bevestiging van dat
 uitgangspunt, naast Erik Frits/BIM Pure (§2-3 van dat artikel) en Gavin

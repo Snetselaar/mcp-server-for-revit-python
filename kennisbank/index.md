@@ -2,7 +2,7 @@
 
 Kaart van `wiki/`. Bijgewerkt door `/kb-verwerk` en `/kb-check`.
 
-**Stand:** 29 artikelen, 2026-11-16. Laatste health check:
+**Stand:** 31 artikelen, 2026-11-17. Laatste health check:
 [2026-11-12](outputs/2026-11-12-healthcheck.md) — 43 bevindingen, ernstigste: de
 skill `sci-bim-context` en `mcp-revit-koppeling.md` noemen de Lees-MCP
 alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
@@ -26,13 +26,13 @@ alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-09-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
+| [mcp-revit-koppeling.md](wiki/mcp-revit-koppeling.md) | concept | 2026-11-17 | De keten Claude → MCP → pyRevit Routes → Revit API: opbouw, tools, endpoints en elf faalpunten (junction, `uv run`, gewiste `[routes]`); `execute_revit_code` weg, `/selection_info/` op 501 |
 | [mcp-revit-koppeling-historiek.md](wiki/mcp-revit-koppeling-historiek.md) | concept | 2026-11-16 | Afgesplitst op 2026-11-16: de verwijderde route `execute_revit_code` (met het dode `use_transaction`-veld) en de bronketen van de twee opgeloste conflicten met `sci-bim-context`. Alleen historie. |
 | [mcp-eigen-tools-toevoegen.md](wiki/mcp-eigen-tools-toevoegen.md) | concept | 2026-09-17 | Een twintigste tool bouwen: route-module, tool-module, twee registraties en de MCP Inspector. Met een conflictblok: geen model-aanrakende route zonder ExternalEvent |
-| [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-09-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
-| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-11-12 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 52 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.5. Conflictblok: de skill noemt hem nog alleen-lezen tot de upload. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken). Sinds 08-10 vastgelegd: de luisterthread is serieel, een wachtende modeltool houdt ook ping en opzoekingen op. |
+| [routes-thread-veiligheid.md](wiki/routes-thread-veiligheid.md) | concept | 2026-11-17 | Waarom model-aanrakende Routes-handlers Revit met tussenpozen laten crashen (niet op de API-thread), de tegenmeting van 09-09, `/selection_info/` op 501, en ExternalEvent als voorwaarde voor elke nieuwe route. Uit `KNOWN_ISSUES.md`. |
+| [lees-mcp-koppeling.md](wiki/lees-mcp-koppeling.md) | concept | 2026-11-17 | De eigen koppeling (03_R&D-knop MCP + `revit_lezen_server.py`): TcpListener + ExternalEvent, sessiesleutel, drie standen, 52 tools waarvan drie schrijftools, id en deadline per aanvraag, versies 1.0-2.5. Conflictblok: de skill noemt hem nog alleen-lezen tot de upload. Schrijven op 21-09-2026 voor het eerst in een echt model gedraaid (175 verzoeken). Sinds 08-10 vastgelegd: de luisterthread is serieel, een wachtende modeltool houdt ook ping en opzoekingen op. |
 | [zoek-revit-api.md](wiki/zoek-revit-api.md) | concept | 2026-10-08 | MCP-tool `zoek_revit_api` (server 2.4): signaturen, Obsolete-tekst en IronPython-hints uit momentopnames van de geïnstalleerde DLL's, zonder Revit. Waarom buiten Revit (route C), gebruik, wat het wel en niet bewijst, en de gevonden verschillen 2024-2027 (`ElementId`, `Curve.Intersect`). |
-| [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-09-17 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
+| [mcp-versus-custom-tools.md](wiki/mcp-versus-custom-tools.md) | concept | 2026-11-17 | Wanneer de AI-brug en wanneer een gewone knop; risico's, het Erik Frits-advies (nu met een tweede onafhankelijke bron: Gavin Nicholls) en de Autodesk 2027-server |
 | [revit-bronnen-en-communities.md](wiki/revit-bronnen-en-communities.md) | concept | 2026-09-17 | Waar Revit-kennis vandaan komt: API-docs, pyRevit, IFC, kanalen, het P.R.O.C.E.S.S.-kader |
 | [ai-tools-voor-pyrevit-ontwikkeling.md](wiki/ai-tools-voor-pyrevit-ontwikkeling.md) | concept | 2026-08-31 | Gratis Claude Code via OpenRouter (Ox Alpha) en Erik Frits' browser-based WPF Form Builder |
 | [ai-brain-kennisorganisatie-pyrevit.md](wiki/ai-brain-kennisorganisatie-pyrevit.md) | concept | 2026-09-17 | Erik Frits' raw/wiki/skills-kennisdatabase voor de Revit API, gebaseerd op Karpathy's LLM Wiki-concept — vrijwel identieke opzet als deze kennisbank |
@@ -48,23 +48,25 @@ alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-09-25 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met de vondst van 18-09: de tags staan ook ín de PDF (`/BSITags`), anders ziet een andere gebruiker de tekening los. Sinds 25-09 (§5a) de controle vooraf op een ander papierformaat in Plot v5 2.15 / ps1 1.6: zonder, toch of overslaan, en in het rood in het eindvenster. Plus het idee voor een verzonden set in `7 Uit`. |
+| [bluebeam-sets-revisies-automatisch.md](wiki/bluebeam-sets-revisies-automatisch.md) | concept | 2026-11-17 | Het `.bex`-formaat, waarom een Bluebeam-script het niet kan (Complete draait geen externe scripts), wat Revu zelf doet bij een nieuwe revisie, en het testscript "Set bijwerken" dat bladnummer, revisie en opmerkingen overzet. Met de vondst van 18-09: de tags staan ook ín de PDF (`/BSITags`), anders ziet een andere gebruiker de tekening los. Sinds 25-09 (§5a) de controle vooraf op een ander papierformaat in Plot v5 2.15 / ps1 1.6: zonder, toch of overslaan, en in het rood in het eindvenster. Plus het idee voor een verzonden set in `7 Uit`. |
 
 ## Tools en plugins van derden
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [vyssuals-datavisualisatie.md](wiki/vyssuals-datavisualisatie.md) | concept | 2026-08-31 | Kleurgebaseerde data-analyse van Revit-modellen in de browser, met een eigen MCP-koppeling naar Claude Code |
+| [vyssuals-datavisualisatie.md](wiki/vyssuals-datavisualisatie.md) | concept | 2026-11-17 | Kleurgebaseerde data-analyse van Revit-modellen in de browser, met een eigen MCP-koppeling naar Claude Code |
 | [batch-upgrade-en-conversie-revit-bestanden.md](wiki/batch-upgrade-en-conversie-revit-bestanden.md) | concept | 2026-08-31 | BIM Pure Plugin v0.4: RVT/RFA batchgewijs upgraden en family-eenheden converteren |
 | [externe-patronen-revit-repos.md](wiki/externe-patronen-revit-repos.md) | concept | 2026-09-17 | Prio-1-ronde langs 6 publieke repo's: Revit-vrije regelmodule + CI, dubbeldetectie, maatlijn-zonelogica, failure-preprocessor, ES-schema, NLRS-checklijst, per-versie stubs. Licentie-gefilterd; dragende API's geverifieerd in 2024 én 2027. |
-| [externe-repos-kandidaten-en-afgevallen.md](wiki/externe-repos-kandidaten-en-afgevallen.md) | concept | 2026-09-17 | Wat de opdracht achter de Prio-1-ronde nog meer bevat: twaalf niet-geopende kandidaten (rekenmodelcontrole, offline CHM-docs, IFC/IDS, agent-begrenzing) en dertien afgesloten zoekpaden met reden. Alles ongeverifieerd. |
-| [externe-bronnen-ronde-okt2026.md](wiki/externe-bronnen-ronde-okt2026.md) | concept | 2026-10-27 | Tweede zoekronde, alleen kandidaten: Tekla-MCP en DimensionCreator, ifcdiff en IfcTester/IDS, SAF, Revit-MCP's (Autodesk Public, read-only-patroon, ElementId-helpers) |
+| [externe-repos-kandidaten-en-afgevallen.md](wiki/externe-repos-kandidaten-en-afgevallen.md) | concept | 2026-11-17 | Wat de opdracht achter de Prio-1-ronde nog meer bevat: twaalf niet-geopende kandidaten (rekenmodelcontrole, offline CHM-docs, IFC/IDS, agent-begrenzing) en dertien afgesloten zoekpaden met reden. Alles ongeverifieerd. |
+| [externe-bronnen-ronde-okt2026.md](wiki/externe-bronnen-ronde-okt2026.md) | concept | 2026-11-17 | Tweede zoekronde, alleen kandidaten: Tekla-MCP en DimensionCreator, ifcdiff en IfcTester/IDS, SAF, Revit-MCP's (Autodesk Public, read-only-patroon, ElementId-helpers) |
+| [externe-bronnen-ronde-nov2026.md](wiki/externe-bronnen-ronde-nov2026.md) | concept | 2026-11-17 | Derde zoekronde (17-11): de Agent Runtime (MCP) in pyRevit 7.0+ als kandidaat voor de eigen koppeling, 16 GitHub-kandidaten (ifc-lite, @cantoo/pdf-lib, Blueprints, pygef) en het schrijfpatroon dat vier Revit-MCP-ontwerpen delen. Alles ongetest |
+| [viktor-rekenplatform.md](wiki/viktor-rekenplatform.md) | concept | 2026-11-17 | VIKTOR: cloudplatform voor rekentools met workers voor SCIA/Revit en een MCP; wat het bureau kan overnemen (testcase per rekentool) en waarom het platform zelf nu niet past |
 
 ## Interoperabiliteit en standaarden
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
-| [revit-robot-interoperabiliteit.md](wiki/revit-robot-interoperabiliteit.md) | concept | 2026-11-12 | De bidirectionele link met Robot, en de Pinned-Pinned-valkuil bij export. SCI gebruikt Robot niet (alleen Technosoft en SCIA); bewust dun |
+| [revit-robot-interoperabiliteit.md](wiki/revit-robot-interoperabiliteit.md) | concept | 2026-11-17 | De bidirectionele link met Robot, en de Pinned-Pinned-valkuil bij export. SCI gebruikt Robot niet (alleen Technosoft en SCIA); bewust dun |
 | [nlrs-en-bim-standaarden.md](wiki/nlrs-en-bim-standaarden.md) | concept | 2026-09-17 | Alleen wat `sci-bim-context` niet dekt: USO, family guides, BIM Basis ILS, BEP/CDE |
 | [ifc-export-staalgewicht.md](wiki/ifc-export-staalgewicht.md) | concept | 2026-09-17 | Waarom staalgewicht niet in de IFC komt (S-9479_R25): het gewicht is een formuleveld in de staat, `Weight` = 0, `NLRS_S_gewicht` bestaat niet; vier oplossingsrichtingen voor de BIM-coördinator |
 | [ifc-import-verboden-tekens-in-namen.md](wiki/ifc-import-verboden-tekens-in-namen.md) | concept | 2026-09-17 | Waarom een aangeleverd IFC niet in Revit 2027 laadt maar wel in 2025: `<` en `>` uit de template-placeholders in `IfcBuilding.Name` en `IfcSite.Name`. Met de vindplaats van de echte fout (het `.ifc.log.html`) en de meting dat S-9497_R27 dezelfde placeholders heeft. |
@@ -315,6 +317,13 @@ Nog open:
 - **Autodesk Public MCP Server: ingebouwd of aparte add-on, schrijven of alleen-lezen?**
   Twee tweedehands bronnen spreken elkaar tegen
   (`wiki/mcp-versus-custom-tools.md` §4 versus `wiki/externe-bronnen-ronde-okt2026.md` §4).
+
+### Uit de verwerking van `raw/2026-11-17-externe-bronnen-github-en-viktor.md`
+
+- **Is de pyRevit Agent Runtime stabieler dan Routes?** Niet gemeten: crash bij modeltoegang, reload, gedrag bij een open dialoog. Proef in een testmodel, zie `wiki/externe-bronnen-ronde-nov2026.md` §4 punt 1.
+- **Toont Revu 21 een reviewstatus via `/IRT` + `/StateModel`?** README-claim van `bluebeam-set-status`, niet getest.
+- **Doorstaat `@cantoo/pdf-lib` drie keer incrementeel schrijven?** Dezelfde toets waarop pypdf 6.18.1 faalde (`wiki/bluebeam-sets-revisies-automatisch.md` §4).
+- **VIKTOR: prijs per stoel, hostingregio, oprichtingsjaar.** Niet online te vinden; de SCIA-eisen komen uit een zoekmachine omdat de docs een 403 gaven.
 
 ### Uit de health check van 2026-11-12 — 43 bevindingen; punt 1-17 uitgevoerd (12 en 16-11-2026), 18 open
 

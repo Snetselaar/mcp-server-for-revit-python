@@ -1,7 +1,7 @@
 ---
 titel: Externe Revit-repo's — kandidaten voor een volgende ronde en afgevallen zoekpaden
 status: concept
-laatst-bijgewerkt: 2026-09-17
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "raw/2026-09-17-kennisextractie-externe-revit-repos.md (opdracht van 2026-09-14, tabel Stap 2 en de alinea's eronder)"
   - "skill bimtools-logging, SKILL.md r. 12-15 (logstromen)"
@@ -14,6 +14,7 @@ verwant:
   - rebar-api-parameters.md
   - ai-brain-kennisorganisatie-pyrevit.md
   - externe-bronnen-ronde-okt2026.md
+  - externe-bronnen-ronde-nov2026.md
 skill: pyrevit-codestijl
 ---
 
@@ -115,7 +116,10 @@ vraagt alleen te noteren wat SCI mist.
 ## 3. Afgevallen — niet opnieuw zoeken
 
 Volgens de opdrachtgever onderzocht en zonder bruikbare opbrengst. Vastgelegd als
-negatieve kennis, met de reden:
+negatieve kennis, met de reden. De ronde van 17-11-2026 voegde er vier aan toe
+(`aec-model-bridge`, `teknovizier/tekla_mcp_server`, KanzonasPDF/butter-paper en
+`pyrevit-structural-toolkit`); die staan met reden in
+`externe-bronnen-ronde-nov2026.md` §2-§3.
 
 | Repo of zoekpad | Waarom afgevallen |
 |---|---|

@@ -1,7 +1,7 @@
 ---
 titel: Externe bronnen, ronde oktober 2026 — Tekla, IFC/IDS, SAF en Revit-MCP's
 status: concept
-laatst-bijgewerkt: 2026-11-16
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "raw/2026-10-27-externe-bronnen-revit-ifc-scia-tekla.md §B-§E en 'Voorgestelde volgorde' (zoekrondes 21-27 okt 2026; sterren, licentie, laatste commit en werking niet gecontroleerd)"
   - https://www.autodesk.com/blogs/aec/2026/06/17/revit-public-mcp-server/
@@ -20,6 +20,8 @@ verwant:
   - vyssuals-datavisualisatie.md
   - lees-mcp-koppeling.md
   - revit-robot-interoperabiliteit.md
+  - externe-bronnen-ronde-nov2026.md
+  - viktor-rekenplatform.md
 skill: sci-bim-context
 ---
 
@@ -136,3 +138,8 @@ with an MCP bridge" en "AI in Revit: Claude + MCP pyRevit 100% free".
    met veld "Helpt bij", in de opzet van `externe-patronen-revit-repos.md`.
 3. Niet doen: SCIA-koppeling uitwerken, Technosoft op GitHub zoeken, betaalde tools
    aanschaffen.
+
+Een volgende ronde op 17-11-2026 bouwde hierop voort, zonder deze bronnen opnieuw
+aan te dragen: `externe-bronnen-ronde-nov2026.md`. Daar kwam de Agent Runtime in
+pyRevit 7.0+ naar voren als kandidaat voor dezelfde rol als de Revit-MCP's uit §4,
+binnen de eigen pyRevit-stack.

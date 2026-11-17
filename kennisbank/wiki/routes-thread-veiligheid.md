@@ -1,7 +1,7 @@
 ---
 titel: Routes-handlers en de Revit API-thread — waarom model-aanrakende routes crashen
 status: concept
-laatst-bijgewerkt: 2026-11-16
+laatst-bijgewerkt: 2026-11-17
 bronnen:
   - "KNOWN_ISSUES.md (repo-root), commits 8b70d7c, d695d83 en e9232b4 (2026-09-07 t/m 2026-09-09)"
   - "revit_mcp/views.py:378-400 (route /selection_info/, uitgeschakeld met status 501)"
@@ -14,6 +14,7 @@ verwant:
   - mcp-versus-custom-tools.md
   - externe-repos-kandidaten-en-afgevallen.md
   - mcp-revit-koppeling-historiek.md
+  - externe-bronnen-ronde-nov2026.md
 skill: pyrevit-codestijl
 ---
 
@@ -112,6 +113,14 @@ Zie `lees-mcp-koppeling.md`.
 Een callback die via `ExternalEvent` loopt, heeft zijn eigen valkuil op een
 niet-persistente engine: de module-scope is dan gewist. Zie
 `modeless-venster-persistente-engine.md`.
+
+pyRevit lost het inmiddels zelf op. De **Agent Runtime** in pyRevit 7.0+ voert
+elke run uit in één `ExternalEvent` op de hoofdthread en gebruikt een named pipe
+in plaats van een TCP-poort ([release 7.0.0](https://github.com/pyrevitlabs/pyRevit/releases/tag/v7.0.0.26278%2B2233),
+stand 17-11-2026). Dat is precies de aanbeveling hierboven, maar dan door pyRevit
+onderhouden. Het team zit al op minimum 7.1.0. [ONBEVESTIGD] Of hij in de praktijk
+niet crasht zoals Routes: niet gemeten. Zie `externe-bronnen-ronde-nov2026.md` §1
+voor de details en de voorgestelde proef.
 
 [ONBEVESTIGD] Of andere Revit-MCP-implementaties (`horizun-revit-mcp`, `BIM-Bot`)
 het thread-probleem anders oplossen, is niet bekeken. Ze staan als afgevallen
