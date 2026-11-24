@@ -34,6 +34,28 @@ Bewuste afwijkingen van upstream, bij te houden bij elke volgende:
 | 2026-08-26 | `main.py:21-25` | `REVIT_HOST`/`REVIT_PORT` uit omgevingsvariabelen, default onveranderd `localhost:48884` | de Routes-poort ligt niet vast; hardgecodeerd 48884 brak de verbinding. Kandidaat voor een PR bij upstream. |
 | 2026-09-07 | `revit_mcp/code_execution.py`, `tools/code_execution_tools.py`, `tests/unit/` | de route `/execute_code/` en de bijbehorende MCP-tool verwijderd, inclusief de tests die ze aanriepen | de route liet Revit crashen. Bewust *geen* PR-kandidaat: dit is onze keuze, niet een upstream-defect. |
 
+## Claude-opzet in deze repo
+
+Onder `.claude/` staat wat een sessie hier automatisch meekrijgt:
+
+- **Hook** `hooks/ipy_compile.ps1` (ingehangen in `settings.json`, na elke
+  `Write`/`Edit`): compileert een bewerkt `.py` binnen een `.extension`-map
+  onder IronPython 2.7.12 en meldt een syntaxfout direct terug. Vangt alleen
+  syntax, geen API-verschillen tussen Revit-versies.
+- **Subagents** in `agents/`, alle drie alleen-lezen. Besteed uit in plaats van
+  het zelf in de hoofdsessie te doen:
+  - `lint-verkenner` — zoeken, tellen en diffen in werkmap en gedeelde Lint-map;
+  - `ironpython-reviewer` — review van een knop tegen `pyrevit-codestijl`;
+  - `kb-checker` — leeswerk in de kennisbank, ook voor `/kb-check`.
+- **Skill** `skills/annotatie-autopilot` en de `/kb-*`-commands in `commands/`.
+
+De zeven SCI-skills (`pyrevit-codestijl`, `bimtools-*`, `sci-bim-context`,
+`revit-api-docs`, `update-github-bimtools`) staan niet hier maar in de repo
+`Snetselaar_BIM` en komen via claude.ai binnen.
+
+Voor Revit uitlezen: de eigen Lees-MCP (`revit-lezen`). De Routes-koppeling
+(`revit`) niet gebruiken om het model te lezen of te wijzigen.
+
 ## Kennisbank
 
 Onder `kennisbank/` staat een kennisbank voor het Revit-/BIM-/SCI-werk.
