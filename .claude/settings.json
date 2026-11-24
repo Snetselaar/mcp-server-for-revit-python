@@ -1,6 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "d=$(cat); case \"$d\" in *.py\\\"*) printf '%s' \"$d\" | pwsh -NoProfile -NonInteractive -File \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/ipy_compile.ps1\" ;; esac",
+            "timeout": 30,
+            "statusMessage": "IronPython 2.7-compilecheck"
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [

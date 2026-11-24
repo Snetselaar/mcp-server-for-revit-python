@@ -20,12 +20,12 @@ opnieuw doen wat daar als gedaan staat.
 | Checker | `AP\harnas\annotatie_check.py` + `regels.json` | H1-H5 hard, Z1-Z3 zacht |
 | Toetsen | `AP\harnas\test_annotatie_check.py` | draai na ELKE wijziging aan de checker |
 | Sheetcontrole | MCP `ap_controleer_sheet` / `ap_vergelijk_sheet` (server >= 2.5), `AP\harnas\sheet_controle.py` | hele sheet of selectie in EEN aanroep, alleen een samenvatting terug; toetsen `test_sheet_controle.py` |
+| Testset | `AP\testset\<case>.json` | case: id, model, bron_view, testview_id, scripts, invoer, viewsoort, scope, referentie, schoon_png, afbeelding |
+| Werkkopieën | `AP\werk\<script>\iter_NN.py` (+ `origineel.py`) | nooit in het lint tot fase 3 |
 
 **Eerst goedkoop kijken:** een sheet of selectie beoordelen = `ap_controleer_sheet`
 (tussen twee sessies: `ap_vergelijk_sheet`). Een PNG alleen voor een view met een
 bevinding die je uit de tekst niet begrijpt.
-| Testset | `AP\testset\<case>.json` | case: id, model, bron_view, testview_id, scripts, invoer, viewsoort, scope, referentie, schoon_png, afbeelding |
-| Werkkopieën | `AP\werk\<script>\iter_NN.py` (+ `origineel.py`) | nooit in het lint tot fase 3 |
 
 ## Voorwaarden in Revit (anders stoppen en vragen, §8)
 
