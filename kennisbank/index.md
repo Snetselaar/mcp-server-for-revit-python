@@ -66,6 +66,7 @@ alleen-lezen, terwijl hij sinds 21-09 schrijft. Daarvoor:
 
 | Artikel | Status | Bijgewerkt | Waarover |
 |---|---|---|---|
+| [roundtrip-revit-rekenmodel.md](wiki/roundtrip-revit-rekenmodel.md) | concept | 2026-11-20 | Project Roundtrip (was Ender's Game): staalprofielen heen en weer tussen Revit en Technosoft (later SCIA), geometrie uit Revit, profiel uit het rekenmodel. Fase 0: Raamwerken-XML wisselt profielen verliesvrij, maar een staaf heeft geen tekstveld en de belastinggenerator gaat uit |
 | [revit-robot-interoperabiliteit.md](wiki/revit-robot-interoperabiliteit.md) | concept | 2026-11-17 | De bidirectionele link met Robot, en de Pinned-Pinned-valkuil bij export. SCI gebruikt Robot niet (alleen Technosoft en SCIA); bewust dun |
 | [nlrs-en-bim-standaarden.md](wiki/nlrs-en-bim-standaarden.md) | concept | 2026-09-17 | Alleen wat `sci-bim-context` niet dekt: USO, family guides, BIM Basis ILS, BEP/CDE |
 | [ifc-export-staalgewicht.md](wiki/ifc-export-staalgewicht.md) | concept | 2026-09-17 | Waarom staalgewicht niet in de IFC komt (S-9479_R25): het gewicht is een formuleveld in de staat, `Weight` = 0, `NLRS_S_gewicht` bestaat niet; vier oplossingsrichtingen voor de BIM-coördinator |
