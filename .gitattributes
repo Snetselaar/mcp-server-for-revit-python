@@ -1,0 +1,3 @@
+# PDF is binair, ook als er geen NUL-byte in staat: anders zet git bij een
+# checkout op Windows regeleinden om en klopt de PDF niet meer.
+*.pdf binary
